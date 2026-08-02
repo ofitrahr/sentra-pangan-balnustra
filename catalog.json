@@ -1,0 +1,522 @@
+{
+ "version": "2.0",
+ "updated": "2026-08-02",
+ "categories": [
+  {
+   "id": "fsn",
+   "label": "Rantai Pasok Padi (FSN)",
+   "color": "#2B5F5A"
+  },
+  {
+   "id": "guna_lahan",
+   "label": "Guna Lahan",
+   "color": "#2B7FA0"
+  },
+  {
+   "id": "giling",
+   "label": "Kepadatan Penggilingan",
+   "color": "#6b5b95"
+  },
+  {
+   "id": "jalan_dan_jembatan",
+   "label": "Jalan & Jembatan",
+   "color": "#8a5a2b"
+  },
+  {
+   "id": "permukiman_dan_utilitas",
+   "label": "Permukiman & Utilitas",
+   "color": "#6b5b95"
+  },
+  {
+   "id": "prasarana_strategis",
+   "label": "Prasarana Strategis",
+   "color": "#b0442e"
+  },
+  {
+   "id": "sumber_daya_air_dan_irigasi",
+   "label": "Sumber Daya Air & Irigasi",
+   "color": "#2b7fa0"
+  },
+  {
+   "id": "aset_pu",
+   "label": "Aset PU",
+   "color": "#7a7a52"
+  }
+ ],
+ "layers": [
+  {
+   "id": "fsn_supply_chain",
+   "category": "fsn",
+   "label": "Produksi \u2192 Pengolahan \u2192 Beras \u2192 Konsumsi",
+   "render_type": "fsn_drilldown",
+   "urls": {
+    "kabupaten_points": "data/fsn_kabupaten_points.json",
+    "kabupaten_polygons": "data/fsn_kabupaten_polygons.json",
+    "kecamatan_points": "data/fsn_kecamatan_points.json",
+    "kecamatan_boundary": "data/fsn_kecamatan_boundary.json",
+    "desa_points": "data/fsn_desa_points.json",
+    "desa_boundary": "data/desa_boundary_with_giling.json"
+   },
+   "default_visible": true,
+   "source": "Rekap FSN Padi NTT, BPS/Kemendag 2025, diolah",
+   "download_url": null
+  },
+  {
+   "id": "lbs_grid",
+   "category": "guna_lahan",
+   "label": "Lahan Baku Sawah (kepadatan)",
+   "render_type": "density_grid",
+   "data_url": "data/lbs_density_grid.json",
+   "color_rgb": "43,120,90",
+   "default_visible": false,
+   "source": "LBS NTT, ATR/BPN",
+   "download_url": null
+  },
+  {
+   "id": "permukiman_grid",
+   "category": "guna_lahan",
+   "label": "Permukiman (kepadatan)",
+   "render_type": "density_grid",
+   "data_url": "data/permukiman_density_grid.json",
+   "color_rgb": "156,110,74",
+   "default_visible": false,
+   "source": "Built-up Area NTT, klasifikasi citra satelit",
+   "download_url": null
+  },
+  {
+   "id": "giling_desa",
+   "category": "giling",
+   "label": "Jumlah Penggilingan per Desa",
+   "render_type": "choropleth_polygon",
+   "data_url": "data/desa_boundary_with_giling.json",
+   "value_field": "jml_penggilingan_total",
+   "color_rgb": "107,91,149",
+   "default_visible": false,
+   "source": "Direktori PIPA 2020, BPS, diolah",
+   "download_url": null
+  },
+  {
+   "id": "binamarga_nustra_inpres_jalan_daerah",
+   "category": "jalan_dan_jembatan",
+   "label": "Inpres Jalan Daerah",
+   "render_type": "line",
+   "data_url": "data/infra/binamarga_nustra_inpres_jalan_daerah.json",
+   "count": 102,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null,
+   "style": {
+    "color": "#7A5A2B",
+    "weight": 1.6,
+    "opacity": 0.85,
+    "dashArray": "6 4"
+   }
+  },
+  {
+   "id": "binamarga_nustra_jembatan_gantung",
+   "category": "jalan_dan_jembatan",
+   "label": "Jembatan Gantung",
+   "render_type": "point",
+   "data_url": "data/infra/binamarga_nustra_jembatan_gantung.json",
+   "count": 18,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "binamarga_nustra_jembatan_nasional",
+   "category": "jalan_dan_jembatan",
+   "label": "Jembatan Nasional",
+   "render_type": "point",
+   "data_url": "data/infra/binamarga_nustra_jembatan_nasional.json",
+   "count": 1137,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "binamarga_nustra_lereng",
+   "category": "jalan_dan_jembatan",
+   "label": "Lereng",
+   "render_type": "point",
+   "data_url": "data/infra/binamarga_nustra_lereng.json",
+   "count": 299,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "cipta_karya_nustra_bpb",
+   "category": "permukiman_dan_utilitas",
+   "label": "BPB",
+   "render_type": "point",
+   "data_url": "data/infra/cipta_karya_nustra_bpb.json",
+   "count": 21,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "cipta_karya_nustra_ipal",
+   "category": "permukiman_dan_utilitas",
+   "label": "IPAL",
+   "render_type": "point",
+   "data_url": "data/infra/cipta_karya_nustra_ipal.json",
+   "count": 9,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "cipta_karya_nustra_iplt",
+   "category": "permukiman_dan_utilitas",
+   "label": "IPLT",
+   "render_type": "point",
+   "data_url": "data/infra/cipta_karya_nustra_iplt.json",
+   "count": 8,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "cipta_karya_nustra_pks",
+   "category": "permukiman_dan_utilitas",
+   "label": "PKS",
+   "render_type": "point",
+   "data_url": "data/infra/cipta_karya_nustra_pks.json",
+   "count": 68,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "cipta_karya_nustra_plbn",
+   "category": "permukiman_dan_utilitas",
+   "label": "PLBN",
+   "render_type": "point",
+   "data_url": "data/infra/cipta_karya_nustra_plbn.json",
+   "count": 4,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "cipta_karya_nustra_rumah_sakit",
+   "category": "permukiman_dan_utilitas",
+   "label": "Rumah Sakit",
+   "render_type": "point",
+   "data_url": "data/infra/cipta_karya_nustra_rumah_sakit.json",
+   "count": 4,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "cipta_karya_nustra_spam",
+   "category": "permukiman_dan_utilitas",
+   "label": "SPAM",
+   "render_type": "point",
+   "data_url": "data/infra/cipta_karya_nustra_spam.json",
+   "count": 83,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "cipta_karya_nustra_tpa",
+   "category": "permukiman_dan_utilitas",
+   "label": "TPA",
+   "render_type": "point",
+   "data_url": "data/infra/cipta_karya_nustra_tpa.json",
+   "count": 14,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "prasarana_strategis_nustra_gedung_sppg",
+   "category": "prasarana_strategis",
+   "label": "Gedung SPPG",
+   "render_type": "point",
+   "data_url": "data/infra/prasarana_strategis_nustra_gedung_sppg.json",
+   "count": 5,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "prasarana_strategis_nustra_madrasah",
+   "category": "prasarana_strategis",
+   "label": "Madrasah",
+   "render_type": "point",
+   "data_url": "data/infra/prasarana_strategis_nustra_madrasah.json",
+   "count": 67,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "prasarana_strategis_nustra_perguruan_tinggi",
+   "category": "prasarana_strategis",
+   "label": "Perguruan Tinggi",
+   "render_type": "point",
+   "data_url": "data/infra/prasarana_strategis_nustra_perguruan_tinggi.json",
+   "count": 2,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "prasarana_strategis_nustra_sarana_prasarana_perekonomian",
+   "category": "prasarana_strategis",
+   "label": "Sarana Prasarana Perekonomian",
+   "render_type": "point",
+   "data_url": "data/infra/prasarana_strategis_nustra_sarana_prasarana_perekonomian.json",
+   "count": 2,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "prasarana_strategis_nustra_sekolah",
+   "category": "prasarana_strategis",
+   "label": "Sekolah",
+   "render_type": "point",
+   "data_url": "data/infra/prasarana_strategis_nustra_sekolah.json",
+   "count": 39,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_bendung",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Bendung",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_bendung.json",
+   "count": 178,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_bendungan_konstruksi",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Bendungan Konstruksi",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_bendungan_konstruksi.json",
+   "count": 2,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_bendungan_operasi",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Bendungan Operasi",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_bendungan_operasi.json",
+   "count": 96,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_daerah_irigasi_permukaan",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Daerah Irigasi Permukaan",
+   "render_type": "polygon",
+   "data_url": "data/infra/sda_nustra_daerah_irigasi_permukaan.json",
+   "count": 48,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_danau",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Danau",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_danau.json",
+   "count": 2,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_intake_sungai",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Intake Sungai",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_intake_sungai.json",
+   "count": 16,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_kebutuhan_air",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Kebutuhan Air",
+   "render_type": "polygon",
+   "data_url": "data/infra/sda_nustra_kebutuhan_air.json",
+   "count": 7,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_mata_air",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Mata Air",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_mata_air.json",
+   "count": 38,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_neraca_air",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Neraca Air",
+   "render_type": "polygon",
+   "data_url": "data/infra/sda_nustra_neraca_air.json",
+   "count": 7,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_pah_absah",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "PAH_ ABSAH",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_pah_absah.json",
+   "count": 23,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_pengaman_pantai",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Pengaman Pantai",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_pengaman_pantai.json",
+   "count": 28,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_pengendali_sedimen",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Pengendali Sedimen",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_pengendali_sedimen.json",
+   "count": 8,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_pos_curah_hujan",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Pos Curah Hujan",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_pos_curah_hujan.json",
+   "count": 177,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_pos_duga_air",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Pos Duga Air",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_pos_duga_air.json",
+   "count": 68,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_pos_klimatologi",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Pos Klimatologi",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_pos_klimatologi.json",
+   "count": 19,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "sda_nustra_sumur",
+   "category": "sumber_daya_air_dan_irigasi",
+   "label": "Sumur",
+   "render_type": "point",
+   "data_url": "data/infra/sda_nustra_sumur.json",
+   "count": 2712,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "setjen_nustra_aset_bim_pu",
+   "category": "aset_pu",
+   "label": "Aset BIM PU",
+   "render_type": "point",
+   "data_url": "data/infra/setjen_nustra_aset_bim_pu.json",
+   "count": 46,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "setjen_nustra_aset_tanah_pu",
+   "category": "aset_pu",
+   "label": "Aset Tanah PU",
+   "render_type": "point",
+   "data_url": "data/infra/setjen_nustra_aset_tanah_pu.json",
+   "count": 12,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null
+  },
+  {
+   "id": "jalan_nasional_join_admin_ntt",
+   "category": "jalan_dan_jembatan",
+   "label": "Jalan Nasional",
+   "render_type": "line",
+   "data_url": "data/infra/jalan_nasional_join_admin_ntt.json",
+   "count": 916,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null,
+   "style": {
+    "color": "#B0442E",
+    "weight": 3.2,
+    "opacity": 0.85
+   }
+  },
+  {
+   "id": "jalan_provinsi_join_admin_ntt",
+   "category": "jalan_dan_jembatan",
+   "label": "Jalan Provinsi",
+   "render_type": "line",
+   "data_url": "data/infra/jalan_provinsi_join_admin_ntt.json",
+   "count": 836,
+   "default_visible": false,
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "download_url": null,
+   "style": {
+    "color": "#E08A2B",
+    "weight": 2.2,
+    "opacity": 0.85
+   }
+  }
+ ]
+}
