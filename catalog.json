@@ -1,6 +1,6 @@
 {
  "version": "2.0",
- "updated": "2026-08-04",
+ "updated": "2026-08-05",
  "categories": [
   {
    "id": "fsn",
@@ -76,6 +76,11 @@
    "id": "administrasi",
    "label": "Batas Administrasi",
    "color": "#5B6472"
+  },
+  {
+   "id": "pasar",
+   "label": "Pasar",
+   "color": "#E87BA4"
   }
  ],
  "layers": [
@@ -642,7 +647,7 @@
    "data_url": "data/pelabuhan_perikanan_ntb_ntt.json",
    "count": 33,
    "default_visible": false,
-   "source": "PIPP KKP (difilter ke NTB+NTT)",
+   "source": "PIPP KKP (versi lengkap: fasilitas, hasil tangkapan, nilai produksi -- difilter ke NTB+NTT)",
    "download_url": null,
    "kind": "input"
   },
@@ -727,6 +732,18 @@
     "opacity": 0.4,
     "fillOpacity": 0
    }
+  },
+  {
+   "id": "pasar_ntb_ntt",
+   "category": "pasar",
+   "label": "Pasar",
+   "render_type": "point",
+   "data_url": "data/pasar_ntb_ntt.json",
+   "count": 190,
+   "default_visible": false,
+   "source": "SISP Kemendag (difilter ke NTB+NTT)",
+   "download_url": null,
+   "kind": "input"
   }
  ]
 }
