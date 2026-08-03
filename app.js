@@ -6,8 +6,8 @@
 // ============================================================
 
 const STAGE_HEX = {
-  produksi_padi: [43,95,90], kapasitas_pengolahan: [78,139,122],
-  produksi_beras: [201,150,44], kebutuhan_beras: [176,68,46],
+  produksi_padi: [42,120,214], kapasitas_pengolahan: [27,175,122],
+  produksi_beras: [237,161,0], kebutuhan_beras: [227,73,72],
 };
 const STAGE_LABELS = { produksi_padi:'Produksi Padi', kapasitas_pengolahan:'Kapasitas Pengolahan', produksi_beras:'Produksi Beras', kebutuhan_beras:'Konsumsi (Kebutuhan Beras)' };
 
@@ -19,8 +19,8 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r
 
 function choroColor(val, min, max, varname){
   const t = max>min ? (val-min)/(max-min) : 0;
-  const base = STAGE_HEX[varname] || [176,68,46];
-  const r1=240,g1=236,b1=224;
+  const base = STAGE_HEX[varname] || [227,73,72];
+  const r1=249,g1=249,b1=247;
   const r=r1+(base[0]-r1)*t, g=g1+(base[1]-g1)*t, b=b1+(base[2]-b1)*t;
   return `rgb(${r|0},${g|0},${b|0})`;
 }
@@ -92,7 +92,7 @@ async function ensureDesaData(){
 }
 
 function tierBadge(tier){
-  const bg = tier==='Unggul' ? '#2B5F5A' : (tier==='Sedang' ? '#B8A97E' : '#c9c2ab');
+  const bg = tier==='Unggul' ? '#2A78D6' : (tier==='Sedang' ? '#8A93A3' : '#c3c2b7');
   return `<span class="popup-badge" style="background:${bg}">${tier}</span>`;
 }
 function fsnPopupHTML(p, nameField, extraHint){
@@ -108,7 +108,7 @@ function glyphIconHTML(p){
   const cellSize = 11, gap=1;
   const cellStyle = (stage, x, y) => {
     const lit = p[stage+'_tier']==='Unggul';
-    const color = lit ? {produksi_padi:'#2B5F5A',kapasitas_pengolahan:'#4E8B7A',produksi_beras:'#C9962C',kebutuhan_beras:'#B0442E'}[stage] : '#e5ddc8';
+    const color = lit ? {produksi_padi:'#2A78D6',kapasitas_pengolahan:'#1BAF7A',produksi_beras:'#EDA100',kebutuhan_beras:'#E34948'}[stage] : '#dfe3e8';
     const op = lit ? 0.95 : 0.55;
     return `position:absolute; left:${x}px; top:${y}px; width:${cellSize}px; height:${cellSize}px; background:${color}; opacity:${op}; border-radius:2.5px; border:0.5px solid rgba(255,255,255,0.8);`;
   };
@@ -262,9 +262,15 @@ document.getElementById('chk-labels').addEventListener('change', e=>{
 // drag-drop, dan legend sekarang semua ditangani layers-panel.js -- buildAndShowLayer()
 // di bawah ini dipanggil dari sana, tidak diubah strukturnya.
 
-function popupFromPU(nm, puStr, color){
-  let obj = {};
-  try{ obj = JSON.parse(puStr); }catch(e){}
+function parsePU(puVal){
+  // beberapa file (hasil geopandas.to_file GeoJSON) menyimpan "pu" sebagai objek
+  // JSON native, bukan string ter-escape seperti konvensi asli -- tangani dua-duanya.
+  if(puVal == null) return {};
+  if(typeof puVal === 'object') return puVal;
+  try{ return JSON.parse(puVal); }catch(e){ return {}; }
+}
+function popupFromPU(nm, puVal, color){
+  const obj = parsePU(puVal);
   let rows = Object.entries(obj).map(([k,v])=>`<div class="popup-row"><span>${k}</span><span class="val">${v}</span></div>`).join('');
   return `<span class="popup-cat-tag" style="background:${color}">Infrastruktur</span><div class="popup-title">${nm}</div>${rows}`;
 }
@@ -308,21 +314,39 @@ const searchResults = document.getElementById('search-results');
 searchBox.addEventListener('input', async e=>{
   const q = e.target.value.trim().toLowerCase();
   searchResults.innerHTML='';
-  if(q.length<2 || !KAB_POINTS) return;
-  await ensureKecData(); // butuh utk pencarian kecamatan/desa
-  let matches = [];
-  KAB_POINTS.forEach(p=>{ if(p.wilayah.toLowerCase().includes(q)) matches.push({label:p.wilayah+' (kabupaten)', action: async ()=>{ selKab=p.wilayah; selKec=null; drillLevel='kecamatan'; zoomToKab(selKab); await ensureKecData(); renderFSN(); }}); });
-  KEC_POINTS.forEach(p=>{ if(p.kecamatan.toLowerCase().includes(q)) matches.push({label:p.kecamatan+' ('+p.kabkot+')', action: async ()=>{ selKab=p.kabkot; selKec=null; drillLevel='kecamatan'; zoomToKab(selKab); await ensureKecData(); renderFSN(); setTimeout(()=>zoomToKec(selKab,p.kecamatan),300); }}); });
-  if(matches.length<15 && DESA_POINTS){
-    DESA_POINTS.forEach(p=>{ if(matches.length<15 && p.desa.toLowerCase().includes(q)) matches.push({label:p.desa+' ('+p.kecamatan+', '+p.kabkot+')', action: async ()=>{ selKab=p.kabkot; selKec=p.kecamatan; drillLevel='desa'; zoomToKec(selKab,selKec); await ensureDesaData(); renderFSN(); }}); });
+  if(q.length<2) return;
+
+  // -- cari layer (data input / hasil analisis, termasuk 2 kartu FSN) --
+  let layerMatches = [];
+  CATALOG.layers.forEach(l=>{
+    if(l.render_type==='fsn_drilldown') return; // diwakili oleh 2 pseudo-card di bawah
+    if(l.label.toLowerCase().includes(q)) layerMatches.push({ tag:'layer', label:l.label, action: ()=> addToStack(l.id) });
+  });
+  [FSN_GLYPH_ID, FSN_CHOROPLETH_ID].forEach(id=>{
+    if(cardLabel(id).toLowerCase().includes(q)) layerMatches.push({ tag:'layer', label:cardLabel(id), action: ()=> addToStack(id) });
+  });
+
+  // -- cari lokasi (kabupaten/kecamatan/desa) --
+  let locMatches = [];
+  if(KAB_POINTS){
+    await ensureKecData();
+    KAB_POINTS.forEach(p=>{ if(p.wilayah.toLowerCase().includes(q)) locMatches.push({tag:'lokasi', label:p.wilayah+' (kabupaten)', action: async ()=>{ selKab=p.wilayah; selKec=null; drillLevel='kecamatan'; zoomToKab(selKab); await ensureKecData(); renderFSN(); }}); });
+    KEC_POINTS.forEach(p=>{ if(p.kecamatan.toLowerCase().includes(q)) locMatches.push({tag:'lokasi', label:p.kecamatan+' ('+p.kabkot+')', action: async ()=>{ selKab=p.kabkot; selKec=null; drillLevel='kecamatan'; zoomToKab(selKab); await ensureKecData(); renderFSN(); setTimeout(()=>zoomToKec(selKab,p.kecamatan),300); }}); });
+    if(locMatches.length<12 && DESA_POINTS){
+      DESA_POINTS.forEach(p=>{ if(locMatches.length<12 && p.desa.toLowerCase().includes(q)) locMatches.push({tag:'lokasi', label:p.desa+' ('+p.kecamatan+', '+p.kabkot+')', action: async ()=>{ selKab=p.kabkot; selKec=p.kecamatan; drillLevel='desa'; zoomToKec(selKab,selKec); await ensureDesaData(); renderFSN(); }}); });
+    }
   }
-  matches.slice(0,10).forEach(m=>{
+
+  const matches = [...layerMatches.slice(0,8), ...locMatches.slice(0,8)];
+  if(!matches.length){
+    searchResults.innerHTML = '<div class="search-empty">Tidak ada layer/lokasi yang cocok.</div>';
+    return;
+  }
+  matches.forEach(m=>{
     const div = document.createElement('div');
-    div.style.cssText='padding:5px 6px;cursor:pointer;border-radius:4px;font-size:11.5px;';
-    div.textContent = m.label;
-    div.onmouseover=()=>div.style.background='#EFE6D0';
-    div.onmouseout=()=>div.style.background='transparent';
-    div.onclick=m.action;
+    div.className = 'search-result-item';
+    div.innerHTML = `<span class="search-tag ${m.tag}">${m.tag==='layer'?'layer':'lokasi'}</span><span>${m.label}</span>`;
+    div.onclick = ()=>{ m.action(); searchBox.value=''; searchResults.innerHTML=''; };
     searchResults.appendChild(div);
   });
 });

@@ -1,51 +1,51 @@
 {
  "version": "2.0",
- "updated": "2026-08-03",
+ "updated": "2026-08-04",
  "categories": [
   {
    "id": "fsn",
    "label": "Rantai Pasok Padi (FSN)",
-   "color": "#2B5F5A"
+   "color": "#2A78D6"
   },
   {
    "id": "guna_lahan",
    "label": "Guna Lahan",
-   "color": "#2B7FA0"
+   "color": "#1BAF7A"
   },
   {
    "id": "giling",
    "label": "Kepadatan Penggilingan",
-   "color": "#6b5b95"
+   "color": "#4A3AA7"
   },
   {
    "id": "jalan_dan_jembatan",
    "label": "Jalan & Jembatan",
-   "color": "#8a5a2b"
+   "color": "#EB6834"
   },
   {
    "id": "permukiman_dan_utilitas",
    "label": "Permukiman & Utilitas",
-   "color": "#6b5b95"
+   "color": "#E87BA4"
   },
   {
    "id": "prasarana_strategis",
    "label": "Prasarana Strategis",
-   "color": "#b0442e"
+   "color": "#E34948"
   },
   {
    "id": "sumber_daya_air_dan_irigasi",
    "label": "Sumber Daya Air & Irigasi",
-   "color": "#2b7fa0"
+   "color": "#256ABF"
   },
   {
    "id": "aset_pu",
    "label": "Aset PU",
-   "color": "#7a7a52"
+   "color": "#898781"
   },
   {
    "id": "geologi",
    "label": "Geologi",
-   "color": "#A0522D"
+   "color": "#8A5A2B"
   },
   {
    "id": "hidrografi",
@@ -55,12 +55,12 @@
   {
    "id": "klimatologi",
    "label": "Klimatologi",
-   "color": "#5B8C5A"
+   "color": "#EDA100"
   },
   {
    "id": "pelabuhan",
    "label": "Pelabuhan",
-   "color": "#1B4F72"
+   "color": "#184F95"
   },
   {
    "id": "pergudangan",
@@ -71,6 +71,11 @@
    "id": "sosial_ekonomi",
    "label": "Sosial-Ekonomi",
    "color": "#C9962C"
+  },
+  {
+   "id": "administrasi",
+   "label": "Batas Administrasi",
+   "color": "#5B6472"
   }
  ],
  "layers": [
@@ -665,6 +670,63 @@
    "download_url": null,
    "kind": "analysis",
    "komoditas": "pertanian"
+  },
+  {
+   "id": "administrasi_kabkota_ntb_ntt",
+   "category": "administrasi",
+   "label": "Batas Kabupaten/Kota",
+   "render_type": "polygon",
+   "data_url": "data/administrasi_kabkota_ntb_ntt.json",
+   "count": 33,
+   "default_visible": false,
+   "source": "LapakGIS Batas Kelurahan/Desa 2024 (dissolve ke kabkota)",
+   "download_url": null,
+   "kind": "input",
+   "pinned": true,
+   "style": {
+    "color": "#5B6472",
+    "weight": 1.4,
+    "opacity": 0.7,
+    "fillOpacity": 0
+   }
+  },
+  {
+   "id": "administrasi_kecamatan_ntb_ntt",
+   "category": "administrasi",
+   "label": "Batas Kecamatan",
+   "render_type": "polygon",
+   "data_url": "data/administrasi_kecamatan_ntb_ntt.json",
+   "count": 433,
+   "default_visible": false,
+   "source": "LapakGIS Batas Kelurahan/Desa 2024 (dissolve ke kecamatan)",
+   "download_url": null,
+   "kind": "input",
+   "pinned": true,
+   "style": {
+    "color": "#5B6472",
+    "weight": 1,
+    "opacity": 0.55,
+    "fillOpacity": 0
+   }
+  },
+  {
+   "id": "administrasi_desa_ntb_ntt",
+   "category": "administrasi",
+   "label": "Batas Desa/Kelurahan",
+   "render_type": "polygon",
+   "data_url": "data/administrasi_desa_ntb_ntt.json",
+   "count": 4503,
+   "default_visible": false,
+   "source": "LapakGIS Batas Kelurahan/Desa 2024",
+   "download_url": null,
+   "kind": "input",
+   "pinned": true,
+   "style": {
+    "color": "#5B6472",
+    "weight": 0.6,
+    "opacity": 0.4,
+    "fillOpacity": 0
+   }
   }
  ]
 }
