@@ -42,8 +42,8 @@ let CATALOG = null;
 async function boot(){
   CATALOG = await loadData('catalog.json');
   document.getElementById('boot-status').style.display = 'none';
-  buildDynamicGroups();
-  await initFSN();
+  await initFSNData();
+  initLayersPanel();
 }
 boot().catch(err=>{
   document.getElementById('boot-status').textContent = 'Gagal memuat catalog.json: ' + err.message;
@@ -52,7 +52,7 @@ boot().catch(err=>{
 // ================= FSN (drill-down 3 level) =================
 let drillLevel = 'kabupaten';
 let selKab = null, selKec = null;
-let fsnMode = 'glyph';
+let fsnMode = 'off';
 let choroplethVar = 'produksi_padi';
 let showLabels = false;
 
@@ -66,7 +66,7 @@ let KAB_POINTS = null, KAB_POLYGONS = null;
 let KEC_POINTS = null, KEC_BOUNDARY = null;
 let DESA_POINTS = null, DESA_BOUNDARY = null;
 
-async function initFSN(){
+async function initFSNData(){
   const fsnEntry = CATALOG.layers.find(l => l.render_type === 'fsn_drilldown');
   if(!fsnEntry) return;
   FSN_URLS = fsnEntry.urls;
@@ -74,7 +74,9 @@ async function initFSN(){
   [KAB_POINTS, KAB_POLYGONS] = await Promise.all([
     loadData(FSN_URLS.kabupaten_points), loadData(FSN_URLS.kabupaten_polygons)
   ]);
-  renderFSN();
+  // catatan: TIDAK render di sini -- fsnMode='off' sampai kartu Glyph/Choropleth
+  // di-drag ke workspace panel (lihat layers-panel.js addToStack()). initLayersPanel()
+  // akan auto-drag kartu yang default_visible:true di catalog.json.
 }
 async function ensureKecData(){
   if(KEC_POINTS && KEC_BOUNDARY) return;
@@ -162,8 +164,6 @@ function renderLabels(list, nameField){
   if(showLabels && !map.hasLayer(labelLayerGroup)) map.addLayer(labelLayerGroup);
 }
 function updateLegendTitle(){
-  document.getElementById('choropleth-divider').style.display = fsnMode==='choropleth' ? 'block' : 'none';
-  document.getElementById('choropleth-picker').style.display = fsnMode==='choropleth' ? 'block' : 'none';
   document.getElementById('legend-glyph-block').style.display = fsnMode==='glyph' ? 'block' : 'none';
   document.getElementById('legend-choropleth-block').style.display = fsnMode==='choropleth' ? 'block' : 'none';
   if(fsnMode==='choropleth'){
@@ -249,15 +249,18 @@ async function renderFSN(){
   updateLegendTitle();
 }
 
-document.querySelectorAll('input[name=mode]').forEach(r=> r.addEventListener('change', e=>{ fsnMode = e.target.value; renderFSN(); }));
-document.querySelectorAll('input[name=var]').forEach(r=> r.addEventListener('change', e=>{ choroplethVar = e.target.value; renderFSN(); }));
+// catatan: kontrol mode Glyph/Choropleth & pilihan variabel choropleth sekarang
+// ada di dalam kartu FSN pada workspace-panel (lihat layers-panel.js), bukan
+// radio button statis lagi -- fsnMode/choroplethVar diubah dari sana.
 document.getElementById('chk-labels').addEventListener('change', e=>{
   showLabels = e.target.checked;
   if(showLabels) map.addLayer(labelLayerGroup); else map.removeLayer(labelLayerGroup);
 });
 
 // ================= GENERIC LAYERS (dibangun dari catalog.json) =================
-const activeLayers = {}; // id -> Leaflet layer object (sudah ada di peta)
+// Registry layer aktif (activeLayers), katalog kiri, workspace-stack panel kanan,
+// drag-drop, dan legend sekarang semua ditangani layers-panel.js -- buildAndShowLayer()
+// di bawah ini dipanggil dari sana, tidak diubah strukturnya.
 
 function popupFromPU(nm, puStr, color){
   let obj = {};
@@ -297,87 +300,6 @@ async function buildAndShowLayer(entry, catColor){
   }
   layer.addTo(map);
   return layer;
-}
-
-function updateExtraLegend(){
-  const el = document.getElementById('legend-extra-block');
-  const items = Object.keys(activeLayers).map(id=>{
-    const entry = CATALOG.layers.find(l=>l.id===id);
-    const cat = CATALOG.categories.find(c=>c.id===entry.category);
-    const color = (entry.style && entry.style.color) || (cat ? cat.color : '#555');
-    let symbol;
-    if(entry.render_type==='point') symbol = `<div style="width:9px;height:9px;border-radius:50%;background:${color};border:1px solid #fff;"></div>`;
-    else if(entry.render_type==='line'){
-      const dash = entry.style && entry.style.dashArray ? entry.style.dashArray.replace(' ',',') : '0';
-      symbol = `<svg width="22" height="10"><line x1="1" y1="5" x2="21" y2="5" stroke="${color}" stroke-width="${entry.style?entry.style.weight*0.8:2.5}" stroke-dasharray="${dash}"/></svg>`;
-    } else if(entry.render_type==='density_grid' || entry.render_type==='choropleth_polygon'){
-      symbol = `<div style="width:12px;height:12px;background:${color};opacity:0.7;"></div>`;
-    } else symbol = `<svg width="16" height="10"><rect x="1" y="1" width="14" height="8" fill="none" stroke="${color}" stroke-width="1.3" stroke-dasharray="3,2"/></svg>`;
-    return `<div class="legend-item">${symbol}<span>${entry.label}</span></div>`;
-  });
-  el.innerHTML = items.length ? items.join('') : 'Centang layer di panel kanan untuk menampilkan di peta &amp; legenda ini.';
-}
-
-function buildDynamicGroups(){
-  const container = document.getElementById('dynamic-groups');
-  const byCategory = {};
-  CATALOG.layers.forEach(l=>{
-    if(l.render_type === 'fsn_drilldown') return; // sudah ditangani terpisah di atas
-    (byCategory[l.category] = byCategory[l.category] || []).push(l);
-  });
-
-  CATALOG.categories.forEach(cat=>{
-    const layers = byCategory[cat.id];
-    if(!layers || layers.length===0) return;
-    const details = document.createElement('details');
-    details.className = 'cat-group';
-    const summary = document.createElement('summary');
-    summary.innerHTML = `<span class="catname"><span class="catdot" style="background:${cat.color}"></span>${cat.label}</span><span class="toggle-all" data-cat="${cat.id}">semua/tidak</span>`;
-    details.appendChild(summary);
-    const body = document.createElement('div');
-    body.className = 'cat-body';
-    layers.forEach(entry=>{
-      const label = document.createElement('label');
-      const cntTxt = entry.count!=null ? ` <span class="cnt">(${entry.count})</span>` : '';
-      const dlTxt = entry.download_url ? ` <a class="dl-link" href="${entry.download_url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">&#8681; unduh asli</a>` : '';
-      label.innerHTML = `<input type="checkbox" data-layerid="${entry.id}" ${entry.default_visible?'checked':''}> ${entry.label}${cntTxt}${dlTxt}`;
-      body.appendChild(label);
-    });
-    details.appendChild(body);
-    container.appendChild(details);
-  });
-
-  container.querySelectorAll('input[type=checkbox]').forEach(chk=>{
-    chk.addEventListener('change', async e=>{
-      const id = e.target.dataset.layerid;
-      const entry = CATALOG.layers.find(l=>l.id===id);
-      const cat = CATALOG.categories.find(c=>c.id===entry.category);
-      if(e.target.checked){
-        const parentLabel = e.target.closest('label');
-        const dot = document.createElement('span'); dot.className='loading-dot'; parentLabel.appendChild(dot);
-        try{
-          activeLayers[id] = await buildAndShowLayer(entry, cat.color);
-        } catch(err){
-          console.error(err); alert('Gagal memuat layer "'+entry.label+'": '+err.message);
-          e.target.checked = false;
-        }
-        dot.remove();
-      } else if(activeLayers[id]){
-        map.removeLayer(activeLayers[id]);
-        delete activeLayers[id];
-      }
-      updateExtraLegend();
-    });
-  });
-
-  container.querySelectorAll('.toggle-all').forEach(btn=>{
-    btn.addEventListener('click', e=>{
-      const cat = e.target.dataset.cat;
-      const boxes = Array.from(container.querySelectorAll('input[type=checkbox]')).filter(b=>CATALOG.layers.find(l=>l.id===b.dataset.layerid).category===cat);
-      const anyUnchecked = boxes.some(b=>!b.checked);
-      boxes.forEach(b=>{ if(b.checked !== anyUnchecked){ b.checked = anyUnchecked; b.dispatchEvent(new Event('change')); } });
-    });
-  });
 }
 
 // ================= Search (kabupaten/kecamatan/desa) =================

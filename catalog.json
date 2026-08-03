@@ -1,6 +1,6 @@
 {
  "version": "2.0",
- "updated": "2026-08-02",
+ "updated": "2026-08-03",
  "categories": [
   {
    "id": "fsn",
@@ -41,13 +41,43 @@
    "id": "aset_pu",
    "label": "Aset PU",
    "color": "#7a7a52"
+  },
+  {
+   "id": "geologi",
+   "label": "Geologi",
+   "color": "#A0522D"
+  },
+  {
+   "id": "hidrografi",
+   "label": "Hidrografi",
+   "color": "#1B7A8C"
+  },
+  {
+   "id": "klimatologi",
+   "label": "Klimatologi",
+   "color": "#5B8C5A"
+  },
+  {
+   "id": "pelabuhan",
+   "label": "Pelabuhan",
+   "color": "#1B4F72"
+  },
+  {
+   "id": "pergudangan",
+   "label": "Pergudangan",
+   "color": "#7A5C3E"
+  },
+  {
+   "id": "sosial_ekonomi",
+   "label": "Sosial-Ekonomi",
+   "color": "#C9962C"
   }
  ],
  "layers": [
   {
    "id": "fsn_supply_chain",
    "category": "fsn",
-   "label": "Produksi \u2192 Pengolahan \u2192 Beras \u2192 Konsumsi",
+   "label": "Produksi → Pengolahan → Beras → Konsumsi",
    "render_type": "fsn_drilldown",
    "urls": {
     "kabupaten_points": "data/fsn_kabupaten_points.json",
@@ -59,7 +89,9 @@
    },
    "default_visible": true,
    "source": "Rekap FSN Padi NTT, BPS/Kemendag 2025, diolah",
-   "download_url": null
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "padi"
   },
   {
    "id": "lbs_grid",
@@ -70,7 +102,9 @@
    "color_rgb": "43,120,90",
    "default_visible": false,
    "source": "LBS NTT, ATR/BPN",
-   "download_url": null
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "padi"
   },
   {
    "id": "permukiman_grid",
@@ -81,7 +115,9 @@
    "color_rgb": "156,110,74",
    "default_visible": false,
    "source": "Built-up Area NTT, klasifikasi citra satelit",
-   "download_url": null
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "umum"
   },
   {
    "id": "giling_desa",
@@ -93,7 +129,9 @@
    "color_rgb": "107,91,149",
    "default_visible": false,
    "source": "Direktori PIPA 2020, BPS, diolah",
-   "download_url": null
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "padi"
   },
   {
    "id": "binamarga_nustra_inpres_jalan_daerah",
@@ -110,7 +148,8 @@
     "weight": 1.6,
     "opacity": 0.85,
     "dashArray": "6 4"
-   }
+   },
+   "kind": "input"
   },
   {
    "id": "binamarga_nustra_jembatan_gantung",
@@ -121,7 +160,8 @@
    "count": 18,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "binamarga_nustra_jembatan_nasional",
@@ -132,7 +172,8 @@
    "count": 1137,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "binamarga_nustra_lereng",
@@ -143,7 +184,8 @@
    "count": 299,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "cipta_karya_nustra_bpb",
@@ -154,7 +196,8 @@
    "count": 21,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "cipta_karya_nustra_ipal",
@@ -165,7 +208,8 @@
    "count": 9,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "cipta_karya_nustra_iplt",
@@ -176,7 +220,8 @@
    "count": 8,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "cipta_karya_nustra_pks",
@@ -187,7 +232,8 @@
    "count": 68,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "cipta_karya_nustra_plbn",
@@ -198,7 +244,8 @@
    "count": 4,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "cipta_karya_nustra_rumah_sakit",
@@ -209,7 +256,8 @@
    "count": 4,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "cipta_karya_nustra_spam",
@@ -220,7 +268,8 @@
    "count": 83,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "cipta_karya_nustra_tpa",
@@ -231,7 +280,8 @@
    "count": 14,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "prasarana_strategis_nustra_gedung_sppg",
@@ -242,7 +292,8 @@
    "count": 5,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "prasarana_strategis_nustra_madrasah",
@@ -253,7 +304,8 @@
    "count": 67,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "prasarana_strategis_nustra_perguruan_tinggi",
@@ -264,7 +316,8 @@
    "count": 2,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "prasarana_strategis_nustra_sarana_prasarana_perekonomian",
@@ -275,7 +328,8 @@
    "count": 2,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "prasarana_strategis_nustra_sekolah",
@@ -286,7 +340,8 @@
    "count": 39,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_bendung",
@@ -297,7 +352,8 @@
    "count": 178,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_bendungan_konstruksi",
@@ -308,7 +364,8 @@
    "count": 2,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_bendungan_operasi",
@@ -319,7 +376,8 @@
    "count": 96,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_daerah_irigasi_permukaan",
@@ -330,7 +388,8 @@
    "count": 48,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_danau",
@@ -341,7 +400,8 @@
    "count": 2,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_intake_sungai",
@@ -352,7 +412,8 @@
    "count": 16,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_kebutuhan_air",
@@ -363,7 +424,8 @@
    "count": 7,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_mata_air",
@@ -374,7 +436,8 @@
    "count": 38,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_neraca_air",
@@ -385,7 +448,8 @@
    "count": 7,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_pah_absah",
@@ -396,7 +460,8 @@
    "count": 23,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_pengaman_pantai",
@@ -407,7 +472,8 @@
    "count": 28,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_pengendali_sedimen",
@@ -418,7 +484,8 @@
    "count": 8,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_pos_curah_hujan",
@@ -429,7 +496,8 @@
    "count": 177,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_pos_duga_air",
@@ -440,7 +508,8 @@
    "count": 68,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_pos_klimatologi",
@@ -451,7 +520,8 @@
    "count": 19,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "sda_nustra_sumur",
@@ -462,7 +532,8 @@
    "count": 2712,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "setjen_nustra_aset_bim_pu",
@@ -473,7 +544,8 @@
    "count": 46,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "setjen_nustra_aset_tanah_pu",
@@ -484,7 +556,8 @@
    "count": 12,
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
-   "download_url": null
+   "download_url": null,
+   "kind": "input"
   },
   {
    "id": "jalan_nasional_join_admin_ntt",
@@ -500,7 +573,8 @@
     "color": "#B0442E",
     "weight": 3.2,
     "opacity": 0.85
-   }
+   },
+   "kind": "input"
   },
   {
    "id": "jalan_provinsi_join_admin_ntt",
@@ -516,7 +590,81 @@
     "color": "#E08A2B",
     "weight": 2.2,
     "opacity": 0.85
-   }
+   },
+   "kind": "input"
+  },
+  {
+   "id": "geologi_ntt",
+   "category": "geologi",
+   "label": "Formasi Geologi",
+   "render_type": "polygon",
+   "data_url": "data/geologi_ntt.json",
+   "count": 121,
+   "default_visible": false,
+   "source": "Peta Geologi NTT",
+   "download_url": null,
+   "kind": "input"
+  },
+  {
+   "id": "hidrografi_laut_ntb_ntt",
+   "category": "hidrografi",
+   "label": "Kedalaman Laut (Batimetri)",
+   "render_type": "polygon",
+   "data_url": "data/hidrografi_laut_ntb_ntt.json",
+   "count": 18,
+   "default_visible": false,
+   "source": "Laut Indonesia (diklip ke NTB+NTT)",
+   "download_url": null,
+   "kind": "input"
+  },
+  {
+   "id": "klimatologi_ntt",
+   "category": "klimatologi",
+   "label": "Zona Iklim (Schmidt-Ferguson)",
+   "render_type": "polygon",
+   "data_url": "data/klimatologi_ntt.json",
+   "count": 13,
+   "default_visible": false,
+   "source": "Peta Klimatologi NTT",
+   "download_url": null,
+   "kind": "input"
+  },
+  {
+   "id": "pelabuhan_perikanan_ntb_ntt",
+   "category": "pelabuhan",
+   "label": "Pelabuhan Perikanan",
+   "render_type": "point",
+   "data_url": "data/pelabuhan_perikanan_ntb_ntt.json",
+   "count": 33,
+   "default_visible": false,
+   "source": "PIPP KKP (difilter ke NTB+NTT)",
+   "download_url": null,
+   "kind": "input"
+  },
+  {
+   "id": "pergudangan_gudang_ntb_ntt",
+   "category": "pergudangan",
+   "label": "Gudang",
+   "render_type": "point",
+   "data_url": "data/pergudangan_gudang_ntb_ntt.json",
+   "count": 23,
+   "default_visible": false,
+   "source": "Pergudangan (diklip ke NTB+NTT)",
+   "download_url": null,
+   "kind": "input"
+  },
+  {
+   "id": "sosial_ekonomi_pertanian_ntb_ntt",
+   "category": "sosial_ekonomi",
+   "label": "Kinerja Ekonomi Sektor Pertanian",
+   "render_type": "polygon",
+   "data_url": "data/sosial_ekonomi_pertanian_ntb_ntt.json",
+   "count": 32,
+   "default_visible": false,
+   "source": "Diolah dari data PDRB pertanian NTB+NTT",
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "pertanian"
   }
  ]
 }
