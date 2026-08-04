@@ -68,22 +68,14 @@ function initLayersPanel(){
 
 // ---------------- Katalog kiri ----------------
 function renderCatalogPanel(){
-  const pinnedContainer = document.getElementById('catalog-pinned-groups');
   const inputContainer = document.getElementById('catalog-input-groups');
   const analysisContainer = document.getElementById('catalog-analysis-groups');
-  pinnedContainer.innerHTML = '';
   inputContainer.innerHTML = '';
   analysisContainer.innerHTML = '';
 
-  // -- Batas Administrasi: layer basemap yang selalu ditampilkan di atas --
-  const pinnedLayers = CATALOG.layers.filter(l=>l.pinned);
-  pinnedLayers.forEach(l=>{
-    pinnedContainer.appendChild(buildCatalogCard({ id:l.id, label:l.label, count:l.count, download_url:l.download_url }));
-  });
-
-  // -- Data Input: grouped by category (layer pinned tidak diulang di sini) --
+  // -- Data Input: grouped by category --
   const byCat = {};
-  CATALOG.layers.filter(l=>l.kind==='input' && !l.pinned).forEach(l=>{
+  CATALOG.layers.filter(l=>l.kind==='input').forEach(l=>{
     (byCat[l.category] = byCat[l.category] || []).push(l);
   });
   CATALOG.categories.forEach(cat=>{
