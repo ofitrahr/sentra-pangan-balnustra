@@ -95,12 +95,13 @@
   .stack-item .drag-handle{color:#b0b8c2; font-size:12px; letter-spacing:-2px; cursor:grab; flex-shrink:0;}
   .stack-item .stack-dot{width:9px; height:9px; border-radius:50%; flex-shrink:0; box-shadow:0 0 0 3px rgba(0,0,0,0.04);}
   .stack-item .stack-label{flex:1; font-size:11.5px; line-height:1.3;}
-  .stack-item .vis-btn, .stack-item .remove-btn, .stack-item .symbology-btn{ width:21px; height:21px; border-radius:7px; border:1px solid var(--line);
+  .stack-item .vis-btn, .stack-item .remove-btn, .stack-item .symbology-btn, .stack-item .info-btn{ width:21px; height:21px; border-radius:7px; border:1px solid var(--line);
     background:var(--cream); font-size:11px; cursor:pointer; flex-shrink:0; transition:background 0.15s, border-color 0.15s; }
-  .stack-item .vis-btn:hover, .stack-item .symbology-btn:hover{background:#fff; border-color:var(--teal);}
+  .stack-item .vis-btn:hover, .stack-item .symbology-btn:hover, .stack-item .info-btn:hover{background:#fff; border-color:var(--teal);}
   .stack-item .remove-btn{color:var(--rust); font-weight:700;}
   .stack-item .remove-btn:hover{background:var(--rust); color:#fff; border-color:var(--rust);}
   .stack-item .symbology-btn{font-size:10px;}
+  .stack-item .info-btn{font-size:11px; font-style:italic; font-family:Georgia,serif; color:#7a7a6c;}
   .stack-item .opacity-slider{width:38px; accent-color:var(--teal); flex-shrink:0;}
   .stack-item-sub{ padding:6px 0 2px 24px; font-size:10.5px; }
   .stack-item-sub label{display:flex; align-items:center; gap:5px; margin-bottom:3px; cursor:pointer;}
@@ -108,6 +109,11 @@
   .symbology-panel .sym-label{display:block; font-size:10px; color:#8a8a7a; margin-bottom:4px;}
   .symbology-panel .symbology-select{width:calc(100% - 24px); padding:4px 6px; border:1px solid var(--line); border-radius:5px; font-size:11px; background:#fff;}
   .symbology-panel .sym-empty, .symbology-panel .sym-loading{font-size:10px; color:#9a9a8c; font-style:italic;}
+  .info-panel{padding:8px 10px 8px 24px; font-size:11px; background:rgba(0,0,0,0.02); border-radius:6px; margin:2px 0 2px 0;}
+  .info-panel .info-row{display:flex; gap:6px; padding:2px 0; line-height:1.4;}
+  .info-panel .info-row .info-key{color:#8a8a7a; flex-shrink:0; min-width:64px;}
+  .info-panel .info-row .info-val{color:var(--ink); word-break:break-word;}
+  .info-panel .info-row .info-val a{color:var(--teal);}
 
   .legend-sym-block{margin-bottom:8px;}
   .legend-sym-title{font-size:10.5px; font-weight:600; margin-bottom:3px;}

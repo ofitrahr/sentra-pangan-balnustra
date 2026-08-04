@@ -173,10 +173,15 @@ function renderStackPanel(){
       <span class="stack-dot" style="background:${cardColor(id)}"></span>
       <span class="stack-label">${cardLabel(id)}</span>
       ${symbolizable ? '<button class="symbology-btn" title="Ubah simbologi">&#127912;</button>' : ''}
+      <button class="info-btn" title="Info &amp; sumber data">&#9432;</button>
       <button class="vis-btn" title="Tampil/sembunyikan">${visible?'&#128065;':'&#128683;'}</button>
       <input type="range" class="opacity-slider" min="0" max="1" step="0.05" value="${opacity}" title="Transparansi">
       <button class="remove-btn" title="Hapus dari peta">&times;</button>`;
     el.appendChild(item);
+
+    if(stackInfoPanelOpen === id){
+      el.appendChild(buildInfoPanel(id));
+    }
 
     if(id===FSN_CHOROPLETH_ID){
       const sub = document.createElement('div');
@@ -195,6 +200,7 @@ function renderStackPanel(){
 }
 
 let stackSymbologyPanelOpen = null; // id kartu yang sedang membuka panel pilihan simbologi
+let stackInfoPanelOpen = null;      // id kartu yang sedang membuka panel info/metadata
 
 function attachStackItemHandlers(){
   document.querySelectorAll('#workspace-stack .stack-item').forEach(item=>{
@@ -216,13 +222,23 @@ function attachStackItemHandlers(){
       stackSymbologyPanelOpen = (stackSymbologyPanelOpen===id) ? null : id;
       renderStackPanel();
     });
+    const infoBtn = item.querySelector('.info-btn');
+    if(infoBtn) infoBtn.addEventListener('click', ()=>{
+      stackInfoPanelOpen = (stackInfoPanelOpen===id) ? null : id;
+      renderStackPanel();
+    });
   });
 }
 
 // ---------------- Simbologi dinamis ----------------
+// Fitur dinonaktifkan sementara (permintaan user, 2026-08) -- kode di bawah
+// (discoverFields/applySymbology/buildSymbologyPanel) sengaja tidak dihapus
+// supaya mudah diaktifkan lagi nanti, cukup ubah SYMBOLOGY_ENABLED ke true.
+const SYMBOLOGY_ENABLED = false;
 const SYMBOLIZABLE_RENDER_TYPES = ['point', 'line', 'polygon', 'choropleth_polygon'];
 
 function isSymbolizable(id){
+  if(!SYMBOLOGY_ENABLED) return false;
   if(isFsnId(id)) return false;
   const entry = CATALOG.layers.find(l=>l.id===id);
   return !!entry && SYMBOLIZABLE_RENDER_TYPES.includes(entry.render_type);
@@ -341,6 +357,34 @@ function applySymbology(id, field, fields){
   });
   applyOpacity(id);
   updateLegend();
+}
+
+// ---------------- Info & metadata ----------------
+function catalogEntryFor(id){
+  if(isFsnId(id)) return fsnCatalogEntry();
+  return CATALOG.layers.find(l=>l.id===id);
+}
+
+const KIND_LABELS = { input: 'Data Input', analysis: 'Hasil Analisis' };
+
+function buildInfoPanel(id){
+  const wrap = document.createElement('div');
+  wrap.className = 'stack-item-sub info-panel';
+  const entry = catalogEntryFor(id);
+  if(!entry){
+    wrap.innerHTML = '<div class="info-row"><span class="info-val">Metadata tidak tersedia.</span></div>';
+    return wrap;
+  }
+  const cat = CATALOG.categories.find(c=>c.id===entry.category);
+  const rows = [];
+  rows.push(['Sumber', entry.source || '(tidak tercatat)']);
+  if(cat) rows.push(['Kategori', cat.label]);
+  if(entry.kind) rows.push(['Jenis', KIND_LABELS[entry.kind] || entry.kind]);
+  if(entry.komoditas) rows.push(['Komoditas', KOMODITAS_LABELS[entry.komoditas] || entry.komoditas]);
+  if(entry.count!=null) rows.push(['Jumlah fitur', entry.count.toLocaleString('id-ID')]);
+  if(entry.download_url) rows.push(['Unduh', `<a href="${entry.download_url}" target="_blank" rel="noopener">Buka tautan &#8681;</a>`]);
+  wrap.innerHTML = rows.map(([k,v])=>`<div class="info-row"><span class="info-key">${k}</span><span class="info-val">${v}</span></div>`).join('');
+  return wrap;
 }
 
 function getDragAfterElement(container, y){
