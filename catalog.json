@@ -609,6 +609,23 @@
    "kind": "input"
   },
   {
+   "id": "jalan_kabupaten_kota_ntb_ntt",
+   "category": "jalan_dan_jembatan",
+   "label": "Jalan Kabupaten/Kota",
+   "render_type": "line",
+   "data_url": "data/jalan_kabupaten_kota_ntb_ntt.json",
+   "count": 5708,
+   "default_visible": false,
+   "source": "OpenStreetMap contributors (ODbL) via Geofabrik (ekstrak Nusa Tenggara) -- proxy dari kelas fungsional OSM tertiary/tertiary_link",
+   "download_url": null,
+   "style": {
+    "color": "#C9A227",
+    "weight": 1.3,
+    "opacity": 0.75
+   },
+   "kind": "input"
+  },
+  {
    "id": "geologi_ntt",
    "category": "geologi",
    "label": "Formasi Geologi",
