@@ -119,6 +119,16 @@
   .info-panel .info-row .info-val{color:var(--ink); word-break:break-word;}
   .info-panel .info-row .info-val a{color:var(--teal);}
 
+  .ruler-controls{padding:8px 0 4px 24px;}
+  .ruler-controls .ruler-total{font-size:11px; margin-bottom:6px; color:#5A6270;}
+  .ruler-controls .ruler-total b{color:var(--teal);}
+  .ruler-controls .ruler-btns{display:flex; gap:6px; margin-bottom:6px;}
+  .ruler-controls .ruler-undo-btn, .ruler-controls .ruler-clear-btn{ font-size:10.5px; padding:4px 10px; border-radius:7px;
+    border:1px solid var(--line); background:var(--cream); cursor:pointer; transition:background 0.15s, border-color 0.15s; }
+  .ruler-controls .ruler-undo-btn:hover:not(:disabled), .ruler-controls .ruler-clear-btn:hover:not(:disabled){background:#fff; border-color:var(--teal);}
+  .ruler-controls .ruler-undo-btn:disabled, .ruler-controls .ruler-clear-btn:disabled{opacity:0.4; cursor:default;}
+  .ruler-controls .ruler-hint{font-size:9.5px; color:#9a9a8c; font-style:italic; line-height:1.4;}
+
   .legend-sym-block{margin-bottom:8px;}
   .legend-sym-title{font-size:10.5px; font-weight:600; margin-bottom:3px;}
   .legend-sym-field{font-weight:400; color:#8a8a7a; font-size:9.5px;}

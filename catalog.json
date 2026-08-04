@@ -86,6 +86,11 @@
    "id": "jaringan",
    "label": "Jaringan Distribusi",
    "color": "#008300"
+  },
+  {
+   "id": "alat_ukur",
+   "label": "Alat Ukur",
+   "color": "#5C5C52"
   }
  ],
  "layers": [
@@ -789,6 +794,17 @@
    "download_url": null,
    "kind": "analysis",
    "komoditas": "padi"
+  },
+  {
+   "id": "ruler_measure_tool",
+   "category": "alat_ukur",
+   "label": "Alat Ukur Jarak (Ruler)",
+   "render_type": "ruler_tool",
+   "default_visible": false,
+   "source": "Alat bantu interaktif bawaan WebGIS (bukan data eksternal)",
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "umum"
   }
  ]
 }

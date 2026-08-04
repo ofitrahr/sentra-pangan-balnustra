@@ -207,6 +207,10 @@ function renderStackPanel(){
     if(symbolizable && stackSymbologyPanelOpen === id){
       el.appendChild(buildSymbologyPanel(id));
     }
+    const entryForRuler = catalogEntryFor(id);
+    if(entryForRuler && entryForRuler.render_type === 'ruler_tool'){
+      el.appendChild(buildRulerControls());
+    }
   });
   attachStackItemHandlers();
 }
@@ -399,6 +403,22 @@ function buildInfoPanel(id){
   return wrap;
 }
 
+function buildRulerControls(){
+  const wrap = document.createElement('div');
+  wrap.className = 'stack-item-sub ruler-controls';
+  const hasPoints = rulerPoints.length > 0;
+  wrap.innerHTML = `
+    <div class="ruler-total">Total jarak: <b id="ruler-total-val">${rulerPoints.length>1 ? formatDistance(rulerPoints.reduce((sum,p,i)=> i>0 ? sum+map.distance(rulerPoints[i-1],p) : 0, 0)) : (rulerPoints.length===1 ? 'klik titik berikutnya…' : '0 m')}</b></div>
+    <div class="ruler-btns">
+      <button class="ruler-undo-btn" title="Undo titik terakhir (Backspace)" ${hasPoints?'':'disabled'}>&#8617; Undo</button>
+      <button class="ruler-clear-btn" title="Hapus semua titik (Esc)" ${hasPoints?'':'disabled'}>Clear</button>
+    </div>
+    <div class="ruler-hint">Klik di peta utk menambah titik pengukuran berantai. Backspace = undo titik terakhir, Esc = hapus semua. Ditutup otomatis saat kartu ini dilepas dari workspace.</div>`;
+  wrap.querySelector('.ruler-undo-btn').addEventListener('click', ()=> rulerUndo());
+  wrap.querySelector('.ruler-clear-btn').addEventListener('click', ()=> rulerClear());
+  return wrap;
+}
+
 function getDragAfterElement(container, y){
   const items = [...container.querySelectorAll('.stack-item:not(.dragging)')];
   return items.reduce((closest, child)=>{
@@ -480,6 +500,14 @@ function removeFromStack(id){
     fsnMode = 'off';
     renderFSN();
   } else if(activeLayers[id]){
+    // ruler_tool: matikan listener klik/keydown & bersihkan pengukuran secara
+    // eksplisit di sini (bukan lewat event 'remove' Leaflet) -- fungsi ini
+    // HANYA terpanggil saat kartu benar2 ditutup/dikembalikan ke katalog kiri,
+    // bukan saat sekadar toggle visibility (mata disembunyikan).
+    const entry = catalogEntryFor(id);
+    if(entry && entry.render_type === 'ruler_tool' && typeof deactivateRulerTool === 'function'){
+      deactivateRulerTool();
+    }
     map.removeLayer(activeLayers[id]);
     delete activeLayers[id];
   }
@@ -570,6 +598,9 @@ function legendSymbol(id){
   if(entry.render_type==='density_grid' || entry.render_type==='choropleth_polygon') return `<div style="width:12px;height:12px;background:${color};opacity:0.7;"></div>`;
   if(entry.render_type==='flow_lines' || entry.render_type==='flow_routed'){
     return `<svg width="26" height="12"><line x1="1" y1="10" x2="10" y2="10" stroke="${color}" stroke-width="1.5" opacity="0.4"/><line x1="10" y1="6" x2="18" y2="6" stroke="${color}" stroke-width="3.5" opacity="0.6"/><line x1="18" y1="2" x2="25" y2="2" stroke="${color}" stroke-width="6" opacity="0.85"/></svg>`;
+  }
+  if(entry.render_type==='ruler_tool'){
+    return `<svg width="22" height="12"><line x1="2" y1="10" x2="20" y2="2" stroke="${color}" stroke-width="2"/><circle cx="2" cy="10" r="2.5" fill="${color}"/><circle cx="20" cy="2" r="2.5" fill="${color}"/></svg>`;
   }
   return `<svg width="16" height="10"><rect x="1" y="1" width="14" height="8" fill="none" stroke="${color}" stroke-width="1.3" stroke-dasharray="3,2"/></svg>`;
 }

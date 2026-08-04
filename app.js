@@ -276,6 +276,9 @@ function popupFromPU(nm, puVal, color){
 }
 
 async function buildAndShowLayer(entry, catColor){
+  if(entry.render_type === 'ruler_tool'){
+    return activateRulerTool((entry.style && entry.style.color) || catColor);
+  }
   const gj = await loadData(entry.data_url);
   const color = (entry.style && entry.style.color) || catColor;
   let layer;
@@ -330,6 +333,126 @@ async function buildAndShowLayer(entry, catColor){
   }
   layer.addTo(map);
   return layer;
+}
+
+// ================= Alat Ukur Jarak (Ruler) =================
+// Aktif hanya selagi kartu "Alat Ukur Jarak" ada di workspace-panel (lihat
+// activateRulerTool() dipanggil dari buildAndShowLayer(), deactivateRulerTool()
+// dipanggil eksplisit dari removeFromStack() di layers-panel.js -- BUKAN lewat
+// event 'remove' Leaflet, krn event itu juga terpicu saat toggle visibility
+// (mata tersembunyi), yg TIDAK seharusnya menghapus pengukuran, hanya saat
+// kartu benar2 ditutup/dikembalikan ke panel kiri sesuai permintaan user).
+let rulerLayerGroup = null, rulerPoints = [], rulerColor = '#5C5C52', rulerActive = false;
+let rulerPreviewLine = null, rulerPreviewLabel = null;
+
+function formatDistance(m){
+  if(m < 1000) return Math.round(m) + ' m';
+  return (m/1000).toFixed(2) + ' km';
+}
+function rulerPointIcon(num, color){
+  return L.divIcon({ className:'ruler-point-icon',
+    html:`<div style="width:20px;height:20px;border-radius:50%;background:${color};color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,0.4);border:2px solid #fff;">${num}</div>`,
+    iconSize:[20,20], iconAnchor:[10,10] });
+}
+function rulerSegmentLabel(latlng, text, color){
+  return L.marker(latlng, { interactive:false, icon: L.divIcon({ className:'ruler-seg-label',
+    html:`<div style="transform:translate(-50%,-50%); background:#fff; border:1px solid ${color}; color:#222; font-size:10px; font-weight:600; padding:1px 6px; border-radius:10px; white-space:nowrap; box-shadow:0 1px 3px rgba(0,0,0,0.15);">${text}</div>`,
+    iconSize:[0,0] }) });
+}
+function rulerTotalBadge(latlng, text, color){
+  return L.marker(latlng, { interactive:false, icon: L.divIcon({ className:'ruler-total-badge',
+    html:`<div style="transform:translate(16px,-10px); background:${color}; color:#fff; font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:10px; white-space:nowrap; box-shadow:0 2px 6px rgba(0,0,0,0.25);">Total: ${text}</div>`,
+    iconSize:[0,0] }) });
+}
+
+function renderRuler(){
+  if(!rulerLayerGroup) return;
+  rulerLayerGroup.clearLayers();
+  rulerPreviewLine = null; rulerPreviewLabel = null;
+
+  let total = 0;
+  rulerPoints.forEach((pt, i)=>{
+    L.marker(pt, { interactive:false, icon: rulerPointIcon(i+1, rulerColor) }).addTo(rulerLayerGroup);
+    if(i>0){
+      const prev = rulerPoints[i-1];
+      const segDist = map.distance(prev, pt);
+      total += segDist;
+      L.polyline([prev, pt], { color: rulerColor, weight:3, opacity:0.85 }).addTo(rulerLayerGroup);
+      const mid = L.latLng((prev.lat+pt.lat)/2, (prev.lng+pt.lng)/2);
+      rulerSegmentLabel(mid, formatDistance(segDist), rulerColor).addTo(rulerLayerGroup);
+    }
+  });
+  if(rulerPoints.length > 1){
+    rulerTotalBadge(rulerPoints[rulerPoints.length-1], formatDistance(total), rulerColor).addTo(rulerLayerGroup);
+  }
+
+  const totalEl = document.getElementById('ruler-total-val');
+  if(totalEl) totalEl.textContent = rulerPoints.length>1 ? formatDistance(total)
+    : (rulerPoints.length===1 ? 'klik titik berikutnya…' : '0 m');
+  const undoBtn = document.querySelector('.ruler-undo-btn');
+  if(undoBtn) undoBtn.disabled = rulerPoints.length===0;
+  const clearBtn = document.querySelector('.ruler-clear-btn');
+  if(clearBtn) clearBtn.disabled = rulerPoints.length===0;
+}
+
+// Klik ditangkap di level DOM (capture phase) pada container peta, BUKAN via
+// map.on('click', ...). Alasan: layer lain yg interaktif (mis. poligon FSN
+// kabupaten/kecamatan dgn drill-down, atau layer manapun yg bindPopup) sudah
+// menghentikan propagasi klik ke Leaflet map click event begitu klik jatuh di
+// atas fitur tsb -- akibatnya ruler tidak akan pernah dapat klik yg jatuh di
+// atas layer lain. Capture phase memastikan ruler SELALU dapat klik duluan,
+// apa pun yg ada di bawahnya, kecuali tombol kontrol Leaflet (zoom dll) yg
+// sengaja dilewatkan supaya tetap berfungsi normal.
+function onRulerDomClick(domEvent){
+  if(domEvent.target.closest('.leaflet-control')) return;
+  domEvent.stopPropagation();
+  rulerPoints.push(map.mouseEventToLatLng(domEvent));
+  renderRuler();
+}
+function onRulerDomMouseMove(domEvent){
+  if(!rulerPoints.length || !rulerLayerGroup) return;
+  if(domEvent.target.closest('.leaflet-control')) return;
+  const latlng = map.mouseEventToLatLng(domEvent);
+  const last = rulerPoints[rulerPoints.length-1];
+  if(rulerPreviewLine){ rulerLayerGroup.removeLayer(rulerPreviewLine); }
+  if(rulerPreviewLabel){ rulerLayerGroup.removeLayer(rulerPreviewLabel); }
+  rulerPreviewLine = L.polyline([last, latlng], { color: rulerColor, weight:2, opacity:0.5, dashArray:'4 4', interactive:false }).addTo(rulerLayerGroup);
+  rulerPreviewLabel = rulerSegmentLabel(latlng, formatDistance(map.distance(last, latlng)), rulerColor).addTo(rulerLayerGroup);
+}
+function onRulerKeydown(e){
+  const tag = (document.activeElement && document.activeElement.tagName) || '';
+  if(tag==='INPUT' || tag==='TEXTAREA') return; // jangan ganggu ketikan normal (mis. search box)
+  if(e.key === 'Backspace'){ e.preventDefault(); rulerUndo(); }
+  else if(e.key === 'Escape'){ rulerClear(); }
+}
+function rulerUndo(){ if(rulerPoints.length){ rulerPoints.pop(); renderRuler(); } }
+function rulerClear(){ rulerPoints = []; renderRuler(); }
+
+function activateRulerTool(color){
+  rulerColor = color;
+  rulerPoints = [];
+  rulerActive = true;
+  rulerLayerGroup = L.layerGroup();
+  const container = map.getContainer();
+  container.addEventListener('click', onRulerDomClick, true);
+  container.addEventListener('mousemove', onRulerDomMouseMove, true);
+  document.addEventListener('keydown', onRulerKeydown);
+  map.doubleClickZoom.disable(); // cegah klik ganda nambah titik sekaligus zoom peta
+  container.style.cursor = 'crosshair';
+  return rulerLayerGroup.addTo(map);
+}
+function deactivateRulerTool(){
+  if(!rulerActive) return;
+  rulerActive = false;
+  const container = map.getContainer();
+  container.removeEventListener('click', onRulerDomClick, true);
+  container.removeEventListener('mousemove', onRulerDomMouseMove, true);
+  document.removeEventListener('keydown', onRulerKeydown);
+  map.doubleClickZoom.enable();
+  container.style.cursor = '';
+  rulerPoints = [];
+  rulerPreviewLine = null; rulerPreviewLabel = null;
+  if(rulerLayerGroup){ rulerLayerGroup.clearLayers(); }
 }
 
 // ================= Search (kabupaten/kecamatan/desa) =================
