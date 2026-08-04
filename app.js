@@ -300,6 +300,30 @@ async function buildAndShowLayer(entry, catColor){
   } else if(entry.render_type === 'polygon'){
     layer = L.geoJSON(gj, { style: { color:color, weight:1.2, opacity:0.8, fillColor:color, fillOpacity:0.08, dashArray:'4 3' } });
     layer.eachLayer(l=>{ const p=l.feature.properties; l.bindPopup(popupFromPU(p.nm, p.pu, color)); });
+  } else if(entry.render_type === 'flow_lines' || entry.render_type === 'flow_routed'){
+    // Gravity model / desire-line: LineString asal->tujuan, ketebalan & opacity
+    // sebanding flow_norm (0-1). Garis putus-putus = bukan rute jalan riil
+    // (real_route=false), baik krn lintas pulau (tdk ada jalan darat) maupun
+    // krn graph jalan pulau tsb belum berhasil di-fetch -- dibedakan di teks
+    // popup, bukan di style (keduanya sama2 "estimasi", beda alasan saja).
+    layer = L.geoJSON(gj, { style: f => {
+      const t = f.properties.flow_norm || 0;
+      return { color: color, weight: 1 + 6*t, opacity: 0.2 + 0.65*t,
+        dashArray: f.properties.real_route ? null : '5 4' };
+    }});
+    layer.eachLayer(l=>{
+      const p = l.feature.properties;
+      const jarakTxt = p.real_route
+        ? `${p.distance_km} km (jaringan jalan)`
+        : (p.crosses_water
+          ? `${p.distance_km} km (lintas pulau, estimasi jarak lurus)`
+          : `${p.distance_km} km (estimasi jarak lurus, rute jalan belum tersedia)`);
+      l.bindPopup(`<span class="popup-cat-tag" style="background:${color}">Gravity Model</span>
+        <div class="popup-title">${p.origin_nm} &rarr; ${p.dest_nm}</div>
+        <div class="popup-row"><span>Jenis tujuan</span><span class="val">${p.dest_type}</span></div>
+        <div class="popup-row"><span>Estimasi flow (relatif)</span><span class="val">${(p.flow_norm*100).toFixed(0)}%</span></div>
+        <div class="popup-row"><span>Jarak</span><span class="val">${jarakTxt}</span></div>`);
+    });
   } else {
     console.warn('render_type tidak dikenal:', entry.render_type);
     return null;

@@ -81,6 +81,11 @@
    "id": "pasar",
    "label": "Pasar",
    "color": "#E87BA4"
+  },
+  {
+   "id": "jaringan",
+   "label": "Jaringan Distribusi",
+   "color": "#008300"
   }
  ],
  "layers": [
@@ -744,6 +749,32 @@
    "source": "SISP Kemendag (difilter ke NTB+NTT)",
    "download_url": null,
    "kind": "input"
+  },
+  {
+   "id": "gravity_flow_lines_ntt",
+   "category": "jaringan",
+   "label": "Gravity Model — Garis Lurus",
+   "render_type": "flow_lines",
+   "data_url": "data/gravity_flow_lines_ntt.json",
+   "count": 150,
+   "default_visible": false,
+   "source": "Model gravitasi distribusi padi NTT (produksi kabupaten → kebutuhan kabupaten + pasar), top-150 arus terkuat dari 2.266 pasangan dihitung",
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "padi"
+  },
+  {
+   "id": "gravity_flow_routed_ntt",
+   "category": "jaringan",
+   "label": "Gravity Model — Rute Jalan Riil",
+   "render_type": "flow_routed",
+   "data_url": "data/gravity_flow_routed_ntt.json",
+   "count": 150,
+   "default_visible": false,
+   "source": "Model gravitasi distribusi padi NTT, geometri mengikuti rute jaringan jalan riil (OSM) jika tersedia; garis lurus + flag lintas pulau jika tidak",
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "padi"
   }
  ]
 }
