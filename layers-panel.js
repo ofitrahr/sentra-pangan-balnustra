@@ -114,21 +114,35 @@ function renderCatalogPanel(){
   attachCatalogCardHandlers();
 }
 
+let catalogInfoPanelOpen = null; // id kartu katalog (panel kiri) yang sedang membuka panel info/metadata
+
 function buildCatalogCard(item){
   const added = activeStack.includes(item.id);
+  const wrap = document.createElement('div');
+  wrap.className = 'catalog-card-wrap';
   const card = document.createElement('div');
   card.className = 'catalog-card' + (added ? ' added' : '');
   card.draggable = !added;
   card.dataset.layerid = item.id;
   const cntTxt = item.count!=null ? ` <span class="cnt">(${item.count})</span>` : '';
   const dlTxt = item.download_url ? ` <a class="dl-link" href="${item.download_url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">&#8681;</a>` : '';
-  card.innerHTML = `<span class="drag-dot">&#8942;&#8942;</span><span class="card-label">${item.label}${cntTxt}${dlTxt}</span><button class="add-btn" title="Tambah ke peta" ${added?'disabled':''}>+</button>`;
-  return card;
+  card.innerHTML = `<span class="drag-dot">&#8942;&#8942;</span><span class="card-label">${item.label}${cntTxt}${dlTxt}</span><button class="catalog-info-btn" title="Info &amp; sumber data">&#9432;</button><button class="add-btn" title="Tambah ke peta" ${added?'disabled':''}>+</button>`;
+  wrap.appendChild(card);
+  if(catalogInfoPanelOpen === item.id){
+    wrap.appendChild(buildInfoPanel(item.id));
+  }
+  return wrap;
 }
+
+const catalogGroupsOpen = new Set(); // label grup yg sedang terbuka -- dipertahankan lintas re-render
 
 function buildCatalogGroup(label, color, items){
   const details = document.createElement('details');
   details.className = 'cat-group';
+  details.open = catalogGroupsOpen.has(label);
+  details.addEventListener('toggle', ()=>{
+    if(details.open) catalogGroupsOpen.add(label); else catalogGroupsOpen.delete(label);
+  });
   const summary = document.createElement('summary');
   summary.innerHTML = `<span class="catname"><span class="catdot" style="background:${color}"></span>${label}</span>`;
   details.appendChild(summary);
@@ -142,6 +156,12 @@ function buildCatalogGroup(label, color, items){
 function attachCatalogCardHandlers(){
   document.querySelectorAll('.catalog-card').forEach(card=>{
     const id = card.dataset.layerid;
+    const infoBtn = card.querySelector('.catalog-info-btn');
+    if(infoBtn) infoBtn.addEventListener('click', e=>{
+      e.stopPropagation();
+      catalogInfoPanelOpen = (catalogInfoPanelOpen===id) ? null : id;
+      renderCatalogPanel();
+    });
     if(card.classList.contains('added')) return;
     card.addEventListener('dragstart', e=>{
       e.dataTransfer.setData('text/plain', id);
