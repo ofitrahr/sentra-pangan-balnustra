@@ -91,6 +91,11 @@
    "id": "alat_ukur",
    "label": "Alat Ukur",
    "color": "#5C5C52"
+  },
+  {
+   "id": "sentra_pangan",
+   "label": "Pengerucutan Sentra Pangan",
+   "color": "#4CAF50"
   }
  ],
  "layers": [
@@ -805,6 +810,26 @@
    "download_url": null,
    "kind": "analysis",
    "komoditas": "umum"
+  },
+  {
+   "id": "pengerucutan_sentra_pangan_ntb",
+   "category": "sentra_pangan",
+   "label": "Pengerucutan Sentra Pangan (NTB)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/pengerucutan_sentra_pangan_ntb.json",
+   "count": 10,
+   "default_visible": false,
+   "source": "Kementerian PU -- Pengerucutan Sentra Pangan NTB (indeks lintas komoditas padi, sapi, udang), ditranskrip dari dokumen",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    { "label": "Prioritas I - Sentra Pangan Utama", "color": "#1B7A3D" },
+    { "label": "Prioritas II - Sentra Pangan Kuat", "color": "#4CAF50" },
+    { "label": "Prioritas III - Sentra Pangan Berkembang", "color": "#8BC34A" },
+    { "label": "Kawasan Pangan Potensial", "color": "#F5EDB0" },
+    { "label": "Kawasan Pangan Pendukung", "color": "#B0AFA5" },
+    { "label": "Sintesis ditahan (data belum lengkap)", "color": "#C9C4B8" }
+   ]
   }
  ]
 }

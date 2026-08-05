@@ -604,7 +604,7 @@ function legendSymbol(id){
     const weight = entry.style ? entry.style.weight*0.8 : 2.5;
     return `<svg width="22" height="10"><line x1="1" y1="5" x2="21" y2="5" stroke="${color}" stroke-width="${weight}" stroke-dasharray="${dash}"/></svg>`;
   }
-  if(entry.render_type==='density_grid' || entry.render_type==='choropleth_polygon') return `<div style="width:12px;height:12px;background:${color};opacity:0.7;"></div>`;
+  if(entry.render_type==='density_grid' || entry.render_type==='choropleth_polygon' || entry.render_type==='categorical_fill_polygon') return `<div style="width:12px;height:12px;background:${color};opacity:0.7;"></div>`;
   if(entry.render_type==='flow_lines' || entry.render_type==='flow_routed'){
     return `<svg width="26" height="12"><line x1="1" y1="10" x2="10" y2="10" stroke="${color}" stroke-width="1.5" opacity="0.4"/><line x1="10" y1="6" x2="18" y2="6" stroke="${color}" stroke-width="3.5" opacity="0.6"/><line x1="18" y1="2" x2="25" y2="2" stroke="${color}" stroke-width="6" opacity="0.85"/></svg>`;
   }
@@ -614,6 +614,16 @@ function legendSymbol(id){
   return `<svg width="16" height="10"><rect x="1" y="1" width="14" height="8" fill="none" stroke="${color}" stroke-width="1.3" stroke-dasharray="3,2"/></svg>`;
 }
 function legendBlockFor(id){
+  // Kategori statis (bukan simbologi interaktif yg dinonaktifkan) -- daftar
+  // kategori+warna sdh didefinisikan tetap di catalog.json per layer.
+  const entryStatic = CATALOG.layers.find(l=>l.id===id);
+  if(entryStatic && entryStatic.render_type === 'categorical_fill_polygon' && entryStatic.legend_categories){
+    const rows = entryStatic.legend_categories.map(c=>
+      `<div class="legend-item"><div style="width:11px;height:11px;background:${c.color};border:1px solid rgba(0,0,0,0.2);flex-shrink:0;"></div><span>${c.label}</span></div>`
+    ).join('');
+    return `<div class="legend-sym-block"><div class="legend-sym-title">${cardLabel(id)}</div>${rows}</div>`;
+  }
+
   const sym = layerSymbology[id];
   if(!sym) return `<div class="legend-item">${legendSymbol(id)}<span>${cardLabel(id)}</span></div>`;
 

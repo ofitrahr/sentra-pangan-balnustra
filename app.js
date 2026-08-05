@@ -303,6 +303,13 @@ async function buildAndShowLayer(entry, catColor){
   } else if(entry.render_type === 'polygon'){
     layer = L.geoJSON(gj, { style: { color:color, weight:1.2, opacity:0.8, fillColor:color, fillOpacity:0.08, dashArray:'4 3' } });
     layer.eachLayer(l=>{ const p=l.feature.properties; l.bindPopup(popupFromPU(p.nm, p.pu, color)); });
+  } else if(entry.render_type === 'categorical_fill_polygon'){
+    // Poligon berwarna statis per kategori (properti "fill_color" sdh dibakar
+    // saat publish, BUKAN via fitur simbologi interaktif yg dinonaktifkan).
+    // Legend kategorinya didefinisikan statis di catalog.json (legend_categories).
+    layer = L.geoJSON(gj, { style: f => ({ color:'#3a3a34', weight:1, opacity:0.55,
+      fillColor: f.properties.fill_color || color, fillOpacity:0.75 }) });
+    layer.eachLayer(l=>{ const p=l.feature.properties; l.bindPopup(popupFromPU(p.nm, p.pu, p.fill_color || color)); });
   } else if(entry.render_type === 'flow_lines' || entry.render_type === 'flow_routed'){
     // Gravity model / desire-line: LineString asal->tujuan, ketebalan & opacity
     // sebanding flow_norm (0-1). Garis putus-putus = bukan rute jalan riil
