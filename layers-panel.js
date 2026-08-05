@@ -16,7 +16,7 @@ const CHOROPLETH_VARS = [
   { value: 'produksi_beras', label: 'Produksi Beras' },
   { value: 'kebutuhan_beras', label: 'Konsumsi' },
 ];
-const KOMODITAS_LABELS = { padi: 'Padi', pertanian: 'Pertanian (umum)', umum: 'Umum / Lintas Komoditas', survei_flores: 'Survei Flores' };
+const KOMODITAS_LABELS = { padi: 'Padi', pertanian: 'Pertanian (umum)', umum: 'Umum / Lintas Komoditas', survei_flores: 'Survei Flores', sapi_potong: 'Sapi Potong' };
 
 // Palet kategorikal tervalidasi (skill dataviz, references/palette.md) -- urutan
 // slot TETAP (bukan siklus acak), sudah lolos cek pemisahan buta-warna adjacent.
@@ -617,7 +617,7 @@ function legendBlockFor(id){
   // Kategori statis (bukan simbologi interaktif yg dinonaktifkan) -- daftar
   // kategori+warna sdh didefinisikan tetap di catalog.json per layer.
   const entryStatic = CATALOG.layers.find(l=>l.id===id);
-  if(entryStatic && entryStatic.render_type === 'categorical_fill_polygon' && entryStatic.legend_categories){
+  if(entryStatic && (entryStatic.render_type === 'categorical_fill_polygon' || entryStatic.render_type === 'point') && entryStatic.legend_categories){
     const rows = entryStatic.legend_categories.map(c=>
       `<div class="legend-item"><div style="width:11px;height:11px;background:${c.color};border:1px solid rgba(0,0,0,0.2);flex-shrink:0;"></div><span>${c.label}</span></div>`
     ).join('');

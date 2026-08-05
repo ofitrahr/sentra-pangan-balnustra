@@ -302,7 +302,12 @@ async function buildAndShowLayer(entry, catColor){
     layer.eachLayer(l=>{ const p=l.feature.properties;
       l.bindPopup(`<div class="popup-title">${p.nama_desa||p.nama_kecamatan||''}</div><div class="popup-row"><span>${entry.label}</span><span class="val">${p[entry.value_field]}</span></div>`); });
   } else if(entry.render_type === 'point'){
-    layer = L.geoJSON(gj, { pointToLayer: (f, latlng) => L.circleMarker(latlng, { radius:4, fillColor:color, color:'#fff', weight:0.8, fillOpacity:0.85 }) });
+    // radius/fill_color per-fitur opsional (dibakar saat export, spt pola
+    // categorical_fill_polygon) -- layer lain yg tdk py properti ini jalan
+    // spt biasa pakai style seragam dari catalog.json.
+    layer = L.geoJSON(gj, { pointToLayer: (f, latlng) => L.circleMarker(latlng, {
+      radius: f.properties.radius || 4, fillColor: f.properties.fill_color || color,
+      color:'#fff', weight:0.8, fillOpacity:0.85 }) });
     layer.eachLayer(l=>{
       const p=l.feature.properties;
       l.bindPopup(popupFromPU(p.nm, p.pu, color));

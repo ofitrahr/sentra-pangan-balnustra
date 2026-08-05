@@ -101,6 +101,11 @@
    "id": "survei_flores",
    "label": "Survei Flores",
    "color": "#8C4B6B"
+  },
+  {
+   "id": "peternakan",
+   "label": "Peternakan",
+   "color": "#A6763B"
   }
  ],
  "layers": [
@@ -953,6 +958,38 @@
    "kind": "analysis",
    "komoditas": "survei_flores",
    "style": { "color": "#8C6B4B", "weight": 3, "opacity": 0.85 }
+  },
+  {
+   "id": "fsn_sapi_kecamatan_ntb",
+   "category": "peternakan",
+   "label": "Populasi Sapi Potong per Kecamatan (5 Kab. Prioritas)",
+   "render_type": "choropleth_polygon",
+   "data_url": "data/fsn_sapi_kecamatan_ntb.json",
+   "value_field": "populasi_sapi_2024",
+   "color_rgb": "166,118,59",
+   "count": 83,
+   "default_visible": false,
+   "source": "Rekap FSN NTB (workspace/fsn/ntb/), populasi sapi potong per kecamatan 2024 -- Lombok Tengah, Lombok Timur, Sumbawa, Dompu, Bima",
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "sapi_potong"
+  },
+  {
+   "id": "fsn_sapi_distribusi_ntb",
+   "category": "jaringan",
+   "label": "Simpul Distribusi Sapi Potong (Pasar Hewan & Karantina/Pelabuhan)",
+   "render_type": "point",
+   "data_url": "data/fsn_sapi_distribusi_ntb.json",
+   "count": 16,
+   "default_visible": false,
+   "source": "Rekap FSN NTB (workspace/fsn/ntb/) -- 9 Pasar Hewan + 7 titik Karantina/Pelabuhan; koordinat digeocode dari data pasar/pelabuhan project & centroid kecamatan (lihat popup per titik utk sumber), warna=jenis simpul, ukuran=tingkat kepentingan",
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "sapi_potong",
+   "legend_categories": [
+    { "label": "Pasar Hewan", "color": "#B15A2E" },
+    { "label": "Karantina / Pelabuhan", "color": "#3B6B93" }
+   ]
   }
  ]
 }
