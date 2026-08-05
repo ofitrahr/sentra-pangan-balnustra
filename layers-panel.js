@@ -16,7 +16,7 @@ const CHOROPLETH_VARS = [
   { value: 'produksi_beras', label: 'Produksi Beras' },
   { value: 'kebutuhan_beras', label: 'Konsumsi' },
 ];
-const KOMODITAS_LABELS = { padi: 'Padi', pertanian: 'Pertanian (umum)', umum: 'Umum / Lintas Komoditas' };
+const KOMODITAS_LABELS = { padi: 'Padi', pertanian: 'Pertanian (umum)', umum: 'Umum / Lintas Komoditas', survei_lapangan: 'Survei Lapangan' };
 
 // Palet kategorikal tervalidasi (skill dataviz, references/palette.md) -- urutan
 // slot TETAP (bukan siklus acak), sudah lolos cek pemisahan buta-warna adjacent.

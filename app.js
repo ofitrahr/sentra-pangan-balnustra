@@ -295,11 +295,34 @@ async function buildAndShowLayer(entry, catColor){
       l.bindPopup(`<div class="popup-title">${p.nama_desa||p.nama_kecamatan||''}</div><div class="popup-row"><span>${entry.label}</span><span class="val">${p[entry.value_field]}</span></div>`); });
   } else if(entry.render_type === 'point'){
     layer = L.geoJSON(gj, { pointToLayer: (f, latlng) => L.circleMarker(latlng, { radius:4, fillColor:color, color:'#fff', weight:0.8, fillOpacity:0.85 }) });
-    layer.eachLayer(l=>{ const p=l.feature.properties; l.bindPopup(popupFromPU(p.nm, p.pu, color)); });
+    layer.eachLayer(l=>{
+      const p=l.feature.properties;
+      l.bindPopup(popupFromPU(p.nm, p.pu, color));
+      // label permanen opsional (bkn hover) -- dikontrol per-layer via catalog.json
+      // "show_labels":true, spy tdk membanjiri peta dgn teks utk layer titik besar
+      // (Pasar dll) yg tdk memintanya.
+      if(entry.show_labels && p.nm){
+        l.bindTooltip(p.nm, { permanent:true, direction:'right', offset:[6,0], className:'pt-label-tooltip' });
+      }
+    });
   } else if(entry.render_type === 'line'){
     const st = entry.style || {};
-    layer = L.geoJSON(gj, { style: { color:color, weight:st.weight||2, opacity:st.opacity||0.75, dashArray:st.dashArray||null } });
-    layer.eachLayer(l=>{ const p=l.feature.properties; l.bindPopup(popupFromPU(p.nm, p.pu, color)); });
+    const baseStyle = { color:color, weight:st.weight||2, opacity:st.opacity||0.75, dashArray:st.dashArray||null };
+    layer = L.geoJSON(gj, { style: baseStyle });
+    layer.eachLayer(l=>{
+      const p=l.feature.properties;
+      l.bindPopup(popupFromPU(p.nm, p.pu, color));
+      // highlight hover/klik: klik menyala persist (spy tetap terlihat selagi
+      // popup terbuka & dibandingkan dgn ruas lain), hover menyala sementara.
+      const glow = { weight:(baseStyle.weight||2)+3, opacity:1 };
+      l.on('mouseover', ()=>{ if(!l._selected){ l.setStyle(glow); l.bringToFront(); } });
+      l.on('mouseout', ()=>{ if(!l._selected) l.setStyle(baseStyle); });
+      l.on('click', ()=>{
+        layer.eachLayer(other=>{ other._selected=false; other.setStyle(baseStyle); });
+        l._selected = true; l.setStyle(glow); l.bringToFront();
+      });
+      l.on('popupclose', ()=>{ l._selected=false; l.setStyle(baseStyle); });
+    });
   } else if(entry.render_type === 'polygon'){
     layer = L.geoJSON(gj, { style: { color:color, weight:1.2, opacity:0.8, fillColor:color, fillOpacity:0.08, dashArray:'4 3' } });
     layer.eachLayer(l=>{ const p=l.feature.properties; l.bindPopup(popupFromPU(p.nm, p.pu, color)); });

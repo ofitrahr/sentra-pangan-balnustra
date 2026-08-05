@@ -866,7 +866,8 @@
    "source": "Survei Tahap I BPIW Wil. II, Pulau Flores 9-15 Agustus 2026 -- titik dari data project (Pasar/administrasi/Bendungan) + estimasi geografis utk lokasi tanpa data (lihat popup per titik)",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "umum",
+   "komoditas": "survei_lapangan",
+   "show_labels": true,
    "style": { "color": "#8C4B6B" }
   },
   {
@@ -880,7 +881,7 @@
    "source": "Estimasi rute jalan riil (graph OSM) mengikuti rundown Survei Tahap I BPIW Wil. II Pulau Flores, 9 Agustus 2026",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "umum",
+   "komoditas": "survei_lapangan",
    "style": { "color": "#2B6B6A", "weight": 3, "opacity": 0.85 }
   },
   {
@@ -894,7 +895,7 @@
    "source": "Estimasi rute jalan riil (graph OSM) mengikuti rundown Survei Tahap I BPIW Wil. II Pulau Flores, 11 Agustus 2026",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "umum",
+   "komoditas": "survei_lapangan",
    "style": { "color": "#B15A2E", "weight": 3, "opacity": 0.85 }
   },
   {
@@ -908,7 +909,7 @@
    "source": "Estimasi rute jalan riil (graph OSM) mengikuti rundown Survei Tahap I BPIW Wil. II Pulau Flores, 12 Agustus 2026",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "umum",
+   "komoditas": "survei_lapangan",
    "style": { "color": "#5B5EA6", "weight": 3, "opacity": 0.85 }
   },
   {
@@ -922,7 +923,7 @@
    "source": "Estimasi rute jalan riil (graph OSM) mengikuti rundown Survei Tahap I BPIW Wil. II Pulau Flores, 13 Agustus 2026",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "umum",
+   "komoditas": "survei_lapangan",
    "style": { "color": "#4F7A5A", "weight": 3, "opacity": 0.85 }
   },
   {
@@ -936,7 +937,7 @@
    "source": "Estimasi rute jalan riil (graph OSM) mengikuti rundown Survei Tahap I BPIW Wil. II Pulau Flores, 14 Agustus 2026",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "umum",
+   "komoditas": "survei_lapangan",
    "style": { "color": "#3B6B93", "weight": 3, "opacity": 0.85 }
   }
  ]
