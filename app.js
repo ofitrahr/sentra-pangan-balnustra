@@ -271,7 +271,15 @@ function parsePU(puVal){
 }
 function popupFromPU(nm, puVal, color){
   const obj = parsePU(puVal);
-  let rows = Object.entries(obj).map(([k,v])=>`<div class="popup-row"><span>${k}</span><span class="val">${v}</span></div>`).join('');
+  // baris pendek (key:value) tampil sejajar; baris panjang (rundown kegiatan,
+  // keterangan, dll -- makin umum sejak popup rute/titik survei menyertakan
+  // rundown penuh) ditumpuk vertikal spy tdk kepepet/overflow lebar popup.
+  let rows = Object.entries(obj).map(([k,v])=>{
+    const isLong = typeof v === 'string' && (v.length > 48 || v.includes('<br>'));
+    return isLong
+      ? `<div class="popup-row popup-row-block"><span>${k}</span><span class="val">${v}</span></div>`
+      : `<div class="popup-row"><span>${k}</span><span class="val">${v}</span></div>`;
+  }).join('');
   return `<span class="popup-cat-tag" style="background:${color}">Infrastruktur</span><div class="popup-title">${nm}</div>${rows}`;
 }
 
