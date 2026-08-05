@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rundown Survei — Sentra Pangan Balnustra</title>
+<style>
+  :root{
+    --cream:#F9F9F7; --ink:#12161C; --gold:#2A78D6; --gold-deep:#184F95;
+    --teal:#2A78D6; --rust:#D03B3B; --line:#E3E7EC; --card:#FFFFFF;
+    --ink-soft:#5A6270; --amber:#B4791E; --amber-soft:#FBF1DE;
+    --shadow-soft:0 8px 28px rgba(15,23,32,0.08), 0 2px 8px rgba(15,23,32,0.05);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif;
+  }
+  .mono{ font-family:'SFMono-Regular',Consolas,monospace; font-variant-numeric:tabular-nums; }
+  .wrap{ max-width:760px; margin:0 auto; padding:32px 20px 70px; }
+
+  .topbar{ display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; gap:12px; }
+  .eyebrow{ font-family:'SFMono-Regular',Consolas,monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-deep); font-weight:600; }
+  h1{ font-size:22px; margin:4px 0 4px; letter-spacing:-0.01em; }
+  .subtitle{ font-size:13px; color:var(--ink-soft); }
+  #closeBtn{
+    flex-shrink:0; border:1px solid var(--line); background:var(--card); border-radius:9px;
+    padding:8px 14px; font-size:12.5px; font-weight:600; color:var(--ink-soft); cursor:pointer;
+  }
+  #closeBtn:hover{ border-color:var(--rust); color:var(--rust); }
+
+  .daynav{ display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 26px; }
+  .daynav a{
+    font-size:11.5px; padding:5px 11px; border-radius:20px; border:1px solid var(--line);
+    background:var(--card); color:var(--ink-soft); text-decoration:none; font-weight:600;
+  }
+  .daynav a.active{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  h2.section{ font-size:14px; text-transform:uppercase; letter-spacing:0.05em; color:var(--gold-deep); margin:30px 0 12px; }
+
+  .route{ border-left:2px solid var(--line); margin-left:6px; padding-left:20px; display:flex; flex-direction:column; }
+  .leg{ position:relative; padding:12px 0; border-bottom:1px solid var(--line); }
+  .leg:last-child{ border-bottom:none; }
+  .leg::before{ content:""; position:absolute; left:-25.5px; top:18px; width:8px; height:8px; border-radius:50%; background:var(--cream); border:2px solid var(--teal); }
+  .leg.flag::before{ border-color:var(--amber); }
+  .leg-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .leg-path{ font-size:14px; font-weight:600; }
+  .leg-path .arrow{ color:var(--ink-soft); margin:0 5px; font-weight:400; }
+  .chips{ display:flex; gap:8px; flex-shrink:0; }
+  .chip{ font-size:12px; padding:2px 9px; border-radius:20px; background:#E4EEEC; color:var(--teal); white-space:nowrap; }
+  .chip.dok{ background:#F5E7DC; color:#B15A2E; }
+  .leg-meta{ margin-top:6px; font-size:12px; color:var(--ink-soft); line-height:1.6; }
+  .leg-meta b{ color:var(--ink); font-weight:600; }
+  .leg-flag{ margin-top:7px; font-size:12px; padding:6px 10px; border-radius:7px; background:var(--amber-soft); color:var(--amber); }
+
+  .actblock{ background:var(--card); border:1px solid var(--line); border-radius:11px; padding:12px 15px; margin-bottom:10px; }
+  .actblock-loc{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--gold-deep); margin-bottom:8px; }
+  .actrow{ display:flex; gap:10px; font-size:13px; padding:4px 0; align-items:baseline; }
+  .actrow .acttime{ flex-shrink:0; width:80px; color:var(--ink-soft); font-size:12px; }
+  .actrow .actbody i{ color:var(--ink-soft); font-style:normal; font-size:11.5px; }
+
+  .empty{ color:var(--ink-soft); font-size:13px; font-style:italic; padding:20px 0; }
+  .loading{ color:var(--ink-soft); font-size:13px; padding:40px 0; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Survei Flores Tahap I &middot; BPIW Wil. II</div>
+      <h1 id="pageTitle">Memuat rundown…</h1>
+      <div class="subtitle" id="pageSubtitle"></div>
+    </div>
+    <button id="closeBtn" onclick="window.close()">Tutup tab ini</button>
+  </div>
+  <div class="daynav" id="dayNav"></div>
+  <div id="content"><div class="loading">Memuat data rundown…</div></div>
+</div>
+
+<script>
+const DAY_META = {
+  1: "Minggu, 9 Agustus 2026 — Manggarai Barat",
+  2: "Senin, 10 Agustus 2026 — Manggarai Barat (kunjungan instansi)",
+  3: "Selasa, 11 Agustus 2026 — Manggarai Barat → Manggarai",
+  4: "Rabu, 12 Agustus 2026 — Manggarai",
+  5: "Kamis, 13 Agustus 2026 — Manggarai Timur → Nagekeo",
+  6: "Jumat, 14 Agustus 2026 — Nagekeo → Ende",
+  7: "Sabtu, 15 Agustus 2026 — Kepulangan",
+};
+const ALL_DAYS = Object.keys(DAY_META).map(Number);
+
+const params = new URLSearchParams(location.search);
+const hari = parseInt(params.get('hari'), 10) || 1;
+
+const dayNav = document.getElementById('dayNav');
+dayNav.innerHTML = ALL_DAYS.map(d =>
+  `<a href="rundown.html?hari=${d}" class="${d===hari?'active':''}">Hari ${d}</a>`
+).join('');
+
+document.getElementById('pageTitle').textContent = `Rundown Hari ${hari}`;
+document.getElementById('pageSubtitle').textContent = DAY_META[hari] || '';
+
+function parsePU(v){
+  if(v==null) return {};
+  if(typeof v === 'object') return v;
+  try{ return JSON.parse(v); }catch(e){ return {}; }
+}
+
+async function fetchJSON(url){
+  const res = await fetch(url);
+  if(!res.ok) return null;
+  return res.json();
+}
+
+function legHTML(f){
+  const p = parsePU(f.properties.pu);
+  const flagged = p['Selisih vs dokumen'] && !p['Selisih vs dokumen'].startsWith('sesuai');
+  const dokChip = p['Jarak (estimasi dokumen)'] ? `<span class="chip dok mono">${p['Jarak (estimasi dokumen)']} dok.</span>` : '';
+  const metaRows = [
+    p['Waktu (dokumen)'] ? `<div><b>Waktu:</b> ${p['Waktu (dokumen)']}</div>` : '',
+    p['Aksesibilitas (dokumen)'] ? `<div><b>Aksesibilitas:</b> ${p['Aksesibilitas (dokumen)']}</div>` : '',
+    p['Fokus Infrastruktur PU'] ? `<div><b>Fokus PU:</b> ${p['Fokus Infrastruktur PU']}</div>` : '',
+    p['Keterangan'] ? `<div><b>Keterangan:</b> ${p['Keterangan']}</div>` : '',
+  ].filter(Boolean).join('');
+  return `<div class="leg${flagged?' flag':''}">
+    <div class="leg-row">
+      <div class="leg-path">${f.properties.nm.replace(' → ', '<span class="arrow">&rarr;</span>')}</div>
+      <div class="chips"><span class="chip mono">${p['Jarak (jalan riil)']||''} riil</span>${dokChip}</div>
+    </div>
+    ${metaRows ? `<div class="leg-meta">${metaRows}</div>` : ''}
+    ${flagged ? `<div class="leg-flag">&#9650; Selisih riil vs dokumen: ${p['Selisih vs dokumen']}</div>` : ''}
+  </div>`;
+}
+
+function actBlockHTML(label, actsForDay){
+  if(!actsForDay.length) return '';
+  const rows = actsForDay.map(a =>
+    `<div class="actrow"><span class="acttime mono">${a.waktu}</span><span class="actbody"><b>${a.judul}</b>${a.fokus_pu && a.fokus_pu!=='-' ? ` <i>(${a.fokus_pu})</i>` : ''}</span></div>`
+  ).join('');
+  return `<div class="actblock"><div class="actblock-loc">${label}</div>${rows}</div>`;
+}
+
+(async function(){
+  const [rute, titik] = await Promise.all([
+    fetchJSON(`data/survei_flores_tahap1_rute_hari${hari}.json`),
+    fetchJSON(`data/survei_flores_tahap1_titik.json`),
+  ]);
+
+  let html = '';
+
+  if(rute && rute.features.length){
+    html += `<h2 class="section">Perjalanan</h2><div class="route">${rute.features.map(legHTML).join('')}</div>`;
+  }
+
+  // aktivitas non-perjalanan (ISHOMA, diskusi, kunjungan instansi, dll) di
+  // titik yg tersentuh hari ini -- parse dari field "Rundown kegiatan"
+  // (list gabungan semua hari di titik itu, disaring per prefiks "H{n}").
+  if(titik){
+    const locsTouched = new Set();
+    if(rute) rute.features.forEach(f => {
+      const [a,b] = f.properties.nm.split(' → ');
+      locsTouched.add(a); locsTouched.add(b);
+    });
+    const blocks = [];
+    titik.features.forEach(f => {
+      const label = f.properties.nm;
+      const p = parsePU(f.properties.pu);
+      const rundownHtml = p['Rundown kegiatan'];
+      if(!rundownHtml) return;
+      const entries = rundownHtml.split('<br>').map(entry => {
+        const m = entry.match(/^<b>H(\d+) ([^<]+)<\/b> — ([^<]+)(?:\s*<i>\(([^)]*)\)<\/i>)?/);
+        if(!m) return null;
+        return { hari: parseInt(m[1],10), waktu: m[2], judul: m[3], fokus_pu: m[4]||'' };
+      }).filter(Boolean);
+      const forDay = entries.filter(e => e.hari === hari);
+      if(!forDay.length) return;
+      const noRouteToday = !rute || !rute.features.length; // mis. Hari 2 (semua kunjungan instansi, tanpa ruas jalan)
+      if(noRouteToday || locsTouched.has(label)) blocks.push(actBlockHTML(label, forDay));
+    });
+    if(blocks.length){
+      html += `<h2 class="section">Rundown Kegiatan</h2>${blocks.join('')}`;
+    }
+  }
+
+  document.getElementById('content').innerHTML = html || '<div class="empty">Tidak ada data rundown utk hari ini.</div>';
+})();
+</script>
+</body>
+</html>

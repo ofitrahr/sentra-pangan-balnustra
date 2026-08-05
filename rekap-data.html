@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rekap Data — Sentra Pangan Balnustra</title>
+<style>
+  :root{
+    --cream:#F9F9F7; --ink:#12161C; --gold:#2A78D6; --gold-deep:#184F95;
+    --teal:#2A78D6; --rust:#D03B3B; --line:#E3E7EC; --card:#FFFFFF;
+    --ink-soft:#5A6270; --amber:#B4791E; --amber-soft:#FBF1DE;
+    --green:#1BAF7A; --green-soft:#E4F6EE;
+    --shadow-soft:0 8px 28px rgba(15,23,32,0.08), 0 2px 8px rgba(15,23,32,0.05);
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--cream); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif; }
+  .mono{ font-family:'SFMono-Regular',Consolas,monospace; font-variant-numeric:tabular-nums; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:32px 20px 70px; }
+
+  .topbar{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:8px; }
+  .eyebrow{ font-family:'SFMono-Regular',Consolas,monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-deep); font-weight:600; }
+  h1{ font-size:23px; margin:4px 0 6px; letter-spacing:-0.01em; }
+  .subtitle{ font-size:13px; color:var(--ink-soft); max-width:70ch; line-height:1.5; }
+  #backBtn{ flex-shrink:0; border:1px solid var(--line); background:var(--card); border-radius:9px;
+    padding:8px 14px; font-size:12.5px; font-weight:600; color:var(--ink-soft); cursor:pointer; text-decoration:none; }
+  #backBtn:hover{ border-color:var(--teal); color:var(--teal); }
+
+  .summary{ display:grid; grid-template-columns:repeat(6,1fr); gap:1px; background:var(--line);
+    border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:22px 0 22px; box-shadow:var(--shadow-soft); }
+  .summary .stat{ background:var(--card); padding:13px 14px; }
+  .summary .stat .num{ font-size:21px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .summary .stat .lbl{ font-size:10px; color:var(--ink-soft); margin-top:2px; line-height:1.3; }
+  @media (max-width:900px){ .summary{ grid-template-columns:repeat(3,1fr); } }
+
+  .controls{ display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; align-items:center; }
+  .controls select, .controls input{ padding:7px 10px; border:1px solid var(--line); border-radius:8px; font-size:12px; background:var(--card); font-family:inherit; }
+  .controls .hint{ font-size:11px; color:var(--ink-soft); margin-left:auto; }
+
+  table{ width:100%; border-collapse:collapse; background:var(--card); border-radius:12px; overflow:hidden; box-shadow:var(--shadow-soft); font-size:12.5px; }
+  thead th{ text-align:left; padding:10px 12px; background:#F2F1EC; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-soft); font-weight:700; border-bottom:1px solid var(--line); }
+  tbody td{ padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr:hover{ background:#FAFAF7; }
+  td.no{ color:var(--ink-soft); width:32px; }
+  td.nama{ font-weight:600; max-width:260px; }
+  td.nama .cat{ display:block; font-weight:400; font-size:10.5px; color:var(--ink-soft); margin-top:1px; }
+  td.sumber{ color:var(--ink-soft); font-size:11.5px; max-width:280px; line-height:1.5; }
+  .level-tag{ display:inline-block; padding:3px 9px; border-radius:20px; font-size:11px; font-weight:600; white-space:nowrap; }
+  .lvl-both{ background:var(--green-soft); color:var(--green); }
+  .lvl-both-partial{ background:var(--green-soft); color:#1B8C63; border:1px dashed #1BAF7A; }
+  .lvl-ntb{ background:#FDECEC; color:#C0392B; }
+  .lvl-ntb-partial{ background:#FDECEC; color:#C0392B; border:1px dashed #C0392B; }
+  .lvl-ntt{ background:#E7EEFB; color:var(--gold-deep); }
+  .lvl-ntt-partial{ background:#E7EEFB; color:var(--gold-deep); border:1px dashed var(--gold-deep); }
+  .lvl-multi{ background:#F3E8FB; color:#7E3FA8; }
+  .lvl-tool{ background:#EFEFEA; color:#8a8a7a; }
+  .level-note{ display:block; font-size:10px; color:var(--ink-soft); margin-top:2px; font-weight:400; }
+
+  .loading{ padding:60px 0; text-align:center; color:var(--ink-soft); }
+  .gap-callout{ background:var(--amber-soft); border:1px solid #E9CE9A; border-radius:10px; padding:14px 16px; margin-bottom:20px; font-size:12.5px; line-height:1.6; }
+  .gap-callout b{ color:var(--amber); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">WebGIS &middot; BPIW Pangan NTB + NTT</div>
+      <h1>Rekap Kepemilikan &amp; Coverage Data</h1>
+      <div class="subtitle">Snapshot seluruh layer yang ada di catalog.json dashboard, dengan klasifikasi cakupan wilayah per layer — supaya terlihat area mana yang datanya masih timpang antara NTB dan NTT.</div>
+    </div>
+    <a id="backBtn" href="index.html">&larr; Kembali ke peta</a>
+  </div>
+
+  <div id="summary" class="summary"></div>
+  <div id="gapCallout"></div>
+
+  <div class="controls">
+    <select id="filterLevel"><option value="">Semua level</option></select>
+    <select id="filterCategory"><option value="">Semua kategori</option></select>
+    <input type="text" id="searchBox" placeholder="Cari nama data / sumber...">
+    <span class="hint" id="rowCount"></span>
+  </div>
+
+  <div id="tableWrap"><div class="loading">Memuat catalog.json&hellip;</div></div>
+</div>
+
+<script>
+// Klasifikasi coverage per layer -- hasil inspeksi manual properti tiap file
+// data (kabupaten/provinsi yg benar2 muncul di fitur), BUKAN cuma tebakan dari
+// nama file. "sebagian" = provinsi itu ADA datanya tapi tdk mencakup semua
+// kabupaten/kota-nya. Kalau ada layer baru ditambahkan ke catalog.json tanpa
+// di-assign di sini, otomatis fallback ke "Belum diklasifikasikan".
+const COVERAGE = {
+  fsn_supply_chain: { level:'ntt', note:'22 kab, drilldown s.d. desa' },
+  lbs_grid: { level:'ntt' },
+  permukiman_grid: { level:'ntt' },
+  giling_desa: { level:'ntt-partial', note:'19/22 kab terdeteksi' },
+  binamarga_nustra_inpres_jalan_daerah: { level:'both-partial', note:'NTB 5/10, NTT 21/22 kab' },
+  binamarga_nustra_jembatan_gantung: { level:'both-partial', note:'NTB 5/10, NTT 6/22 kab' },
+  binamarga_nustra_jembatan_nasional: { level:'ntt-partial', note:'12/22 kab, 0 NTB' },
+  binamarga_nustra_lereng: { level:'both', note:'NTB 9/10, NTT 19/22 kab' },
+  cipta_karya_nustra_bpb: { level:'both-partial', note:'NTB 3/10, NTT 7/22 kab' },
+  cipta_karya_nustra_ipal: { level:'both-partial', note:'NTB 4/10, NTT 3/22 kab' },
+  cipta_karya_nustra_iplt: { level:'both-partial', note:'NTB 6/10, NTT 2/22 kab' },
+  cipta_karya_nustra_pks: { level:'both-partial', note:'NTB 10/10, NTT 11/22 kab' },
+  cipta_karya_nustra_plbn: { level:'ntt-partial', note:'3/22 kab -- wajar (perbatasan RI-Timor Leste)' },
+  cipta_karya_nustra_rumah_sakit: { level:'ntt-partial', note:'4/22 kab, 0 NTB' },
+  cipta_karya_nustra_spam: { level:'both', note:'NTB 9/10, NTT 18/22 kab' },
+  cipta_karya_nustra_tpa: { level:'both-partial', note:'NTB 6/10, NTT 8/22 kab' },
+  prasarana_strategis_nustra_gedung_sppg: { level:'both-partial', note:'sangat jarang, 5 fitur' },
+  prasarana_strategis_nustra_madrasah: { level:'both', note:'NTB 10/10, NTT 13/22 kab' },
+  prasarana_strategis_nustra_perguruan_tinggi: { level:'both-partial', note:'sangat jarang, 2 fitur' },
+  prasarana_strategis_nustra_sarana_prasarana_perekonomian: { level:'both-partial', note:'sangat jarang, 2 fitur' },
+  prasarana_strategis_nustra_sekolah: { level:'ntt-partial', note:'3/22 kab, 0 NTB' },
+  sda_nustra_bendung: { level:'both', note:'NTB 8/10, NTT 15/22 kab' },
+  sda_nustra_bendungan_konstruksi: { level:'ntt-partial', note:'2/22 kab' },
+  sda_nustra_bendungan_operasi: { level:'both', note:'NTB 8/10, NTT 10/22 kab' },
+  sda_nustra_daerah_irigasi_permukaan: { level:'both', note:'per DAS, blm terverifikasi penuh per-kab' },
+  sda_nustra_danau: { level:'ntb-partial', note:'2 fitur, 0 NTT terdeteksi' },
+  sda_nustra_intake_sungai: { level:'ntb-partial', note:'5/10 kab, 0 NTT terdeteksi' },
+  sda_nustra_kebutuhan_air: { level:'multi', note:'NTB+NTT + Pangkep (Sulawesi)' },
+  sda_nustra_mata_air: { level:'both', note:'NTB 5/10, NTT 8/22 kab' },
+  sda_nustra_neraca_air: { level:'multi', note:'NTB+NTT + Pangkep (Sulawesi)' },
+  sda_nustra_pah_absah: { level:'ntb-partial', note:'8/10 kab, 0 NTT terdeteksi' },
+  sda_nustra_pengaman_pantai: { level:'both', note:'NTB 7/10, NTT 6/22 kab' },
+  sda_nustra_pengendali_sedimen: { level:'both-partial', note:'sangat jarang, 8 fitur' },
+  sda_nustra_pos_curah_hujan: { level:'both', note:'NTB 9/10, NTT 15/22 kab' },
+  sda_nustra_pos_duga_air: { level:'both', note:'NTB 9/10, NTT 11/22 kab' },
+  sda_nustra_pos_klimatologi: { level:'both', note:'NTB 9/10, NTT 6/22 kab' },
+  sda_nustra_sumur: { level:'ntt-partial', note:'10/22 kab, 0 NTB (2712 fitur)' },
+  setjen_nustra_aset_bim_pu: { level:'both', note:'NTB 9/10, NTT 9/22 kab' },
+  setjen_nustra_aset_tanah_pu: { level:'both-partial', note:'NTB 3/10, NTT 4/22 kab' },
+  jalan_nasional_join_admin_ntt: { level:'ntt-partial', note:'8/22 kab, 0 NTB' },
+  jalan_provinsi_join_admin_ntt: { level:'ntt-partial', note:'11/22 kab, 0 NTB' },
+  jalan_kabupaten_kota_ntb_ntt: { level:'both' },
+  geologi_ntt: { level:'ntt' },
+  hidrografi_laut_ntb_ntt: { level:'both' },
+  klimatologi_ntt: { level:'ntt' },
+  pelabuhan_perikanan_ntb_ntt: { level:'both' },
+  pergudangan_gudang_ntb_ntt: { level:'both' },
+  sosial_ekonomi_pertanian_ntb_ntt: { level:'both' },
+  administrasi_kabkota_ntb_ntt: { level:'both', note:'10 NTB + 22 NTT lengkap' },
+  administrasi_kecamatan_ntb_ntt: { level:'both', note:'NTB 10/10, NTT 21/22 kab' },
+  administrasi_desa_ntb_ntt: { level:'both' },
+  pasar_ntb_ntt: { level:'both' },
+  gravity_flow_lines_ntt: { level:'ntt', note:'model gravitasi -- blm ada versi NTB' },
+  gravity_flow_routed_ntt: { level:'ntt', note:'model gravitasi -- blm ada versi NTB' },
+  ruler_measure_tool: { level:'tool' },
+  pengerucutan_sentra_pangan_ntb: { level:'ntb', note:'10 kab/kota lengkap' },
+  pengerucutan_sentra_pangan_ntt: { level:'ntt', note:'22 kab/kota lengkap' },
+  survei_flores_tahap1_titik: { level:'ntt-partial', note:'Pulau Flores saja, 5/22 kab' },
+  survei_flores_tahap1_rute_hari1: { level:'ntt-partial', note:'Pulau Flores saja, 5/22 kab' },
+  survei_flores_tahap1_rute_hari3: { level:'ntt-partial', note:'Pulau Flores saja, 5/22 kab' },
+  survei_flores_tahap1_rute_hari4: { level:'ntt-partial', note:'Pulau Flores saja, 5/22 kab' },
+  survei_flores_tahap1_rute_hari5: { level:'ntt-partial', note:'Pulau Flores saja, 5/22 kab' },
+  survei_flores_tahap1_rute_hari6: { level:'ntt-partial', note:'Pulau Flores saja, 5/22 kab' },
+  survei_flores_tahap1_rute_hari7: { level:'ntt-partial', note:'Pulau Flores saja, 5/22 kab' },
+  fsn_sapi_kecamatan_ntb: { level:'ntb-partial', note:'5/10 kab prioritas, level kecamatan' },
+  fsn_sapi_distribusi_ntb: { level:'ntb-partial', note:'titik simpul bernama, bukan cakupan areal penuh' },
+};
+
+const LEVEL_META = {
+  both:            { label:'NTB + NTT',          cls:'lvl-both' },
+  'both-partial':  { label:'NTB + NTT (sebagian)', cls:'lvl-both-partial' },
+  ntb:             { label:'NTB',                cls:'lvl-ntb' },
+  'ntb-partial':   { label:'NTB (sebagian)',      cls:'lvl-ntb-partial' },
+  ntt:             { label:'NTT',                cls:'lvl-ntt' },
+  'ntt-partial':   { label:'NTT (sebagian)',      cls:'lvl-ntt-partial' },
+  multi:           { label:'&gt; 2 Provinsi',     cls:'lvl-multi' },
+  tool:            { label:'Alat bantu',          cls:'lvl-tool' },
+  unknown:         { label:'Belum diklasifikasikan', cls:'lvl-tool' },
+};
+
+function levelTag(levelKey){
+  const m = LEVEL_META[levelKey] || LEVEL_META.unknown;
+  return `<span class="level-tag ${m.cls}">${m.label}</span>`;
+}
+
+(async function(){
+  const catalog = await (await fetch('catalog.json')).json();
+  const catNames = Object.fromEntries(catalog.categories.map(c => [c.id, c.label]));
+  const rows = catalog.layers.map((l, i) => {
+    const cov = COVERAGE[l.id] || { level:'unknown' };
+    return {
+      no: i+1, id: l.id, nama: l.label, kategori: catNames[l.category] || l.category || '-',
+      sumber: l.source || '-', level: cov.level, note: cov.note || '',
+    };
+  });
+
+  // ---- ringkasan ----
+  const counts = {};
+  rows.forEach(r => { counts[r.level] = (counts[r.level]||0)+1; });
+  const summaryEl = document.getElementById('summary');
+  const order = ['both','both-partial','ntb','ntb-partial','ntt','ntt-partial','multi','tool'];
+  summaryEl.innerHTML = order.filter(k=>counts[k]).map(k =>
+    `<div class="stat"><div class="num">${counts[k]}</div><div class="lbl">${LEVEL_META[k].label.replace('&gt;','>')}</div></div>`
+  ).join('');
+
+  const ntbOnly = (counts.ntb||0) + (counts['ntb-partial']||0);
+  const nttOnly = (counts.ntt||0) + (counts['ntt-partial']||0);
+  document.getElementById('gapCallout').innerHTML = `<div class="gap-callout">
+    <b>Gap paling menonjol:</b> ${nttOnly} layer eksklusif NTT vs ${ntbOnly} layer eksklusif NTB (rasio &plusmn;${(nttOnly/Math.max(ntbOnly,1)).toFixed(1)}&times;).
+    Yang paling berdampak: <b>rantai pasok padi level desa (FSN drilldown)</b> dan <b>model gravitasi distribusi</b> baru ada utk NTT.
+    Sebaliknya beberapa layer infrastruktur PU (BM/SDA/CK) dari sumber Kementerian PU justru NTT-nya yg lebih jarang terisi
+    (mis. jembatan nasional, sumur, rumah sakit) meski nominal programnya "NUSTRA" (lintas kedua provinsi).
+  </div>`;
+
+  // ---- filter dropdown ----
+  const filterLevel = document.getElementById('filterLevel');
+  order.filter(k=>counts[k]).forEach(k => {
+    const opt = document.createElement('option');
+    opt.value = k; opt.textContent = `${LEVEL_META[k].label.replace('&gt;','>')} (${counts[k]})`;
+    filterLevel.appendChild(opt);
+  });
+  const filterCategory = document.getElementById('filterCategory');
+  [...new Set(rows.map(r=>r.kategori))].sort().forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    filterCategory.appendChild(opt);
+  });
+
+  function render(){
+    const lvl = filterLevel.value, cat = filterCategory.value, q = document.getElementById('searchBox').value.toLowerCase();
+    const filtered = rows.filter(r =>
+      (!lvl || r.level===lvl) && (!cat || r.kategori===cat) &&
+      (!q || r.nama.toLowerCase().includes(q) || r.sumber.toLowerCase().includes(q))
+    );
+    document.getElementById('rowCount').textContent = `${filtered.length} dari ${rows.length} layer`;
+    document.getElementById('tableWrap').innerHTML = `<table>
+      <thead><tr><th>No</th><th>Nama Data</th><th>Sumber</th><th>Level / Coverage</th></tr></thead>
+      <tbody>${filtered.map(r => `<tr>
+        <td class="no mono">${r.no}</td>
+        <td class="nama">${r.nama}<span class="cat">${r.kategori}</span></td>
+        <td class="sumber">${r.sumber}</td>
+        <td>${levelTag(r.level)}${r.note ? `<span class="level-note">${r.note}</span>` : ''}</td>
+      </tr>`).join('')}</tbody>
+    </table>`;
+  }
+  [filterLevel, filterCategory].forEach(el => el.addEventListener('change', render));
+  document.getElementById('searchBox').addEventListener('input', render);
+  render();
+})();
+</script>
+</body>
+</html>

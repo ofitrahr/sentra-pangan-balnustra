@@ -280,7 +280,13 @@ function popupFromPU(nm, puVal, color){
       ? `<div class="popup-row popup-row-block"><span>${k}</span><span class="val">${v}</span></div>`
       : `<div class="popup-row"><span>${k}</span><span class="val">${v}</span></div>`;
   }).join('');
-  return `<span class="popup-cat-tag" style="background:${color}">Infrastruktur</span><div class="popup-title">${nm}</div>${rows}`;
+  // tombol "Show Rundown" -- cuma muncul kalau fitur py properti "Hari" (skema
+  // ruas rute itinerary survei), buka tabel rundown hari tsb di tab terpisah
+  // (bukan panel peta) spy bisa dibaca berdampingan & ditutup independen.
+  const rundownBtn = obj.Hari
+    ? `<button class="popup-rundown-btn" onclick="window.open('rundown.html?hari=${obj.Hari}','_blank')">Show Rundown Hari ${obj.Hari} &rarr;</button>`
+    : '';
+  return `<span class="popup-cat-tag" style="background:${color}">Infrastruktur</span><div class="popup-title">${nm}</div>${rows}${rundownBtn}`;
 }
 
 async function buildAndShowLayer(entry, catColor){

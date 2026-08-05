@@ -24,6 +24,8 @@
   #header h1{font-weight:700; font-size:17px; margin:0 0 6px 0; letter-spacing:-0.01em;}
   #header p{font-size:11.5px; line-height:1.5; margin:0; color:#5A6270;}
   #header .toggle-hint{margin-top:8px; font-size:10.5px; color:#8a93a3; cursor:pointer; text-decoration:underline;}
+  #header .header-nav-link{display:block; margin-top:10px; font-size:11.5px; font-weight:600; color:var(--teal); text-decoration:none;}
+  #header .header-nav-link:hover{color:var(--gold-deep); text-decoration:underline;}
   #header.collapsed .body-content{display:none;}
 
   #breadcrumb{ position:absolute; top:16px; left:50%; transform:translateX(-50%); z-index:1000;
@@ -168,6 +170,12 @@
   .popup-badge{display:inline-block; font-size:9px; padding:2px 6px; border-radius:3px; color:white; margin:2px 3px 0 0;}
   .popup-cat-tag{display:inline-block; font-size:9px; text-transform:uppercase; letter-spacing:0.04em; padding:2px 6px; border-radius:3px; color:white; margin-bottom:5px;}
   .popup-hint{font-size:10px; color:#8a8a7a; margin-top:6px; font-style:italic;}
+  .popup-rundown-btn{
+    display:block; width:100%; margin-top:10px; padding:7px 10px; border:none; border-radius:8px;
+    background:var(--teal); color:#fff; font-size:11.5px; font-weight:600; cursor:pointer;
+    font-family:inherit; transition:background 0.15s;
+  }
+  .popup-rundown-btn:hover{background:var(--gold-deep);}
 
   .glyph-wrap{ background:transparent; cursor:pointer; }
   .glyph-cell{ position:absolute; width:11px; height:11px; border-radius:2.5px; border:0.5px solid rgba(255,255,255,0.7); }
@@ -186,6 +194,7 @@
   <h1>Sentra Pangan Balnustra</h1>
   <div class="body-content">
     <p>Portal data &amp; hasil analisis spasial ketahanan pangan Nusa Tenggara Barat dan Timur -- rantai pasok padi, infrastruktur pendukung, dan kajian kewilayahan lainnya. Tarik kartu layer dari panel kiri ke workspace kanan untuk mulai eksplorasi.</p>
+    <a href="rekap-data.html" class="header-nav-link">&#128202; Rekap kepemilikan &amp; coverage data &rarr;</a>
   </div>
   <span class="toggle-hint" onclick="document.getElementById('header').classList.toggle('collapsed')">sembunyikan/tampilkan detail</span>
 </div>

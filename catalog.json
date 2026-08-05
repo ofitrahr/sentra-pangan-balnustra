@@ -418,11 +418,13 @@
    "id": "sda_nustra_daerah_irigasi_permukaan",
    "category": "sumber_daya_air_dan_irigasi",
    "label": "Daerah Irigasi Permukaan",
-   "render_type": "polygon",
+   "render_type": "choropleth_polygon",
    "data_url": "data/infra/sda_nustra_daerah_irigasi_permukaan.json",
+   "value_field": "luas_ha_num",
+   "color_rgb": "37,106,191",
    "count": 48,
    "default_visible": false,
-   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
+   "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA) -- simbologi by luas (ha)",
    "download_url": null,
    "kind": "input"
   },
@@ -649,37 +651,65 @@
    "id": "geologi_ntt",
    "category": "geologi",
    "label": "Formasi Geologi",
-   "render_type": "polygon",
+   "render_type": "categorical_fill_polygon",
    "data_url": "data/geologi_ntt.json",
    "count": 121,
    "default_visible": false,
-   "source": "Peta Geologi NTT",
+   "source": "Peta Geologi NTT -- simbologi by klasifikasi lingkungan pengendapan",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "legend_categories": [
+    { "label": "Littoral", "color": "#4FA8A0" },
+    { "label": "Littoral: reef", "color": "#7BC9C0" },
+    { "label": "Volcanism: subaerial", "color": "#D0342C" },
+    { "label": "Volcanism: submarine", "color": "#E8776F" },
+    { "label": "Terrestrial: alluvial", "color": "#C9A227" },
+    { "label": "Terrestrial: fluvial", "color": "#E8C96B" },
+    { "label": "Terrestrial: lacustrine", "color": "#B8860B" },
+    { "label": "Plutonism: sub-volcanic", "color": "#7E3FA8" },
+    { "label": "Metamorphism: regional: mid-grade", "color": "#A0522D" },
+    { "label": "Deep marine", "color": "#1B4F8C" },
+    { "label": "Neritic", "color": "#5B8FD6" },
+    { "label": "Transition", "color": "#8A8A7A" },
+    { "label": "Tidak diketahui", "color": "#C9C4B8" }
+   ]
   },
   {
    "id": "hidrografi_laut_ntb_ntt",
    "category": "hidrografi",
    "label": "Kedalaman Laut (Batimetri)",
-   "render_type": "polygon",
+   "render_type": "categorical_fill_polygon",
    "data_url": "data/hidrografi_laut_ntb_ntt.json",
    "count": 18,
    "default_visible": false,
-   "source": "Laut Indonesia (diklip ke NTB+NTT)",
+   "source": "Laut Indonesia (diklip ke NTB+NTT) -- simbologi by kelas kedalaman",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "legend_categories": [
+    { "label": "0 - 500 m", "color": "#CDE2FB" },
+    { "label": "500 - 1.000 m", "color": "#8FB8E8" },
+    { "label": "1.000 - 3.000 m", "color": "#5A8FD6" },
+    { "label": "3.000 - 5.000 m", "color": "#2E5FA8" },
+    { "label": "> 5.000 m", "color": "#163B6E" }
+   ]
   },
   {
    "id": "klimatologi_ntt",
    "category": "klimatologi",
    "label": "Zona Iklim (Schmidt-Ferguson)",
-   "render_type": "polygon",
+   "render_type": "categorical_fill_polygon",
    "data_url": "data/klimatologi_ntt.json",
    "count": 13,
    "default_visible": false,
-   "source": "Peta Klimatologi NTT",
+   "source": "Peta Klimatologi NTT -- simbologi by tipe iklim",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "legend_categories": [
+    { "label": "Tipe 1 (paling basah)", "color": "#1B6FA8" },
+    { "label": "Tipe 2", "color": "#4FA8A0" },
+    { "label": "Tipe 3", "color": "#C9A227" },
+    { "label": "Tipe 4 (paling kering)", "color": "#B4661E" }
+   ]
   },
   {
    "id": "pelabuhan_perikanan_ntb_ntt",
@@ -689,9 +719,15 @@
    "data_url": "data/pelabuhan_perikanan_ntb_ntt.json",
    "count": 33,
    "default_visible": false,
-   "source": "PIPP KKP (versi lengkap: fasilitas, hasil tangkapan, nilai produksi -- difilter ke NTB+NTT)",
+   "source": "PIPP KKP (versi lengkap: fasilitas, hasil tangkapan, nilai produksi -- difilter ke NTB+NTT) -- warna=jenis pelabuhan, ukuran=hasil tangkapan (kg)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "legend_categories": [
+    { "label": "CP (Cabang Pelabuhan)", "color": "#3B6B93" },
+    { "label": "PP (Pelabuhan Perikanan)", "color": "#2B6B6A" },
+    { "label": "PPI (Pangkalan Pendaratan Ikan)", "color": "#B15A2E" },
+    { "label": "PPP (Pelabuhan Perikanan Pantai)", "color": "#8C4B6B" }
+   ]
   },
   {
    "id": "pergudangan_gudang_ntb_ntt",
@@ -709,14 +745,19 @@
    "id": "sosial_ekonomi_pertanian_ntb_ntt",
    "category": "sosial_ekonomi",
    "label": "Kinerja Ekonomi Sektor Pertanian",
-   "render_type": "polygon",
+   "render_type": "categorical_fill_polygon",
    "data_url": "data/sosial_ekonomi_pertanian_ntb_ntt.json",
    "count": 32,
    "default_visible": false,
-   "source": "Diolah dari data PDRB pertanian NTB+NTT",
+   "source": "Diolah dari data PDRB pertanian NTB+NTT -- simbologi by kinerja pertumbuhan PDRB pertanian 2021-2025",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "pertanian"
+   "komoditas": "pertanian",
+   "legend_categories": [
+    { "label": "Kinerja Tinggi", "color": "#1B7A3D" },
+    { "label": "Kinerja Sedang", "color": "#EDA100" },
+    { "label": "Kinerja Rendah", "color": "#C0392B" }
+   ]
   },
   {
    "id": "administrasi_kabkota_ntb_ntt",
@@ -780,9 +821,16 @@
    "data_url": "data/pasar_ntb_ntt.json",
    "count": 190,
    "default_visible": false,
-   "source": "SISP Kemendag (difilter ke NTB+NTT)",
+   "source": "SISP Kemendag (difilter ke NTB+NTT) -- warna=kondisi fisik pasar (39 pasar tanpa data kondisi ditandai abu-abu)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "legend_categories": [
+    { "label": "Baik", "color": "#2E8B57" },
+    { "label": "Rusak Ringan", "color": "#C9A227" },
+    { "label": "Rusak Sedang", "color": "#D2691E" },
+    { "label": "Rusak Berat", "color": "#B22222" },
+    { "label": "Tidak ada data", "color": "#9a9a8c" }
+   ]
   },
   {
    "id": "gravity_flow_lines_ntt",
