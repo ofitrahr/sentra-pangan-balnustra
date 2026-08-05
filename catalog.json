@@ -1038,6 +1038,40 @@
     { "label": "Pasar Hewan", "color": "#B15A2E" },
     { "label": "Karantina / Pelabuhan", "color": "#3B6B93" }
    ]
+  },
+  {
+   "id": "fsn_padi_desa_ntb",
+   "category": "fsn",
+   "label": "Estimasi Produksi Padi per Desa (NTB)",
+   "render_type": "choropleth_polygon",
+   "data_url": "data/fsn_padi_desa_ntb.json",
+   "value_field": "produksi_padi_gkg_ton",
+   "color_rgb": "42,120,214",
+   "count": 1076,
+   "default_visible": false,
+   "source": "Estimasi = Produksi GKG kabupaten 2025 (Rekap FSN NTB) x proporsi Luas Baku Sawah desa/kabupaten. LBS dari D:/GW PU (1,24jt poligon sawah nasional, tervalidasi thd LBS resmi ATR/BPN NTB) spatial-join ke batas desa. HANYA tahap produksi -- blm ada data kapasitas giling/kebutuhan beras level desa utk NTB (beda dgn drilldown 4-tahap FSN NTT).",
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "padi"
+  },
+  {
+   "id": "sosial_kabupaten_ntb_ntt",
+   "category": "sosial_ekonomi",
+   "label": "Indikator Sosial Kabupaten (IPM, Kemiskinan, Populasi)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/sosial_kabupaten_ntb_ntt.json",
+   "count": 32,
+   "default_visible": false,
+   "source": "Peta Sosial-Ekonomi NTB-NTT, D:/GW PU (project GIS lain) -- IPM/kemiskinan/populasi/TPAK/TPT per kabupaten 2020-2026. Simbologi by tingkat kemiskinan 2025.",
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "umum",
+   "legend_categories": [
+    { "label": "Kemiskinan Rendah (< 10%)", "color": "#2E8B57" },
+    { "label": "Kemiskinan Sedang (10-15%)", "color": "#C9A227" },
+    { "label": "Kemiskinan Tinggi (15-22%)", "color": "#D2691E" },
+    { "label": "Kemiskinan Sangat Tinggi (\u2265 22%)", "color": "#B22222" }
+   ]
   }
  ]
 }

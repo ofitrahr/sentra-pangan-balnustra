@@ -159,6 +159,8 @@ const COVERAGE = {
   survei_flores_tahap1_rute_hari7: { level:'ntt-partial', note:'Pulau Flores saja, 5/22 kab' },
   fsn_sapi_kecamatan_ntb: { level:'ntb-partial', note:'5/10 kab prioritas, level kecamatan' },
   fsn_sapi_distribusi_ntb: { level:'ntb-partial', note:'titik simpul bernama, bukan cakupan areal penuh' },
+  fsn_padi_desa_ntb: { level:'ntb', note:'1.076 desa, level desa (setara granularitas FSN NTT tahap produksi)' },
+  sosial_kabupaten_ntb_ntt: { level:'both', note:'32 kab/kota lengkap (10 NTB + 22 NTT)' },
 };
 
 const LEVEL_META = {
@@ -202,7 +204,7 @@ function levelTag(levelKey){
   const nttOnly = (counts.ntt||0) + (counts['ntt-partial']||0);
   document.getElementById('gapCallout').innerHTML = `<div class="gap-callout">
     <b>Gap paling menonjol:</b> ${nttOnly} layer eksklusif NTT vs ${ntbOnly} layer eksklusif NTB (rasio &plusmn;${(nttOnly/Math.max(ntbOnly,1)).toFixed(1)}&times;).
-    Yang paling berdampak: <b>rantai pasok padi level desa (FSN drilldown)</b> dan <b>model gravitasi distribusi</b> baru ada utk NTT.
+    Yang paling berdampak: <b>rantai pasok padi level desa 4-tahap penuh (FSN drilldown: produksi&rarr;giling&rarr;beras&rarr;konsumsi)</b> dan <b>model gravitasi distribusi</b> baru ada utk NTT -- NTB sudah py estimasi produksi level desa (LBS proporsi), tapi blm py data giling/konsumsi desa.
     Sebaliknya beberapa layer infrastruktur PU (BM/SDA/CK) dari sumber Kementerian PU justru NTT-nya yg lebih jarang terisi
     (mis. jembatan nasional, sumur, rumah sakit) meski nominal programnya "NUSTRA" (lintas kedua provinsi).
   </div>`;
