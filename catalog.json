@@ -830,6 +830,25 @@
     { "label": "Kawasan Pangan Pendukung", "color": "#B0AFA5" },
     { "label": "Sintesis ditahan (data belum lengkap)", "color": "#C9C4B8" }
    ]
+  },
+  {
+   "id": "pengerucutan_sentra_pangan_ntt",
+   "category": "sentra_pangan",
+   "label": "Pengerucutan Sentra Pangan (NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/pengerucutan_sentra_pangan_ntt.json",
+   "count": 22,
+   "default_visible": false,
+   "source": "Kementerian PU -- Pengerucutan Sentra Pangan NTT (indeks lintas komoditas padi, sapi), ditranskrip dari dokumen",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    { "label": "Prioritas I - Sentra Pangan Utama", "color": "#1B7A3D" },
+    { "label": "Prioritas II - Sentra Pangan Kuat", "color": "#4CAF50" },
+    { "label": "Prioritas III - Sentra Pangan Berkembang", "color": "#8BC34A" },
+    { "label": "Kawasan Pangan Potensial", "color": "#F5EDB0" },
+    { "label": "Kawasan Pangan Pendukung", "color": "#B0AFA5" }
+   ]
   }
  ]
 }
