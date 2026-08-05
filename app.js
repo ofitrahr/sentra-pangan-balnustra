@@ -277,7 +277,7 @@ function popupFromPU(nm, puVal, color){
 
 async function buildAndShowLayer(entry, catColor){
   if(entry.render_type === 'ruler_tool'){
-    return activateRulerTool((entry.style && entry.style.color) || catColor);
+    return activateRulerTool();
   }
   const gj = await loadData(entry.data_url);
   const color = (entry.style && entry.style.color) || catColor;
@@ -335,20 +335,36 @@ async function buildAndShowLayer(entry, catColor){
   return layer;
 }
 
-// ================= Alat Ukur Jarak (Ruler) =================
+// ================= Alat Ukur Jarak (Ruler, multi-segmen) =================
 // Aktif hanya selagi kartu "Alat Ukur Jarak" ada di workspace-panel (lihat
 // activateRulerTool() dipanggil dari buildAndShowLayer(), deactivateRulerTool()
 // dipanggil eksplisit dari removeFromStack() di layers-panel.js -- BUKAN lewat
 // event 'remove' Leaflet, krn event itu juga terpicu saat toggle visibility
 // (mata tersembunyi), yg TIDAK seharusnya menghapus pengukuran, hanya saat
 // kartu benar2 ditutup/dikembalikan ke panel kiri sesuai permintaan user).
-let rulerLayerGroup = null, rulerPoints = [], rulerColor = '#5C5C52', rulerActive = false;
+//
+// Model data: rulerTraces[] = segmen yg SUDAH diselesaikan (klik kanan/Enter),
+// rulerCurrentPoints[] = titik segmen yg SEDANG digambar. Undo menghapus titik
+// dari segmen berjalan; kalau segmen berjalan kosong, undo "membuka lagi"
+// segmen terakhir yg sudah selesai (dikeluarkan dari rulerTraces, jadi
+// current lagi) -- rantai undo yg konsisten lintas batas segmen.
+let rulerLayerGroup = null, rulerActive = false;
+let rulerCurrentPoints = [], rulerTraces = [], rulerTraceSeq = 0;
 let rulerPreviewLine = null, rulerPreviewLabel = null;
 
 function formatDistance(m){
   if(m < 1000) return Math.round(m) + ' m';
   return (m/1000).toFixed(2) + ' km';
 }
+function traceLength(points){
+  let total = 0;
+  for(let i=1;i<points.length;i++) total += map.distance(points[i-1], points[i]);
+  return total;
+}
+// warna beda per segmen (siklus palet kategorikal yg sama dgn dipakai layer
+// lain) supaya beberapa pengukuran yg tumpang tindih tetap mudah dibedakan.
+function traceColor(idx){ return CATEGORICAL_PALETTE[idx % CATEGORICAL_PALETTE.length]; }
+
 function rulerPointIcon(num, color){
   return L.divIcon({ className:'ruler-point-icon',
     html:`<div style="width:20px;height:20px;border-radius:50%;background:${color};color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,0.4);border:2px solid #fff;">${num}</div>`,
@@ -359,10 +375,31 @@ function rulerSegmentLabel(latlng, text, color){
     html:`<div style="transform:translate(-50%,-50%); background:#fff; border:1px solid ${color}; color:#222; font-size:10px; font-weight:600; padding:1px 6px; border-radius:10px; white-space:nowrap; box-shadow:0 1px 3px rgba(0,0,0,0.15);">${text}</div>`,
     iconSize:[0,0] }) });
 }
-function rulerTotalBadge(latlng, text, color){
-  return L.marker(latlng, { interactive:false, icon: L.divIcon({ className:'ruler-total-badge',
-    html:`<div style="transform:translate(16px,-10px); background:${color}; color:#fff; font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:10px; white-space:nowrap; box-shadow:0 2px 6px rgba(0,0,0,0.25);">Total: ${text}</div>`,
+// traceId null = segmen sedang berjalan (belum ada tombol hapus di badge-nya);
+// traceId terisi = segmen selesai, badge dpt tombol ✕ hapus (lewat window.__rulerDeleteTrace,
+// pola yg sama dgn window.__goto di breadcrumb -- onclick inline di divIcon HTML).
+function rulerTotalBadge(latlng, text, color, traceId){
+  const delBtn = traceId!=null ? `<span onclick="window.__rulerDeleteTrace(${traceId})" title="Hapus segmen ini" style="cursor:pointer; margin-left:6px; opacity:0.85;">&times;</span>` : '';
+  return L.marker(latlng, { interactive: traceId!=null, icon: L.divIcon({ className:'ruler-total-badge',
+    html:`<div style="transform:translate(16px,-10px); background:${color}; color:#fff; font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:10px; white-space:nowrap; box-shadow:0 2px 6px rgba(0,0,0,0.25); pointer-events:auto;">Total: ${text}${delBtn}</div>`,
     iconSize:[0,0] }) });
+}
+
+function drawTrace(points, color, traceId){
+  points.forEach((pt, i)=>{
+    L.marker(pt, { interactive:false, icon: rulerPointIcon(i+1, color) }).addTo(rulerLayerGroup);
+    if(i>0){
+      const prev = points[i-1];
+      L.polyline([prev, pt], { color, weight:3, opacity:0.85, dashArray: traceId==null ? '2 6' : null }).addTo(rulerLayerGroup);
+      const mid = L.latLng((prev.lat+pt.lat)/2, (prev.lng+pt.lng)/2);
+      rulerSegmentLabel(mid, formatDistance(map.distance(prev, pt)), color).addTo(rulerLayerGroup);
+    }
+  });
+  const total = traceLength(points);
+  if(points.length > 1){
+    rulerTotalBadge(points[points.length-1], formatDistance(total), color, traceId).addTo(rulerLayerGroup);
+  }
+  return total;
 }
 
 function renderRuler(){
@@ -370,71 +407,102 @@ function renderRuler(){
   rulerLayerGroup.clearLayers();
   rulerPreviewLine = null; rulerPreviewLabel = null;
 
-  let total = 0;
-  rulerPoints.forEach((pt, i)=>{
-    L.marker(pt, { interactive:false, icon: rulerPointIcon(i+1, rulerColor) }).addTo(rulerLayerGroup);
-    if(i>0){
-      const prev = rulerPoints[i-1];
-      const segDist = map.distance(prev, pt);
-      total += segDist;
-      L.polyline([prev, pt], { color: rulerColor, weight:3, opacity:0.85 }).addTo(rulerLayerGroup);
-      const mid = L.latLng((prev.lat+pt.lat)/2, (prev.lng+pt.lng)/2);
-      rulerSegmentLabel(mid, formatDistance(segDist), rulerColor).addTo(rulerLayerGroup);
-    }
-  });
-  if(rulerPoints.length > 1){
-    rulerTotalBadge(rulerPoints[rulerPoints.length-1], formatDistance(total), rulerColor).addTo(rulerLayerGroup);
-  }
+  rulerTraces.forEach((t, i)=> drawTrace(t.points, traceColor(i), t.id));
+  const currentColor = traceColor(rulerTraces.length);
+  if(rulerCurrentPoints.length) drawTrace(rulerCurrentPoints, currentColor, null);
 
-  const totalEl = document.getElementById('ruler-total-val');
-  if(totalEl) totalEl.textContent = rulerPoints.length>1 ? formatDistance(total)
-    : (rulerPoints.length===1 ? 'klik titik berikutnya…' : '0 m');
+  const statusEl = document.getElementById('ruler-current-status');
+  if(statusEl) statusEl.textContent = rulerCurrentPoints.length===0 ? 'Klik di peta utk mulai segmen baru.'
+    : (rulerCurrentPoints.length===1 ? 'Klik titik berikutnya…' : `${formatDistance(traceLength(rulerCurrentPoints))} (${rulerCurrentPoints.length} titik) — klik kanan/Enter utk selesai`);
+
   const undoBtn = document.querySelector('.ruler-undo-btn');
-  if(undoBtn) undoBtn.disabled = rulerPoints.length===0;
+  if(undoBtn) undoBtn.disabled = rulerCurrentPoints.length===0 && rulerTraces.length===0;
+  const finishBtn = document.querySelector('.ruler-finish-btn');
+  if(finishBtn) finishBtn.disabled = rulerCurrentPoints.length < 2;
   const clearBtn = document.querySelector('.ruler-clear-btn');
-  if(clearBtn) clearBtn.disabled = rulerPoints.length===0;
+  if(clearBtn) clearBtn.disabled = rulerCurrentPoints.length===0 && rulerTraces.length===0;
+
+  const listEl = document.getElementById('ruler-trace-list');
+  if(listEl){
+    listEl.innerHTML = rulerTraces.length ? rulerTraces.map((t,i)=>
+      `<div class="ruler-trace-row"><span class="ruler-trace-dot" style="background:${traceColor(i)}"></span><span class="ruler-trace-label">Segmen ${i+1}: ${formatDistance(traceLength(t.points))}</span><button class="ruler-trace-del" onclick="window.__rulerDeleteTrace(${t.id})" title="Hapus segmen ini">&times;</button></div>`
+    ).join('') : '<div class="ruler-trace-empty">Belum ada segmen selesai.</div>';
+  }
+  const grandTotalEl = document.getElementById('ruler-grand-total-val');
+  if(grandTotalEl){
+    const grand = rulerTraces.reduce((s,t)=>s+traceLength(t.points),0) + traceLength(rulerCurrentPoints);
+    grandTotalEl.textContent = formatDistance(grand);
+  }
 }
 
-// Klik ditangkap di level DOM (capture phase) pada container peta, BUKAN via
-// map.on('click', ...). Alasan: layer lain yg interaktif (mis. poligon FSN
-// kabupaten/kecamatan dgn drill-down, atau layer manapun yg bindPopup) sudah
-// menghentikan propagasi klik ke Leaflet map click event begitu klik jatuh di
-// atas fitur tsb -- akibatnya ruler tidak akan pernah dapat klik yg jatuh di
-// atas layer lain. Capture phase memastikan ruler SELALU dapat klik duluan,
-// apa pun yg ada di bawahnya, kecuali tombol kontrol Leaflet (zoom dll) yg
-// sengaja dilewatkan supaya tetap berfungsi normal.
+// Klik & klik-kanan ditangkap di level DOM (capture phase) pada container
+// peta, BUKAN via map.on('click'/'contextmenu', ...). Alasan: layer lain yg
+// interaktif (mis. poligon FSN kabupaten/kecamatan dgn drill-down, atau layer
+// manapun yg bindPopup) sudah menghentikan propagasi klik ke Leaflet map
+// click event begitu klik jatuh di atas fitur tsb -- akibatnya ruler tidak
+// akan pernah dapat klik yg jatuh di atas layer lain. Capture phase
+// memastikan ruler SELALU dapat klik duluan, apa pun yg ada di bawahnya,
+// kecuali tombol kontrol Leaflet (zoom dll) yg sengaja dilewatkan.
 function onRulerDomClick(domEvent){
   if(domEvent.target.closest('.leaflet-control')) return;
   domEvent.stopPropagation();
-  rulerPoints.push(map.mouseEventToLatLng(domEvent));
+  rulerCurrentPoints.push(map.mouseEventToLatLng(domEvent));
   renderRuler();
 }
+function onRulerDomContextMenu(domEvent){
+  if(domEvent.target.closest('.leaflet-control')) return;
+  domEvent.preventDefault(); // cegah context menu browser
+  domEvent.stopPropagation();
+  finalizeCurrentTrace();
+}
 function onRulerDomMouseMove(domEvent){
-  if(!rulerPoints.length || !rulerLayerGroup) return;
+  if(!rulerCurrentPoints.length || !rulerLayerGroup) return;
   if(domEvent.target.closest('.leaflet-control')) return;
   const latlng = map.mouseEventToLatLng(domEvent);
-  const last = rulerPoints[rulerPoints.length-1];
+  const last = rulerCurrentPoints[rulerCurrentPoints.length-1];
+  const color = traceColor(rulerTraces.length);
   if(rulerPreviewLine){ rulerLayerGroup.removeLayer(rulerPreviewLine); }
   if(rulerPreviewLabel){ rulerLayerGroup.removeLayer(rulerPreviewLabel); }
-  rulerPreviewLine = L.polyline([last, latlng], { color: rulerColor, weight:2, opacity:0.5, dashArray:'4 4', interactive:false }).addTo(rulerLayerGroup);
-  rulerPreviewLabel = rulerSegmentLabel(latlng, formatDistance(map.distance(last, latlng)), rulerColor).addTo(rulerLayerGroup);
+  rulerPreviewLine = L.polyline([last, latlng], { color, weight:2, opacity:0.5, dashArray:'4 4', interactive:false }).addTo(rulerLayerGroup);
+  rulerPreviewLabel = rulerSegmentLabel(latlng, formatDistance(map.distance(last, latlng)), color).addTo(rulerLayerGroup);
 }
 function onRulerKeydown(e){
   const tag = (document.activeElement && document.activeElement.tagName) || '';
   if(tag==='INPUT' || tag==='TEXTAREA') return; // jangan ganggu ketikan normal (mis. search box)
   if(e.key === 'Backspace'){ e.preventDefault(); rulerUndo(); }
-  else if(e.key === 'Escape'){ rulerClear(); }
+  else if(e.key === 'Escape'){ rulerCancelCurrent(); }
+  else if(e.key === 'Enter'){ finalizeCurrentTrace(); } // alternatif klik-kanan (lbh nyaman utk trackpad)
 }
-function rulerUndo(){ if(rulerPoints.length){ rulerPoints.pop(); renderRuler(); } }
-function rulerClear(){ rulerPoints = []; renderRuler(); }
 
-function activateRulerTool(color){
-  rulerColor = color;
-  rulerPoints = [];
+function finalizeCurrentTrace(){
+  if(rulerCurrentPoints.length >= 2){
+    rulerTraces.push({ id: ++rulerTraceSeq, points: rulerCurrentPoints });
+  }
+  rulerCurrentPoints = [];
+  renderRuler();
+}
+function rulerUndo(){
+  if(rulerCurrentPoints.length){
+    rulerCurrentPoints.pop();
+  } else if(rulerTraces.length){
+    rulerCurrentPoints = rulerTraces.pop().points; // buka lagi segmen terakhir utk diedit
+  } else {
+    return;
+  }
+  renderRuler();
+}
+function rulerCancelCurrent(){ rulerCurrentPoints = []; renderRuler(); } // Esc: batalkan segmen yg sedang dibuat saja
+function rulerClearAll(){ rulerTraces = []; rulerCurrentPoints = []; renderRuler(); } // tombol "Hapus Semua"
+function rulerDeleteTrace(id){ rulerTraces = rulerTraces.filter(t=>t.id!==id); renderRuler(); }
+window.__rulerDeleteTrace = rulerDeleteTrace; // dipanggil dari onclick inline di badge peta & daftar panel
+
+function activateRulerTool(){
+  rulerCurrentPoints = []; rulerTraces = []; rulerTraceSeq = 0;
   rulerActive = true;
   rulerLayerGroup = L.layerGroup();
   const container = map.getContainer();
   container.addEventListener('click', onRulerDomClick, true);
+  container.addEventListener('contextmenu', onRulerDomContextMenu, true);
   container.addEventListener('mousemove', onRulerDomMouseMove, true);
   document.addEventListener('keydown', onRulerKeydown);
   map.doubleClickZoom.disable(); // cegah klik ganda nambah titik sekaligus zoom peta
@@ -446,11 +514,12 @@ function deactivateRulerTool(){
   rulerActive = false;
   const container = map.getContainer();
   container.removeEventListener('click', onRulerDomClick, true);
+  container.removeEventListener('contextmenu', onRulerDomContextMenu, true);
   container.removeEventListener('mousemove', onRulerDomMouseMove, true);
   document.removeEventListener('keydown', onRulerKeydown);
   map.doubleClickZoom.enable();
   container.style.cursor = '';
-  rulerPoints = [];
+  rulerCurrentPoints = []; rulerTraces = [];
   rulerPreviewLine = null; rulerPreviewLabel = null;
   if(rulerLayerGroup){ rulerLayerGroup.clearLayers(); }
 }

@@ -120,13 +120,25 @@
   .info-panel .info-row .info-val a{color:var(--teal);}
 
   .ruler-controls{padding:8px 0 4px 24px;}
-  .ruler-controls .ruler-total{font-size:11px; margin-bottom:6px; color:#5A6270;}
+  .ruler-controls .ruler-status{font-size:10.5px; margin-bottom:6px; color:#5A6270; min-height:13px;}
+  .ruler-controls .ruler-total{font-size:11px; margin:6px 0; color:#5A6270;}
   .ruler-controls .ruler-total b{color:var(--teal);}
   .ruler-controls .ruler-btns{display:flex; gap:6px; margin-bottom:6px;}
-  .ruler-controls .ruler-undo-btn, .ruler-controls .ruler-clear-btn{ font-size:10.5px; padding:4px 10px; border-radius:7px;
+  .ruler-controls .ruler-undo-btn, .ruler-controls .ruler-finish-btn, .ruler-controls .ruler-clear-btn{ font-size:10.5px; padding:4px 10px; border-radius:7px;
     border:1px solid var(--line); background:var(--cream); cursor:pointer; transition:background 0.15s, border-color 0.15s; }
-  .ruler-controls .ruler-undo-btn:hover:not(:disabled), .ruler-controls .ruler-clear-btn:hover:not(:disabled){background:#fff; border-color:var(--teal);}
-  .ruler-controls .ruler-undo-btn:disabled, .ruler-controls .ruler-clear-btn:disabled{opacity:0.4; cursor:default;}
+  .ruler-controls .ruler-undo-btn:hover:not(:disabled), .ruler-controls .ruler-finish-btn:hover:not(:disabled), .ruler-controls .ruler-clear-btn:hover:not(:disabled){background:#fff; border-color:var(--teal);}
+  .ruler-controls .ruler-undo-btn:disabled, .ruler-controls .ruler-finish-btn:disabled, .ruler-controls .ruler-clear-btn:disabled{opacity:0.4; cursor:default;}
+  .ruler-controls .ruler-finish-btn{color:var(--teal); font-weight:600;}
+  .ruler-controls .ruler-trace-list-label{font-size:9.5px; color:#8a8a7a; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:3px;}
+  #ruler-trace-list{margin-bottom:4px; max-height:110px; overflow-y:auto;}
+  .ruler-trace-row{display:flex; align-items:center; gap:6px; padding:3px 0; font-size:11px;}
+  .ruler-trace-dot{width:8px; height:8px; border-radius:50%; flex-shrink:0;}
+  .ruler-trace-label{flex:1;}
+  .ruler-trace-del{width:16px; height:16px; border-radius:5px; border:1px solid var(--line); background:var(--cream);
+    color:var(--rust); font-size:10px; line-height:1; cursor:pointer; flex-shrink:0;}
+  .ruler-trace-del:hover{background:var(--rust); color:#fff; border-color:var(--rust);}
+  .ruler-trace-empty{font-size:10px; color:#9a9a8c; font-style:italic; padding:2px 0;}
+  .ruler-controls .ruler-clear-btn{width:100%; margin-bottom:6px;}
   .ruler-controls .ruler-hint{font-size:9.5px; color:#9a9a8c; font-style:italic; line-height:1.4;}
 
   .legend-sym-block{margin-bottom:8px;}

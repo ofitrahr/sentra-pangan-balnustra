@@ -406,16 +406,25 @@ function buildInfoPanel(id){
 function buildRulerControls(){
   const wrap = document.createElement('div');
   wrap.className = 'stack-item-sub ruler-controls';
-  const hasPoints = rulerPoints.length > 0;
+  const hasCurrent = rulerCurrentPoints.length > 0;
+  const hasAny = hasCurrent || rulerTraces.length > 0;
+  const grandTotal = rulerTraces.reduce((s,t)=>s+traceLength(t.points),0) + traceLength(rulerCurrentPoints);
   wrap.innerHTML = `
-    <div class="ruler-total">Total jarak: <b id="ruler-total-val">${rulerPoints.length>1 ? formatDistance(rulerPoints.reduce((sum,p,i)=> i>0 ? sum+map.distance(rulerPoints[i-1],p) : 0, 0)) : (rulerPoints.length===1 ? 'klik titik berikutnya…' : '0 m')}</b></div>
+    <div class="ruler-status" id="ruler-current-status">${hasCurrent ? `${formatDistance(traceLength(rulerCurrentPoints))} (${rulerCurrentPoints.length} titik) — klik kanan/Enter utk selesai` : 'Klik di peta utk mulai segmen baru.'}</div>
     <div class="ruler-btns">
-      <button class="ruler-undo-btn" title="Undo titik terakhir (Backspace)" ${hasPoints?'':'disabled'}>&#8617; Undo</button>
-      <button class="ruler-clear-btn" title="Hapus semua titik (Esc)" ${hasPoints?'':'disabled'}>Clear</button>
+      <button class="ruler-undo-btn" title="Undo titik/segmen terakhir (Backspace)" ${hasAny?'':'disabled'}>&#8617; Undo</button>
+      <button class="ruler-finish-btn" title="Selesaikan segmen ini (klik-kanan di peta / Enter)" ${rulerCurrentPoints.length<2?'disabled':''}>&#10003; Selesai</button>
     </div>
-    <div class="ruler-hint">Klik di peta utk menambah titik pengukuran berantai. Backspace = undo titik terakhir, Esc = hapus semua. Ditutup otomatis saat kartu ini dilepas dari workspace.</div>`;
+    <div class="ruler-trace-list-label">Segmen tersimpan:</div>
+    <div id="ruler-trace-list">${rulerTraces.length ? rulerTraces.map((t,i)=>
+      `<div class="ruler-trace-row"><span class="ruler-trace-dot" style="background:${traceColor(i)}"></span><span class="ruler-trace-label">Segmen ${i+1}: ${formatDistance(traceLength(t.points))}</span><button class="ruler-trace-del" onclick="window.__rulerDeleteTrace(${t.id})" title="Hapus segmen ini">&times;</button></div>`
+    ).join('') : '<div class="ruler-trace-empty">Belum ada segmen selesai.</div>'}</div>
+    <div class="ruler-total">Total keseluruhan: <b id="ruler-grand-total-val">${formatDistance(grandTotal)}</b></div>
+    <button class="ruler-clear-btn" ${hasAny?'':'disabled'}>Hapus Semua</button>
+    <div class="ruler-hint">Klik = titik baru &middot; klik-kanan atau Enter = selesaikan segmen &amp; mulai baru &middot; Backspace = undo &middot; Esc = batalkan segmen berjalan &middot; &times; = hapus segmen tertentu. Semua otomatis bersih saat kartu ini dilepas dari workspace.</div>`;
   wrap.querySelector('.ruler-undo-btn').addEventListener('click', ()=> rulerUndo());
-  wrap.querySelector('.ruler-clear-btn').addEventListener('click', ()=> rulerClear());
+  wrap.querySelector('.ruler-finish-btn').addEventListener('click', ()=> finalizeCurrentTrace());
+  wrap.querySelector('.ruler-clear-btn').addEventListener('click', ()=> rulerClearAll());
   return wrap;
 }
 
