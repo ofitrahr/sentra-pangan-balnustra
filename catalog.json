@@ -80,7 +80,7 @@
   {
    "id": "pasar",
    "label": "Pasar",
-   "color": "#E87BA4"
+   "color": "#C74B7A"
   },
   {
    "id": "jaringan",
@@ -112,7 +112,7 @@
   {
    "id": "fsn_supply_chain",
    "category": "fsn",
-   "label": "Produksi → Pengolahan → Beras → Konsumsi",
+   "label": "Produksi → Pengolahan → Beras → Konsumsi (NTT, s.d. level desa)",
    "render_type": "fsn_drilldown",
    "urls": {
     "kabupaten_points": "data/fsn_kabupaten_points.json",
@@ -131,7 +131,7 @@
   {
    "id": "lbs_grid",
    "category": "guna_lahan",
-   "label": "Lahan Baku Sawah (kepadatan)",
+   "label": "Lahan Baku Sawah -- Kepadatan (NTT)",
    "render_type": "density_grid",
    "data_url": "data/lbs_density_grid.json",
    "color_rgb": "43,120,90",
@@ -144,7 +144,7 @@
   {
    "id": "permukiman_grid",
    "category": "guna_lahan",
-   "label": "Permukiman (kepadatan)",
+   "label": "Permukiman -- Kepadatan (NTT)",
    "render_type": "density_grid",
    "data_url": "data/permukiman_density_grid.json",
    "color_rgb": "156,110,74",
@@ -157,7 +157,7 @@
   {
    "id": "giling_desa",
    "category": "giling",
-   "label": "Jumlah Penggilingan per Desa",
+   "label": "Jumlah Penggilingan per Desa (NTT)",
    "render_type": "choropleth_polygon",
    "data_url": "data/desa_boundary_with_giling.json",
    "value_field": "jml_penggilingan_total",
@@ -196,7 +196,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#C77A3B"
+   }
   },
   {
    "id": "binamarga_nustra_jembatan_nasional",
@@ -208,7 +211,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#D9432E"
+   }
   },
   {
    "id": "binamarga_nustra_lereng",
@@ -220,7 +226,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#A0522D"
+   }
   },
   {
    "id": "cipta_karya_nustra_bpb",
@@ -232,7 +241,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#C2185B"
+   }
   },
   {
    "id": "cipta_karya_nustra_ipal",
@@ -244,7 +256,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#6A4C93"
+   }
   },
   {
    "id": "cipta_karya_nustra_iplt",
@@ -256,7 +271,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#8C5E3C"
+   }
   },
   {
    "id": "cipta_karya_nustra_pks",
@@ -268,7 +286,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#D6478C"
+   }
   },
   {
    "id": "cipta_karya_nustra_plbn",
@@ -280,7 +301,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#B8860B"
+   }
   },
   {
    "id": "cipta_karya_nustra_rumah_sakit",
@@ -292,7 +316,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#E63946"
+   }
   },
   {
    "id": "cipta_karya_nustra_spam",
@@ -304,7 +331,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#3B82C4"
+   }
   },
   {
    "id": "cipta_karya_nustra_tpa",
@@ -316,7 +346,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#6B7B3F"
+   }
   },
   {
    "id": "prasarana_strategis_nustra_gedung_sppg",
@@ -328,7 +361,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#D6336C"
+   }
   },
   {
    "id": "prasarana_strategis_nustra_madrasah",
@@ -340,7 +376,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#2E7D5B"
+   }
   },
   {
    "id": "prasarana_strategis_nustra_perguruan_tinggi",
@@ -352,7 +391,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#5B3F9E"
+   }
   },
   {
    "id": "prasarana_strategis_nustra_sarana_prasarana_perekonomian",
@@ -364,7 +406,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#B08D57"
+   }
   },
   {
    "id": "prasarana_strategis_nustra_sekolah",
@@ -376,7 +421,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#E0932E"
+   }
   },
   {
    "id": "sda_nustra_bendung",
@@ -388,7 +436,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#1B4F8C"
+   }
   },
   {
    "id": "sda_nustra_bendungan_konstruksi",
@@ -400,7 +451,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#D98E04"
+   }
   },
   {
    "id": "sda_nustra_bendungan_operasi",
@@ -412,7 +466,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#1B6FA8"
+   }
   },
   {
    "id": "sda_nustra_daerah_irigasi_permukaan",
@@ -438,7 +495,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#2E9BD6"
+   }
   },
   {
    "id": "sda_nustra_intake_sungai",
@@ -450,7 +510,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#2E8B77"
+   }
   },
   {
    "id": "sda_nustra_kebutuhan_air",
@@ -462,7 +525,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#6B4F9E"
+   }
   },
   {
    "id": "sda_nustra_mata_air",
@@ -474,7 +540,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#4FBFD6"
+   }
   },
   {
    "id": "sda_nustra_neraca_air",
@@ -486,7 +555,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#9A5FBF"
+   }
   },
   {
    "id": "sda_nustra_pah_absah",
@@ -498,7 +570,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#5B8F3B"
+   }
   },
   {
    "id": "sda_nustra_pengaman_pantai",
@@ -510,7 +585,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#0E8074"
+   }
   },
   {
    "id": "sda_nustra_pengendali_sedimen",
@@ -522,7 +600,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#7A5240"
+   }
   },
   {
    "id": "sda_nustra_pos_curah_hujan",
@@ -534,7 +615,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#4682B4"
+   }
   },
   {
    "id": "sda_nustra_pos_duga_air",
@@ -546,7 +630,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#2A6F97"
+   }
   },
   {
    "id": "sda_nustra_pos_klimatologi",
@@ -558,7 +645,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#7A9CC6"
+   }
   },
   {
    "id": "sda_nustra_sumur",
@@ -570,7 +660,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#3D6B4F"
+   }
   },
   {
    "id": "setjen_nustra_aset_bim_pu",
@@ -582,7 +675,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#78716C"
+   }
   },
   {
    "id": "setjen_nustra_aset_tanah_pu",
@@ -594,7 +690,10 @@
    "default_visible": false,
    "source": "Kementerian PU (BINAMARGA/SDA/CIPTA KARYA/PRASARANA STRATEGIS/SETJEN NUSTRA)",
    "download_url": null,
-   "kind": "input"
+   "kind": "input",
+   "style": {
+    "color": "#A0826D"
+   }
   },
   {
    "id": "jalan_nasional_join_admin_ntt",
@@ -659,19 +758,58 @@
    "download_url": null,
    "kind": "input",
    "legend_categories": [
-    { "label": "Littoral", "color": "#4FA8A0" },
-    { "label": "Littoral: reef", "color": "#7BC9C0" },
-    { "label": "Volcanism: subaerial", "color": "#D0342C" },
-    { "label": "Volcanism: submarine", "color": "#E8776F" },
-    { "label": "Terrestrial: alluvial", "color": "#C9A227" },
-    { "label": "Terrestrial: fluvial", "color": "#E8C96B" },
-    { "label": "Terrestrial: lacustrine", "color": "#B8860B" },
-    { "label": "Plutonism: sub-volcanic", "color": "#7E3FA8" },
-    { "label": "Metamorphism: regional: mid-grade", "color": "#A0522D" },
-    { "label": "Deep marine", "color": "#1B4F8C" },
-    { "label": "Neritic", "color": "#5B8FD6" },
-    { "label": "Transition", "color": "#8A8A7A" },
-    { "label": "Tidak diketahui", "color": "#C9C4B8" }
+    {
+     "label": "Littoral",
+     "color": "#4FA8A0"
+    },
+    {
+     "label": "Littoral: reef",
+     "color": "#7BC9C0"
+    },
+    {
+     "label": "Volcanism: subaerial",
+     "color": "#D0342C"
+    },
+    {
+     "label": "Volcanism: submarine",
+     "color": "#E8776F"
+    },
+    {
+     "label": "Terrestrial: alluvial",
+     "color": "#C9A227"
+    },
+    {
+     "label": "Terrestrial: fluvial",
+     "color": "#E8C96B"
+    },
+    {
+     "label": "Terrestrial: lacustrine",
+     "color": "#B8860B"
+    },
+    {
+     "label": "Plutonism: sub-volcanic",
+     "color": "#7E3FA8"
+    },
+    {
+     "label": "Metamorphism: regional: mid-grade",
+     "color": "#A0522D"
+    },
+    {
+     "label": "Deep marine",
+     "color": "#1B4F8C"
+    },
+    {
+     "label": "Neritic",
+     "color": "#5B8FD6"
+    },
+    {
+     "label": "Transition",
+     "color": "#8A8A7A"
+    },
+    {
+     "label": "Tidak diketahui",
+     "color": "#C9C4B8"
+    }
    ]
   },
   {
@@ -686,11 +824,26 @@
    "download_url": null,
    "kind": "input",
    "legend_categories": [
-    { "label": "0 - 500 m", "color": "#CDE2FB" },
-    { "label": "500 - 1.000 m", "color": "#8FB8E8" },
-    { "label": "1.000 - 3.000 m", "color": "#5A8FD6" },
-    { "label": "3.000 - 5.000 m", "color": "#2E5FA8" },
-    { "label": "> 5.000 m", "color": "#163B6E" }
+    {
+     "label": "0 - 500 m",
+     "color": "#CDE2FB"
+    },
+    {
+     "label": "500 - 1.000 m",
+     "color": "#8FB8E8"
+    },
+    {
+     "label": "1.000 - 3.000 m",
+     "color": "#5A8FD6"
+    },
+    {
+     "label": "3.000 - 5.000 m",
+     "color": "#2E5FA8"
+    },
+    {
+     "label": "> 5.000 m",
+     "color": "#163B6E"
+    }
    ]
   },
   {
@@ -705,10 +858,22 @@
    "download_url": null,
    "kind": "input",
    "legend_categories": [
-    { "label": "Tipe 1 (paling basah)", "color": "#1B6FA8" },
-    { "label": "Tipe 2", "color": "#4FA8A0" },
-    { "label": "Tipe 3", "color": "#C9A227" },
-    { "label": "Tipe 4 (paling kering)", "color": "#B4661E" }
+    {
+     "label": "Tipe 1 (paling basah)",
+     "color": "#1B6FA8"
+    },
+    {
+     "label": "Tipe 2",
+     "color": "#4FA8A0"
+    },
+    {
+     "label": "Tipe 3",
+     "color": "#C9A227"
+    },
+    {
+     "label": "Tipe 4 (paling kering)",
+     "color": "#B4661E"
+    }
    ]
   },
   {
@@ -723,28 +888,40 @@
    "download_url": null,
    "kind": "input",
    "legend_categories": [
-    { "label": "CP (Cabang Pelabuhan)", "color": "#3B6B93" },
-    { "label": "PP (Pelabuhan Perikanan)", "color": "#2B6B6A" },
-    { "label": "PPI (Pangkalan Pendaratan Ikan)", "color": "#B15A2E" },
-    { "label": "PPP (Pelabuhan Perikanan Pantai)", "color": "#8C4B6B" }
+    {
+     "label": "CP (Cabang Pelabuhan)",
+     "color": "#3B6B93"
+    },
+    {
+     "label": "PP (Pelabuhan Perikanan)",
+     "color": "#2B6B6A"
+    },
+    {
+     "label": "PPI (Pangkalan Pendaratan Ikan)",
+     "color": "#B15A2E"
+    },
+    {
+     "label": "PPP (Pelabuhan Perikanan Pantai)",
+     "color": "#8C4B6B"
+    }
    ]
   },
   {
-   "id": "pergudangan_gudang_ntb_ntt",
+   "id": "pergudangan_gudang_indonesia",
    "category": "pergudangan",
-   "label": "Gudang",
+   "label": "Gudang (Indonesia)",
    "render_type": "point",
-   "data_url": "data/pergudangan_gudang_ntb_ntt.json",
-   "count": 23,
+   "data_url": "data/pergudangan_gudang_indonesia.json",
+   "count": 1031,
    "default_visible": false,
-   "source": "Pergudangan (diklip ke NTB+NTT)",
+   "source": "Pergudangan, skala nasional (tdk diklip -- lihat kebijakan no-clip data skala nasional/global). Catatan: 0 dari 1.031 titik ini berlokasi riil di NTB meski nama sumber \"Indonesia\" -- terkonsentrasi Jawa.",
    "download_url": null,
    "kind": "input"
   },
   {
    "id": "sosial_ekonomi_pertanian_ntb_ntt",
    "category": "sosial_ekonomi",
-   "label": "Kinerja Ekonomi Sektor Pertanian",
+   "label": "Kinerja Ekonomi Sektor Pertanian (NTB+NTT, per kabupaten)",
    "render_type": "categorical_fill_polygon",
    "data_url": "data/sosial_ekonomi_pertanian_ntb_ntt.json",
    "count": 32,
@@ -754,9 +931,18 @@
    "kind": "analysis",
    "komoditas": "pertanian",
    "legend_categories": [
-    { "label": "Kinerja Tinggi", "color": "#1B7A3D" },
-    { "label": "Kinerja Sedang", "color": "#EDA100" },
-    { "label": "Kinerja Rendah", "color": "#C0392B" }
+    {
+     "label": "Kinerja Tinggi",
+     "color": "#1B7A3D"
+    },
+    {
+     "label": "Kinerja Sedang",
+     "color": "#EDA100"
+    },
+    {
+     "label": "Kinerja Rendah",
+     "color": "#C0392B"
+    }
    ]
   },
   {
@@ -771,10 +957,11 @@
    "download_url": null,
    "kind": "input",
    "style": {
-    "color": "#5B6472",
-    "weight": 1.4,
-    "opacity": 0.7,
-    "fillOpacity": 0
+    "color": "#3D4552",
+    "weight": 1.8,
+    "opacity": 0.85,
+    "fillOpacity": 0,
+    "dashArray": null
    }
   },
   {
@@ -789,10 +976,11 @@
    "download_url": null,
    "kind": "input",
    "style": {
-    "color": "#5B6472",
-    "weight": 1,
-    "opacity": 0.55,
-    "fillOpacity": 0
+    "color": "#6B7280",
+    "weight": 1.1,
+    "opacity": 0.6,
+    "fillOpacity": 0,
+    "dashArray": null
    }
   },
   {
@@ -807,35 +995,51 @@
    "download_url": null,
    "kind": "input",
    "style": {
-    "color": "#5B6472",
+    "color": "#9CA3AF",
     "weight": 0.6,
-    "opacity": 0.4,
-    "fillOpacity": 0
+    "opacity": 0.45,
+    "fillOpacity": 0,
+    "dashArray": null
    }
   },
   {
-   "id": "pasar_ntb_ntt",
+   "id": "pasar_indonesia",
    "category": "pasar",
-   "label": "Pasar",
+   "label": "Pasar (Indonesia)",
    "render_type": "point",
-   "data_url": "data/pasar_ntb_ntt.json",
-   "count": 190,
+   "data_url": "data/pasar_indonesia.json",
+   "count": 3690,
    "default_visible": false,
-   "source": "SISP Kemendag (difilter ke NTB+NTT) -- warna=kondisi fisik pasar (39 pasar tanpa data kondisi ditandai abu-abu)",
+   "source": "SISP Kemendag, skala nasional (tdk diklip -- lihat kebijakan no-clip data skala nasional/global) -- warna=kondisi fisik pasar",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
-    { "label": "Baik", "color": "#2E8B57" },
-    { "label": "Rusak Ringan", "color": "#C9A227" },
-    { "label": "Rusak Sedang", "color": "#D2691E" },
-    { "label": "Rusak Berat", "color": "#B22222" },
-    { "label": "Tidak ada data", "color": "#9a9a8c" }
+    {
+     "label": "Baik",
+     "color": "#2E8B57"
+    },
+    {
+     "label": "Rusak Ringan",
+     "color": "#C9A227"
+    },
+    {
+     "label": "Rusak Sedang",
+     "color": "#D2691E"
+    },
+    {
+     "label": "Rusak Berat",
+     "color": "#B22222"
+    },
+    {
+     "label": "Tidak ada data",
+     "color": "#9a9a8c"
+    }
    ]
   },
   {
    "id": "gravity_flow_lines_ntt",
    "category": "jaringan",
-   "label": "Gravity Model — Garis Lurus",
+   "label": "Gravity Model (NTT) — Garis Lurus",
    "render_type": "flow_lines",
    "data_url": "data/gravity_flow_lines_ntt.json",
    "count": 150,
@@ -843,12 +1047,15 @@
    "source": "Model gravitasi distribusi padi NTT (produksi kabupaten → kebutuhan kabupaten + pasar), top-150 arus terkuat dari 2.266 pasangan dihitung",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "padi"
+   "komoditas": "padi",
+   "style": {
+    "color": "#2E7D32"
+   }
   },
   {
    "id": "gravity_flow_routed_ntt",
    "category": "jaringan",
-   "label": "Gravity Model — Rute Jalan Riil",
+   "label": "Gravity Model (NTT) — Rute Jalan Riil",
    "render_type": "flow_routed",
    "data_url": "data/gravity_flow_routed_ntt.json",
    "count": 150,
@@ -856,7 +1063,10 @@
    "source": "Model gravitasi distribusi padi NTT, geometri mengikuti rute jaringan jalan riil (OSM) jika tersedia; garis lurus + flag lintas pulau jika tidak",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "padi"
+   "komoditas": "padi",
+   "style": {
+    "color": "#00695C"
+   }
   },
   {
    "id": "ruler_measure_tool",
@@ -881,12 +1091,30 @@
    "download_url": null,
    "kind": "input",
    "legend_categories": [
-    { "label": "Prioritas I - Sentra Pangan Utama", "color": "#1B7A3D" },
-    { "label": "Prioritas II - Sentra Pangan Kuat", "color": "#4CAF50" },
-    { "label": "Prioritas III - Sentra Pangan Berkembang", "color": "#8BC34A" },
-    { "label": "Kawasan Pangan Potensial", "color": "#F5EDB0" },
-    { "label": "Kawasan Pangan Pendukung", "color": "#B0AFA5" },
-    { "label": "Sintesis ditahan (data belum lengkap)", "color": "#C9C4B8" }
+    {
+     "label": "Prioritas I - Sentra Pangan Utama",
+     "color": "#1B7A3D"
+    },
+    {
+     "label": "Prioritas II - Sentra Pangan Kuat",
+     "color": "#4CAF50"
+    },
+    {
+     "label": "Prioritas III - Sentra Pangan Berkembang",
+     "color": "#8BC34A"
+    },
+    {
+     "label": "Kawasan Pangan Potensial",
+     "color": "#F5EDB0"
+    },
+    {
+     "label": "Kawasan Pangan Pendukung",
+     "color": "#B0AFA5"
+    },
+    {
+     "label": "Sintesis ditahan (data belum lengkap)",
+     "color": "#C9C4B8"
+    }
    ]
   },
   {
@@ -901,17 +1129,32 @@
    "download_url": null,
    "kind": "input",
    "legend_categories": [
-    { "label": "Prioritas I - Sentra Pangan Utama", "color": "#1B7A3D" },
-    { "label": "Prioritas II - Sentra Pangan Kuat", "color": "#4CAF50" },
-    { "label": "Prioritas III - Sentra Pangan Berkembang", "color": "#8BC34A" },
-    { "label": "Kawasan Pangan Potensial", "color": "#F5EDB0" },
-    { "label": "Kawasan Pangan Pendukung", "color": "#B0AFA5" }
+    {
+     "label": "Prioritas I - Sentra Pangan Utama",
+     "color": "#1B7A3D"
+    },
+    {
+     "label": "Prioritas II - Sentra Pangan Kuat",
+     "color": "#4CAF50"
+    },
+    {
+     "label": "Prioritas III - Sentra Pangan Berkembang",
+     "color": "#8BC34A"
+    },
+    {
+     "label": "Kawasan Pangan Potensial",
+     "color": "#F5EDB0"
+    },
+    {
+     "label": "Kawasan Pangan Pendukung",
+     "color": "#B0AFA5"
+    }
    ]
   },
   {
    "id": "survei_flores_tahap1_titik",
    "category": "survei_flores",
-   "label": "Titik Observasi — Survei Flores Tahap I",
+   "label": "Titik Observasi — Survei Flores Tahap I (NTT, Pulau Flores)",
    "render_type": "point",
    "data_url": "data/survei_flores_tahap1_titik.json",
    "count": 22,
@@ -921,12 +1164,14 @@
    "kind": "analysis",
    "komoditas": "survei_flores",
    "show_labels": true,
-   "style": { "color": "#8C4B6B" }
+   "style": {
+    "color": "#8C4B6B"
+   }
   },
   {
    "id": "survei_flores_tahap1_rute_hari1",
    "category": "survei_flores",
-   "label": "Rute Survei — Hari 1 (Labuan Bajo: Bandara–Pasar–TPI–Warloka)",
+   "label": "Rute Survei Flores (NTT) — Hari 1 (Labuan Bajo: Bandara–Pasar–TPI–Warloka)",
    "render_type": "line",
    "data_url": "data/survei_flores_tahap1_rute_hari1.json",
    "count": 4,
@@ -935,12 +1180,16 @@
    "download_url": null,
    "kind": "analysis",
    "komoditas": "survei_flores",
-   "style": { "color": "#2B6B6A", "weight": 3, "opacity": 0.85 }
+   "style": {
+    "color": "#2B6B6A",
+    "weight": 3,
+    "opacity": 0.85
+   }
   },
   {
    "id": "survei_flores_tahap1_rute_hari3",
    "category": "survei_flores",
-   "label": "Rute Survei — Hari 3 (Labuan Bajo–Lembor–Tangge–Mbeliling–Ruteng)",
+   "label": "Rute Survei Flores (NTT) — Hari 3 (Labuan Bajo–Lembor–Tangge–Mbeliling–Ruteng)",
    "render_type": "line",
    "data_url": "data/survei_flores_tahap1_rute_hari3.json",
    "count": 5,
@@ -949,12 +1198,16 @@
    "download_url": null,
    "kind": "analysis",
    "komoditas": "survei_flores",
-   "style": { "color": "#B15A2E", "weight": 3, "opacity": 0.85 }
+   "style": {
+    "color": "#B15A2E",
+    "weight": 3,
+    "opacity": 0.85
+   }
   },
   {
    "id": "survei_flores_tahap1_rute_hari4",
    "category": "survei_flores",
-   "label": "Rute Survei — Hari 4 (Ruteng–Satar Mese–Wae Manter–Borong)",
+   "label": "Rute Survei Flores (NTT) — Hari 4 (Ruteng–Satar Mese–Wae Manter–Borong)",
    "render_type": "line",
    "data_url": "data/survei_flores_tahap1_rute_hari4.json",
    "count": 5,
@@ -963,12 +1216,16 @@
    "download_url": null,
    "kind": "analysis",
    "komoditas": "survei_flores",
-   "style": { "color": "#5B5EA6", "weight": 3, "opacity": 0.85 }
+   "style": {
+    "color": "#5B5EA6",
+    "weight": 3,
+    "opacity": 0.85
+   }
   },
   {
    "id": "survei_flores_tahap1_rute_hari5",
    "category": "survei_flores",
-   "label": "Rute Survei — Hari 5 (Borong–Kota Komba–Mbay)",
+   "label": "Rute Survei Flores (NTT) — Hari 5 (Borong–Kota Komba–Mbay)",
    "render_type": "line",
    "data_url": "data/survei_flores_tahap1_rute_hari5.json",
    "count": 3,
@@ -977,12 +1234,16 @@
    "download_url": null,
    "kind": "analysis",
    "komoditas": "survei_flores",
-   "style": { "color": "#4F7A5A", "weight": 3, "opacity": 0.85 }
+   "style": {
+    "color": "#4F7A5A",
+    "weight": 3,
+    "opacity": 0.85
+   }
   },
   {
    "id": "survei_flores_tahap1_rute_hari6",
    "category": "survei_flores",
-   "label": "Rute Survei — Hari 6 (Mbay–Aesesa–Marapokot–Ende)",
+   "label": "Rute Survei Flores (NTT) — Hari 6 (Mbay–Aesesa–Marapokot–Ende)",
    "render_type": "line",
    "data_url": "data/survei_flores_tahap1_rute_hari6.json",
    "count": 7,
@@ -991,12 +1252,16 @@
    "download_url": null,
    "kind": "analysis",
    "komoditas": "survei_flores",
-   "style": { "color": "#3B6B93", "weight": 3, "opacity": 0.85 }
+   "style": {
+    "color": "#3B6B93",
+    "weight": 3,
+    "opacity": 0.85
+   }
   },
   {
    "id": "survei_flores_tahap1_rute_hari7",
    "category": "survei_flores",
-   "label": "Rute Survei — Hari 7 (Ende: Hotel–Bandara, kepulangan)",
+   "label": "Rute Survei Flores (NTT) — Hari 7 (Ende: Hotel–Bandara, kepulangan)",
    "render_type": "line",
    "data_url": "data/survei_flores_tahap1_rute_hari7.json",
    "count": 1,
@@ -1005,12 +1270,16 @@
    "download_url": null,
    "kind": "analysis",
    "komoditas": "survei_flores",
-   "style": { "color": "#8C6B4B", "weight": 3, "opacity": 0.85 }
+   "style": {
+    "color": "#8C6B4B",
+    "weight": 3,
+    "opacity": 0.85
+   }
   },
   {
    "id": "fsn_sapi_kecamatan_ntb",
    "category": "peternakan",
-   "label": "Populasi Sapi Potong per Kecamatan (5 Kab. Prioritas)",
+   "label": "Populasi Sapi Potong per Kecamatan (NTB, 5 Kab. Prioritas)",
    "render_type": "choropleth_polygon",
    "data_url": "data/fsn_sapi_kecamatan_ntb.json",
    "value_field": "populasi_sapi_2024",
@@ -1025,7 +1294,7 @@
   {
    "id": "fsn_sapi_distribusi_ntb",
    "category": "jaringan",
-   "label": "Simpul Distribusi Sapi Potong (Pasar Hewan & Karantina/Pelabuhan)",
+   "label": "Simpul Distribusi Sapi Potong (NTB) — Pasar Hewan & Karantina/Pelabuhan",
    "render_type": "point",
    "data_url": "data/fsn_sapi_distribusi_ntb.json",
    "count": 16,
@@ -1035,8 +1304,14 @@
    "kind": "analysis",
    "komoditas": "sapi_potong",
    "legend_categories": [
-    { "label": "Pasar Hewan", "color": "#B15A2E" },
-    { "label": "Karantina / Pelabuhan", "color": "#3B6B93" }
+    {
+     "label": "Pasar Hewan",
+     "color": "#B15A2E"
+    },
+    {
+     "label": "Karantina / Pelabuhan",
+     "color": "#3B6B93"
+    }
    ]
   },
   {
@@ -1057,7 +1332,7 @@
   {
    "id": "sosial_kabupaten_ntb_ntt",
    "category": "sosial_ekonomi",
-   "label": "Indikator Sosial Kabupaten (IPM, Kemiskinan, Populasi)",
+   "label": "Indikator Sosial Kabupaten (NTB+NTT) — IPM, Kemiskinan, Populasi",
    "render_type": "categorical_fill_polygon",
    "data_url": "data/sosial_kabupaten_ntb_ntt.json",
    "count": 32,
@@ -1067,10 +1342,22 @@
    "kind": "analysis",
    "komoditas": "umum",
    "legend_categories": [
-    { "label": "Kemiskinan Rendah (< 10%)", "color": "#2E8B57" },
-    { "label": "Kemiskinan Sedang (10-15%)", "color": "#C9A227" },
-    { "label": "Kemiskinan Tinggi (15-22%)", "color": "#D2691E" },
-    { "label": "Kemiskinan Sangat Tinggi (\u2265 22%)", "color": "#B22222" }
+    {
+     "label": "Kemiskinan Rendah (< 10%)",
+     "color": "#2E8B57"
+    },
+    {
+     "label": "Kemiskinan Sedang (10-15%)",
+     "color": "#C9A227"
+    },
+    {
+     "label": "Kemiskinan Tinggi (15-22%)",
+     "color": "#D2691E"
+    },
+    {
+     "label": "Kemiskinan Sangat Tinggi (≥ 22%)",
+     "color": "#B22222"
+    }
    ]
   }
  ]

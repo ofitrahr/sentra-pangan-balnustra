@@ -13,9 +13,16 @@ const STAGE_LABELS = { produksi_padi:'Produksi Padi', kapasitas_pengolahan:'Kapa
 
 const map = L.map('map', {zoomControl:false, minZoom:6}).setView([-8.9, 121.3], 8);
 L.control.zoom({position:'bottomright'}).addTo(map);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+let baseTileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
   attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom:19, subdomains:'abcd'
 }).addTo(map);
+// dipanggil dari toggle tema light/dark di index.html spy basemap ikut ganti
+// (voyager terang <-> dark_matter gelap), bukan cuma warna chrome UI-nya.
+window.__setBaseTiles = function(url){
+  if(baseTileLayer) map.removeLayer(baseTileLayer);
+  baseTileLayer = L.tileLayer(url, { attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom:19, subdomains:'abcd' }).addTo(map);
+  baseTileLayer.bringToBack();
+};
 
 function choroColor(val, min, max, varname){
   const t = max>min ? (val-min)/(max-min) : 0;
@@ -343,8 +350,16 @@ async function buildAndShowLayer(entry, catColor){
       l.on('popupclose', ()=>{ l._selected=false; l.setStyle(baseStyle); });
     });
   } else if(entry.render_type === 'polygon'){
-    layer = L.geoJSON(gj, { style: { color:color, weight:1.2, opacity:0.8, fillColor:color, fillOpacity:0.08, dashArray:'4 3' } });
-    layer.eachLayer(l=>{ const p=l.feature.properties; l.bindPopup(popupFromPU(p.nm, p.pu, color)); });
+    // BUGFIX (2026-08-06): sblmnya style di sini di-hardcode total, entry.style
+    // di catalog.json (mis. administrasi_* yg minta outline-only tanpa dash)
+    // diabaikan sepenuhnya -- semua layer 'polygon' kepaksa dashed+fill sama.
+    const st = entry.style || {};
+    layer = L.geoJSON(gj, { style: {
+      color: st.color || color, weight: st.weight ?? 1.2, opacity: st.opacity ?? 0.8,
+      fillColor: st.fillColor || st.color || color, fillOpacity: st.fillOpacity ?? 0.08,
+      dashArray: st.dashArray !== undefined ? st.dashArray : '4 3',
+    } });
+    layer.eachLayer(l=>{ const p=l.feature.properties; l.bindPopup(popupFromPU(p.nm, p.pu, st.color || color)); });
   } else if(entry.render_type === 'categorical_fill_polygon'){
     // Poligon berwarna statis per kategori (properti "fill_color" sdh dibakar
     // saat publish, BUKAN via fitur simbologi interaktif yg dinonaktifkan).
