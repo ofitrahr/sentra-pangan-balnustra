@@ -16,7 +16,10 @@ const CHOROPLETH_VARS = [
   { value: 'produksi_beras', label: 'Produksi Beras' },
   { value: 'kebutuhan_beras', label: 'Konsumsi' },
 ];
-const KOMODITAS_LABELS = { padi: 'Padi', pertanian: 'Pertanian (umum)', umum: 'Umum / Lintas Komoditas', survei_flores: 'Survei Flores', sapi_potong: 'Sapi Potong' };
+const KOMODITAS_LABELS = { padi: 'Padi', sosial_ekonomi: 'Sosial-Ekonomi', umum: 'Umum / Lintas Komoditas', survei_flores: 'Survei Flores', sapi_potong: 'Sapi Potong' };
+// urutan tampil sub-grup wilayah di dlm tiap grup komoditas (Hasil Analisis) --
+// region tdk terdaftar (mis. alat bantu tanpa cakupan wilayah) msk ke akhir tanpa sub-header.
+const REGION_ORDER = ['NTB', 'NTT', 'NTB+NTT'];
 
 // Palet kategorikal tervalidasi (skill dataviz, references/palette.md) -- urutan
 // slot TETAP (bukan siklus acak), sudah lolos cek pemisahan buta-warna adjacent.
@@ -86,21 +89,21 @@ function renderCatalogPanel(){
     }))));
   });
 
-  // -- Hasil Analisis: grouped by komoditas --
+  // -- Hasil Analisis: grouped by komoditas, lalu sub-grup by wilayah (region) --
   const byKom = {};
   const fsnEntry = fsnCatalogEntry();
   if(fsnEntry){
     byKom.padi = byKom.padi || [];
-    byKom.padi.push({ id:FSN_GLYPH_ID, label:'Rantai Pasok Padi — Glyph 4-Tahap', count:null });
-    byKom.padi.push({ id:FSN_CHOROPLETH_ID, label:'Rantai Pasok Padi — Choropleth', count:null });
+    byKom.padi.push({ id:FSN_GLYPH_ID, label:'Rantai Pasok Padi — Glyph 4-Tahap', count:null, region:'NTT' });
+    byKom.padi.push({ id:FSN_CHOROPLETH_ID, label:'Rantai Pasok Padi — Choropleth', count:null, region:'NTT' });
   }
   CATALOG.layers.filter(l=>l.kind==='analysis' && l.render_type!=='fsn_drilldown').forEach(l=>{
     const kom = l.komoditas || 'umum';
-    (byKom[kom] = byKom[kom] || []).push({ id:l.id, label:l.label, count:l.count });
+    (byKom[kom] = byKom[kom] || []).push({ id:l.id, label:l.label, count:l.count, region:l.region });
   });
   const fsnColor = (CATALOG.categories.find(c=>c.id==='fsn')||{}).color || '#2B5F5A';
   Object.keys(byKom).forEach(kom=>{
-    analysisContainer.appendChild(buildCatalogGroup(KOMODITAS_LABELS[kom] || kom, fsnColor, byKom[kom]));
+    analysisContainer.appendChild(buildCatalogGroup(KOMODITAS_LABELS[kom] || kom, fsnColor, byKom[kom], true));
   });
 
   attachCatalogCardHandlers();
@@ -128,7 +131,7 @@ function buildCatalogCard(item){
 
 const catalogGroupsOpen = new Set(); // label grup yg sedang terbuka -- dipertahankan lintas re-render
 
-function buildCatalogGroup(label, color, items){
+function buildCatalogGroup(label, color, items, groupByRegion){
   const details = document.createElement('details');
   details.className = 'cat-group';
   details.open = catalogGroupsOpen.has(label);
@@ -140,7 +143,37 @@ function buildCatalogGroup(label, color, items){
   details.appendChild(summary);
   const body = document.createElement('div');
   body.className = 'cat-body';
-  items.forEach(item=> body.appendChild(buildCatalogCard(item)));
+
+  // sub-grup by wilayah (NTB/NTT/NTB+NTT) -- cuma dipakai utk "Hasil Analisis"
+  // (bukan "Data Input", yg grouping-nya sdh by kategori). Sub-header cuma
+  // muncul kalau grup ini genuinely campur >1 wilayah -- kalau semua item
+  // 1 wilayah yg sama (mis. "Sapi Potong" semuanya NTB), sub-header cuma
+  // noise jadi di-skip, tampil flat spt biasa.
+  const distinctRegions = groupByRegion ? new Set(items.map(i=>i.region).filter(Boolean)) : new Set();
+  if(groupByRegion && distinctRegions.size > 1){
+    const byRegion = {};
+    items.forEach(item=>{
+      const r = item.region || '';
+      (byRegion[r] = byRegion[r] || []).push(item);
+    });
+    const orderedRegions = [
+      ...REGION_ORDER.filter(r=>byRegion[r]),
+      ...Object.keys(byRegion).filter(r=>r && !REGION_ORDER.includes(r)),
+      ...(byRegion['']?['']:[]),
+    ];
+    orderedRegions.forEach(r=>{
+      if(r){
+        const h = document.createElement('div');
+        h.className = 'region-subhead';
+        h.textContent = r;
+        body.appendChild(h);
+      }
+      byRegion[r].forEach(item=> body.appendChild(buildCatalogCard(item)));
+    });
+  } else {
+    items.forEach(item=> body.appendChild(buildCatalogCard(item)));
+  }
+
   details.appendChild(body);
   return details;
 }

@@ -126,7 +126,8 @@
    "source": "Rekap FSN Padi NTT, BPS/Kemendag 2025, diolah",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "padi"
+   "komoditas": "padi",
+   "region": "NTT"
   },
   {
    "id": "lbs_grid",
@@ -139,7 +140,8 @@
    "source": "LBS NTT, ATR/BPN",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "padi"
+   "komoditas": "padi",
+   "region": "NTT"
   },
   {
    "id": "permukiman_grid",
@@ -152,7 +154,8 @@
    "source": "Built-up Area NTT, klasifikasi citra satelit",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "umum"
+   "komoditas": "umum",
+   "region": "NTT"
   },
   {
    "id": "giling_desa",
@@ -166,7 +169,8 @@
    "source": "Direktori PIPA 2020, BPS, diolah",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "padi"
+   "komoditas": "padi",
+   "region": "NTT"
   },
   {
    "id": "binamarga_nustra_inpres_jalan_daerah",
@@ -929,7 +933,7 @@
    "source": "Diolah dari data PDRB pertanian NTB+NTT -- simbologi by kinerja pertumbuhan PDRB pertanian 2021-2025",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "pertanian",
+   "komoditas": "sosial_ekonomi",
    "legend_categories": [
     {
      "label": "Kinerja Tinggi",
@@ -943,7 +947,8 @@
      "label": "Kinerja Rendah",
      "color": "#C0392B"
     }
-   ]
+   ],
+   "region": "NTB+NTT"
   },
   {
    "id": "administrasi_kabkota_ntb_ntt",
@@ -1050,7 +1055,8 @@
    "komoditas": "padi",
    "style": {
     "color": "#2E7D32"
-   }
+   },
+   "region": "NTT"
   },
   {
    "id": "gravity_flow_routed_ntt",
@@ -1066,7 +1072,8 @@
    "komoditas": "padi",
    "style": {
     "color": "#00695C"
-   }
+   },
+   "region": "NTT"
   },
   {
    "id": "ruler_measure_tool",
@@ -1166,7 +1173,8 @@
    "show_labels": true,
    "style": {
     "color": "#8C4B6B"
-   }
+   },
+   "region": "NTT"
   },
   {
    "id": "survei_flores_tahap1_rute_hari1",
@@ -1184,7 +1192,8 @@
     "color": "#2B6B6A",
     "weight": 3,
     "opacity": 0.85
-   }
+   },
+   "region": "NTT"
   },
   {
    "id": "survei_flores_tahap1_rute_hari3",
@@ -1202,7 +1211,8 @@
     "color": "#B15A2E",
     "weight": 3,
     "opacity": 0.85
-   }
+   },
+   "region": "NTT"
   },
   {
    "id": "survei_flores_tahap1_rute_hari4",
@@ -1220,7 +1230,8 @@
     "color": "#5B5EA6",
     "weight": 3,
     "opacity": 0.85
-   }
+   },
+   "region": "NTT"
   },
   {
    "id": "survei_flores_tahap1_rute_hari5",
@@ -1238,7 +1249,8 @@
     "color": "#4F7A5A",
     "weight": 3,
     "opacity": 0.85
-   }
+   },
+   "region": "NTT"
   },
   {
    "id": "survei_flores_tahap1_rute_hari6",
@@ -1256,7 +1268,8 @@
     "color": "#3B6B93",
     "weight": 3,
     "opacity": 0.85
-   }
+   },
+   "region": "NTT"
   },
   {
    "id": "survei_flores_tahap1_rute_hari7",
@@ -1274,7 +1287,8 @@
     "color": "#8C6B4B",
     "weight": 3,
     "opacity": 0.85
-   }
+   },
+   "region": "NTT"
   },
   {
    "id": "fsn_sapi_kecamatan_ntb",
@@ -1289,7 +1303,8 @@
    "source": "Rekap FSN NTB (workspace/fsn/ntb/), populasi sapi potong per kecamatan 2024 -- Lombok Tengah, Lombok Timur, Sumbawa, Dompu, Bima",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "sapi_potong"
+   "komoditas": "sapi_potong",
+   "region": "NTB"
   },
   {
    "id": "fsn_sapi_distribusi_ntb",
@@ -1312,7 +1327,8 @@
      "label": "Karantina / Pelabuhan",
      "color": "#3B6B93"
     }
-   ]
+   ],
+   "region": "NTB"
   },
   {
    "id": "fsn_padi_desa_ntb",
@@ -1327,7 +1343,8 @@
    "source": "Estimasi = Produksi GKG kabupaten 2025 (Rekap FSN NTB) x proporsi Luas Baku Sawah desa/kabupaten. LBS dari D:/GW PU (1,24jt poligon sawah nasional, tervalidasi thd LBS resmi ATR/BPN NTB) spatial-join ke batas desa. HANYA tahap produksi -- blm ada data kapasitas giling/kebutuhan beras level desa utk NTB (beda dgn drilldown 4-tahap FSN NTT).",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "padi"
+   "komoditas": "padi",
+   "region": "NTB"
   },
   {
    "id": "sosial_kabupaten_ntb_ntt",
@@ -1340,7 +1357,7 @@
    "source": "Peta Sosial-Ekonomi NTB-NTT, D:/GW PU (project GIS lain) -- IPM/kemiskinan/populasi/TPAK/TPT per kabupaten 2020-2026. Simbologi by tingkat kemiskinan 2025.",
    "download_url": null,
    "kind": "analysis",
-   "komoditas": "umum",
+   "komoditas": "sosial_ekonomi",
    "legend_categories": [
     {
      "label": "Kemiskinan Rendah (< 10%)",
@@ -1358,7 +1375,8 @@
      "label": "Kemiskinan Sangat Tinggi (≥ 22%)",
      "color": "#B22222"
     }
-   ]
+   ],
+   "region": "NTB+NTT"
   }
  ]
 }
