@@ -4,31 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rundown Survei — Sentra Pangan Balnustra</title>
-<script>
-  (function(){
-    var t = localStorage.getItem('spb-theme') || 'light';
-    document.documentElement.setAttribute('data-theme', t);
-  })();
-</script>
 <style>
   :root{
-    --surface-rgb: 255,255,255; --shadow-rgb: 15,23,32;
+    --shadow-rgb: 15,23,32;
     --cream:#F9F9F7; --ink:#12161C; --gold:#2A78D6; --gold-deep:#184F95;
     --teal:#2A78D6; --rust:#D03B3B; --line:#E3E7EC; --card:#FFFFFF;
-    --ink-soft:#5A6270; --ink-faint:#9099A6; --amber:#B4791E; --amber-soft:#FBF1DE;
+    --ink-soft:#5A6270; --amber:#B4791E; --amber-soft:#FBF1DE;
     --shadow-soft:0 8px 28px rgba(var(--shadow-rgb),0.08), 0 2px 8px rgba(var(--shadow-rgb),0.05);
     --chip-teal-bg:#E4EEEC; --chip-clay-bg:#F5E7DC;
   }
-  :root[data-theme="dark"]{
-    --surface-rgb: 22,26,32; --shadow-rgb: 0,0,0;
-    --cream:#0F1216; --ink:#ECEDEF; --gold:#5B9EE8; --gold-deep:#8FBCEE;
-    --teal:#5B9EE8; --rust:#E8837D; --line:#2A2F38; --card:#171B21;
-    --ink-soft:#A7AEB8; --ink-faint:#6B7280; --amber:#E3B15B; --amber-soft:#332714;
-    --chip-teal-bg:#132623; --chip-clay-bg:#2E2118;
-  }
   *{box-sizing:border-box;}
   body{
-    margin:0; background:var(--cream); color:var(--ink); transition:background 0.2s,color 0.2s;
+    margin:0; background:var(--cream); color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif;
   }
   .mono{ font-family:'SFMono-Regular',Consolas,monospace; font-variant-numeric:tabular-nums; }
@@ -76,12 +63,6 @@
 
   .empty{ color:var(--ink-soft); font-size:13px; font-style:italic; padding:20px 0; }
   .loading{ color:var(--ink-soft); font-size:13px; padding:40px 0; text-align:center; }
-
-  #theme-switch{ position:fixed; bottom:16px; left:16px; z-index:1000; display:flex; background:rgba(var(--surface-rgb),0.85);
-    backdrop-filter:blur(14px) saturate(1.4); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow-soft); padding:3px; gap:2px; }
-  #theme-switch button{ border:none; background:transparent; color:var(--ink-faint); font-size:14px; width:32px; height:28px; border-radius:16px;
-    cursor:pointer; transition:background 0.15s,color 0.15s; }
-  #theme-switch button.active{ background:var(--teal); color:#fff; }
 </style>
 </head>
 <body>
@@ -205,22 +186,6 @@ function actBlockHTML(label, actsForDay){
 
   document.getElementById('content').innerHTML = html || '<div class="empty">Tidak ada data rundown utk hari ini.</div>';
 })();
-</script>
-
-<div id="theme-switch">
-  <button id="theme-light" title="Mode terang">&#9728;&#65039;</button>
-  <button id="theme-dark" title="Mode gelap">&#127769;</button>
-</div>
-<script>
-  function applyTheme(t){
-    document.documentElement.setAttribute('data-theme', t);
-    localStorage.setItem('spb-theme', t);
-    document.getElementById('theme-light').classList.toggle('active', t==='light');
-    document.getElementById('theme-dark').classList.toggle('active', t==='dark');
-  }
-  document.getElementById('theme-light').addEventListener('click', ()=>applyTheme('light'));
-  document.getElementById('theme-dark').addEventListener('click', ()=>applyTheme('dark'));
-  applyTheme(localStorage.getItem('spb-theme') || 'light');
 </script>
 </body>
 </html>

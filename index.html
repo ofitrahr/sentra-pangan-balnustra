@@ -5,13 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WebGIS Sentra Pangan Balnustra</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-<script>
-  // terapkan tema tersimpan SEBELUM render, spy tdk ada kedip putih->gelap (FOUC)
-  (function(){
-    var t = localStorage.getItem('spb-theme') || 'light';
-    document.documentElement.setAttribute('data-theme', t);
-  })();
-</script>
 <style>
   :root{
     --surface-rgb: 255,255,255;
@@ -23,21 +16,11 @@
     --shadow-soft:0 8px 28px rgba(var(--shadow-rgb),0.08), 0 2px 8px rgba(var(--shadow-rgb),0.05);
     --shadow-lift:0 14px 40px rgba(var(--shadow-rgb),0.12), 0 4px 12px rgba(var(--shadow-rgb),0.06);
   }
-  :root[data-theme="dark"]{
-    --surface-rgb: 22,26,32;
-    --shadow-rgb: 0,0,0;
-    --cream:#0F1216; --ink:#ECEDEF; --ink-soft:#A7AEB8; --ink-muted:#838A94; --ink-faint:#6B7280;
-    --gold:#5B9EE8; --gold-deep:#8FBCEE; --teal:#5B9EE8; --rust:#E8837D;
-    --line:#2A2F38; --panel-bg:rgba(var(--surface-rgb),0.88);
-    --map-bg:#161A1F; --card-hover:#20242B;
-  }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif;color:var(--ink);}
-  body{background:var(--cream); transition:background 0.2s;}
+  body{background:var(--cream);}
   #map{position:absolute;inset:0;background:var(--map-bg);}
   .leaflet-container{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif; background:var(--map-bg) !important;}
-  :root[data-theme="dark"] .leaflet-control-zoom a{background:var(--card-hover); color:var(--ink); border-color:var(--line) !important;}
-  :root[data-theme="dark"] .leaflet-control-zoom a:hover{background:var(--panel-bg);}
 
   #header{ position:absolute; top:16px; left:16px; z-index:1000; background:var(--panel-bg); backdrop-filter:blur(14px) saturate(1.4);
     border:1px solid var(--line); border-radius:16px; padding:14px 18px; max-width:360px; box-shadow:var(--shadow-soft); transition:box-shadow 0.2s; }
@@ -46,12 +29,6 @@
   #header p{font-size:11.5px; line-height:1.5; margin:0; color:var(--ink-soft);}
   #header .toggle-hint{margin-top:8px; font-size:10.5px; color:var(--ink-faint); cursor:pointer; text-decoration:underline;}
   #header.collapsed .body-content{display:none;}
-
-  #theme-switch{ position:absolute; bottom:16px; left:16px; z-index:1000; display:flex; background:var(--panel-bg); backdrop-filter:blur(14px) saturate(1.4);
-    border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow-soft); padding:3px; gap:2px; }
-  #theme-switch button{ border:none; background:transparent; color:var(--ink-faint); font-size:14px; width:32px; height:28px; border-radius:16px;
-    cursor:pointer; transition:background 0.15s,color 0.15s; }
-  #theme-switch button.active{ background:var(--teal); color:#fff; }
 
   .page-toggle{ position:absolute; top:16px; left:50%; transform:translateX(-50%); z-index:1000; display:flex; background:var(--panel-bg);
     backdrop-filter:blur(14px) saturate(1.4); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow-soft); padding:3px; gap:2px; }
@@ -280,11 +257,6 @@
   <div id="legend-extra-block" style="font-size:10px; color:var(--ink-muted);">Centang layer di panel kanan untuk menampilkan di peta &amp; legenda ini.</div>
 </div>
 
-<div id="theme-switch">
-  <button id="theme-light" title="Mode terang">&#9728;&#65039;</button>
-  <button id="theme-dark" title="Mode gelap">&#127769;</button>
-</div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="app.js"></script>
 <script src="layers-panel.js"></script>
@@ -304,20 +276,6 @@
     new ResizeObserver(reflow).observe(headerEl);
     reflow();
   })();
-
-  // ---- theme toggle (light/dark), persist localStorage, ganti basemap ----
-  const LIGHT_TILES = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-  const DARK_TILES = 'https://{s}.basemaps.cartocdn.com/dark_matter/{z}/{x}/{y}{r}.png';
-  function applyTheme(t){
-    document.documentElement.setAttribute('data-theme', t);
-    localStorage.setItem('spb-theme', t);
-    document.getElementById('theme-light').classList.toggle('active', t==='light');
-    document.getElementById('theme-dark').classList.toggle('active', t==='dark');
-    if(window.__setBaseTiles) window.__setBaseTiles(t==='dark' ? DARK_TILES : LIGHT_TILES);
-  }
-  document.getElementById('theme-light').addEventListener('click', ()=>applyTheme('light'));
-  document.getElementById('theme-dark').addEventListener('click', ()=>applyTheme('dark'));
-  applyTheme(localStorage.getItem('spb-theme') || 'light');
 </script>
 </body>
 </html>

@@ -13,16 +13,9 @@ const STAGE_LABELS = { produksi_padi:'Produksi Padi', kapasitas_pengolahan:'Kapa
 
 const map = L.map('map', {zoomControl:false, minZoom:6}).setView([-8.9, 121.3], 8);
 L.control.zoom({position:'bottomright'}).addTo(map);
-let baseTileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
   attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom:19, subdomains:'abcd'
 }).addTo(map);
-// dipanggil dari toggle tema light/dark di index.html spy basemap ikut ganti
-// (voyager terang <-> dark_matter gelap), bukan cuma warna chrome UI-nya.
-window.__setBaseTiles = function(url){
-  if(baseTileLayer) map.removeLayer(baseTileLayer);
-  baseTileLayer = L.tileLayer(url, { attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom:19, subdomains:'abcd' }).addTo(map);
-  baseTileLayer.bringToBack();
-};
 
 function choroColor(val, min, max, varname){
   const t = max>min ? (val-min)/(max-min) : 0;

@@ -4,12 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rekap Data — Sentra Pangan Balnustra</title>
-<script>
-  (function(){
-    var t = localStorage.getItem('spb-theme') || 'light';
-    document.documentElement.setAttribute('data-theme', t);
-  })();
-</script>
 <style>
   :root{
     --surface-rgb: 255,255,255; --shadow-rgb: 15,23,32;
@@ -20,16 +14,8 @@
     --thead-bg:#F2F1EC; --row-hover:#FAFAF7;
     --shadow-soft:0 8px 28px rgba(var(--shadow-rgb),0.08), 0 2px 8px rgba(var(--shadow-rgb),0.05);
   }
-  :root[data-theme="dark"]{
-    --surface-rgb: 22,26,32; --shadow-rgb: 0,0,0;
-    --cream:#0F1216; --ink:#ECEDEF; --gold:#5B9EE8; --gold-deep:#8FBCEE;
-    --teal:#5B9EE8; --rust:#E8837D; --line:#2A2F38; --card:#171B21;
-    --ink-soft:#A7AEB8; --ink-faint:#6B7280; --amber:#E3B15B; --amber-soft:#332714;
-    --green:#6FD9AE; --green-soft:#12261F;
-    --thead-bg:#1B2027; --row-hover:#1B2027;
-  }
   *{box-sizing:border-box;}
-  body{ margin:0; background:var(--cream); color:var(--ink); transition:background 0.2s,color 0.2s;
+  body{ margin:0; background:var(--cream); color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif; }
   .mono{ font-family:'SFMono-Regular',Consolas,monospace; font-variant-numeric:tabular-nums; }
   .wrap{ max-width:1280px; margin:0 auto; padding:80px 20px 70px; }
@@ -40,12 +26,6 @@
     color:var(--ink-faint); text-decoration:none; transition:background 0.15s,color 0.15s; }
   .page-toggle a.active{ background:var(--teal); color:#fff; }
   .page-toggle a:not(.active):hover{ color:var(--ink); }
-
-  #theme-switch{ position:fixed; bottom:16px; left:16px; z-index:1000; display:flex; background:rgba(var(--surface-rgb),0.85);
-    backdrop-filter:blur(14px) saturate(1.4); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow-soft); padding:3px; gap:2px; }
-  #theme-switch button{ border:none; background:transparent; color:var(--ink-faint); font-size:14px; width:32px; height:28px; border-radius:16px;
-    cursor:pointer; transition:background 0.15s,color 0.15s; }
-  #theme-switch button.active{ background:var(--teal); color:#fff; }
 
   .topbar{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:8px; }
   .eyebrow{ font-family:'SFMono-Regular',Consolas,monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-deep); font-weight:600; }
@@ -81,7 +61,6 @@
   .cov-none{ background:transparent; color:var(--ink-faint); border:1px dashed var(--line); }
   .cov-chip .frac{ font-family:'SFMono-Regular',Consolas,monospace; font-weight:600; opacity:0.85; }
   .cov-beyond{ display:inline-block; margin-top:3px; font-size:10px; color:#7E3FA8; background:#F3E8FB; padding:2px 7px; border-radius:10px; }
-  :root[data-theme="dark"] .cov-beyond{ background:#2A1F3D; color:#C9A8EE; }
 
   .loading{ padding:60px 0; text-align:center; color:var(--ink-soft); }
   .gap-callout{ background:var(--amber-soft); border:1px solid var(--amber); border-radius:10px; padding:14px 16px; margin-bottom:20px; font-size:12.5px; line-height:1.6; }
@@ -122,23 +101,6 @@
 
   <div id="tableWrap"><div class="loading">Memuat catalog.json&hellip;</div></div>
 </div>
-
-<div id="theme-switch">
-  <button id="theme-light" title="Mode terang">&#9728;&#65039;</button>
-  <button id="theme-dark" title="Mode gelap">&#127769;</button>
-</div>
-
-<script>
-  function applyTheme(t){
-    document.documentElement.setAttribute('data-theme', t);
-    localStorage.setItem('spb-theme', t);
-    document.getElementById('theme-light').classList.toggle('active', t==='light');
-    document.getElementById('theme-dark').classList.toggle('active', t==='dark');
-  }
-  document.getElementById('theme-light').addEventListener('click', ()=>applyTheme('light'));
-  document.getElementById('theme-dark').addEventListener('click', ()=>applyTheme('dark'));
-  applyTheme(localStorage.getItem('spb-theme') || 'light');
-</script>
 
 <script>
 // Checklist coverage per layer -- {ntb, ntt} = jumlah kab/kota TERDETEKSI py
