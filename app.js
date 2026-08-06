@@ -127,8 +127,12 @@ function desaOf(kab, kec){ return DESA_POINTS.filter(d=>d.kabkot===kab && d.keca
 
 function updateBreadcrumb(){
   const el = document.getElementById('breadcrumb');
+  // kosongkan (bkn tampilkan "NTT" sendirian) selama blm ada drill-down --
+  // #breadcrumb:empty{display:none} di CSS nyembunyiinnya. Baru muncul
+  // begitu user klik masuk ke 1 kabupaten (butuh jalan balik ke atas).
+  if(!selKab){ el.innerHTML = ''; return; }
   let html = `<span class="crumb ${drillLevel==='kabupaten'?'current':''}" onclick="window.__goto('kabupaten')">NTT</span>`;
-  if(selKab) html += `<span class="sep">&rsaquo;</span><span class="crumb ${drillLevel==='kecamatan'?'current':''}" onclick="window.__goto('kecamatan')">${selKab}</span>`;
+  html += `<span class="sep">&rsaquo;</span><span class="crumb ${drillLevel==='kecamatan'?'current':''}" onclick="window.__goto('kecamatan')">${selKab}</span>`;
   if(selKec) html += `<span class="sep">&rsaquo;</span><span class="crumb current">${selKec}</span>`;
   el.innerHTML = html;
 }
