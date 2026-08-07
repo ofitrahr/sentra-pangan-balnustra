@@ -123,6 +123,7 @@ function legHTML(f){
     p['Aksesibilitas (dokumen)'] ? `<div><b>Aksesibilitas:</b> ${p['Aksesibilitas (dokumen)']}</div>` : '',
     p['Fokus Infrastruktur PU'] ? `<div><b>Fokus PU:</b> ${p['Fokus Infrastruktur PU']}</div>` : '',
     p['Keterangan'] ? `<div><b>Keterangan:</b> ${p['Keterangan']}</div>` : '',
+    p['Catatan'] ? `<div><b>Catatan:</b> ${p['Catatan']}</div>` : '',
   ].filter(Boolean).join('');
   return `<div class="leg${flagged?' flag':''}">
     <div class="leg-row">
