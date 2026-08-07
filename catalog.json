@@ -1432,6 +1432,21 @@
     }
    ],
    "region": "NTT"
+  },
+  {
+   "id": "produksi_garam_kabupaten_ntt",
+   "category": "pergaraman",
+   "label": "Produksi Garam per Kabupaten (NTT, 2025)",
+   "render_type": "choropleth_polygon",
+   "data_url": "data/produksi_garam_kabupaten_ntt.json",
+   "value_field": "produksi_ton",
+   "count": 22,
+   "default_visible": false,
+   "source": "Portal Data KKP RI (portaldata.kkp.go.id/portals/data-statistik/prod_garam/summary), diunduh manual 7 Agustus 2026 -- 13/22 kab/kota NTT tercatat resmi di KKP, 9 sisanya nol terverifikasi manual oleh tim",
+   "download_url": null,
+   "kind": "analysis",
+   "komoditas": "garam",
+   "region": "NTT"
   }
  ]
 }

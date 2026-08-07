@@ -310,7 +310,14 @@ async function buildAndShowLayer(entry, catColor){
     layer = L.geoJSON(gj, { style: f => ({ color:color, weight:0.3, opacity:0.4, fillColor:color,
       fillOpacity: f.properties[entry.value_field]>0 ? (0.15+0.75*Math.sqrt(f.properties[entry.value_field]/maxV)) : 0 }) });
     layer.eachLayer(l=>{ const p=l.feature.properties;
-      l.bindPopup(`<div class="popup-title">${p.nama_desa||p.nama_kecamatan||''}</div><div class="popup-row"><span>${entry.label}</span><span class="val">${p[entry.value_field]}</span></div>`); });
+      // baris tambahan opsional (luas lahan dll) & catatan gap data -- cuma
+      // tampil kalau propertinya ada, layer choropleth lain yg tdk py field
+      // ini tetap render spt biasa (1 baris value_field saja).
+      const extraRows = p.luas_lahan_ha!=null
+        ? `<div class="popup-row"><span>Luas Lahan</span><span class="val">${p.luas_lahan_ha} ha</span></div>` : '';
+      const gapNote = p.ada_data_kkp===false
+        ? `<div class="popup-row popup-row-block"><span>Catatan</span><span class="val">Tidak ada di tabel KKP -- terverifikasi 0 oleh tim</span></div>` : '';
+      l.bindPopup(`<div class="popup-title">${p.nama_desa||p.nama_kecamatan||p.nama_kabkot||''}</div><div class="popup-row"><span>${entry.label}</span><span class="val">${p[entry.value_field]}</span></div>${extraRows}${gapNote}`); });
   } else if(entry.render_type === 'point'){
     // radius/fill_color per-fitur opsional (dibakar saat export, spt pola
     // categorical_fill_polygon) -- layer lain yg tdk py properti ini jalan

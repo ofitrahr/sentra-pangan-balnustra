@@ -16,7 +16,7 @@ const CHOROPLETH_VARS = [
   { value: 'produksi_beras', label: 'Produksi Beras' },
   { value: 'kebutuhan_beras', label: 'Konsumsi' },
 ];
-const KOMODITAS_LABELS = { padi: 'Padi', sosial_ekonomi: 'Sosial-Ekonomi', umum: 'Umum / Lintas Komoditas', survei_flores: 'Survei Flores', sapi_potong: 'Sapi Potong' };
+const KOMODITAS_LABELS = { padi: 'Padi', sosial_ekonomi: 'Sosial-Ekonomi', umum: 'Umum / Lintas Komoditas', survei_flores: 'Survei Flores', sapi_potong: 'Sapi Potong', garam: 'Garam' };
 // urutan tampil sub-grup wilayah di dlm tiap grup komoditas (Hasil Analisis) --
 // region tdk terdaftar (mis. alat bantu tanpa cakupan wilayah) msk ke akhir tanpa sub-header.
 const REGION_ORDER = ['NTB', 'NTT', 'NTB+NTT'];
