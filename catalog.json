@@ -1,6 +1,6 @@
 {
  "version": "2.0",
- "updated": "2026-08-07",
+ "updated": "2026-08-08",
  "categories": [
   {
    "id": "fsn",
@@ -824,34 +824,30 @@
   {
    "id": "hidrografi_laut_ntb_ntt",
    "category": "hidrografi",
-   "label": "Kedalaman Laut (Batimetri)",
+   "label": "Kedalaman Laut (Batimetri Global)",
    "render_type": "categorical_fill_polygon",
    "data_url": "data/hidrografi_laut_ntb_ntt.json",
-   "count": 18,
+   "count": 4,
    "default_visible": false,
-   "source": "Laut Indonesia (diklip ke NTB+NTT) -- simbologi by kelas kedalaman",
+   "source": "Batimetri global (unclipped) -- 4 kelas kedalaman dissolve bersih (bukan diklip ke NTB+NTT lagi, lihat no-clip policy), warna & klasifikasi sesuai style QGIS yg dibuat user",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
     {
-     "label": "0 - 500 m",
-     "color": "#CDE2FB"
-    },
-    {
-     "label": "500 - 1.000 m",
-     "color": "#8FB8E8"
+     "label": "0 - 1.000 m",
+     "color": "#EAF3FA"
     },
     {
      "label": "1.000 - 3.000 m",
-     "color": "#5A8FD6"
+     "color": "#D4E6F3"
     },
     {
      "label": "3.000 - 5.000 m",
-     "color": "#2E5FA8"
+     "color": "#BCD9EC"
     },
     {
      "label": "> 5.000 m",
-     "color": "#163B6E"
+     "color": "#A3CCE5"
     }
    ]
   },
@@ -1447,6 +1443,25 @@
    "kind": "analysis",
    "komoditas": "garam",
    "region": "NTT"
+  },
+  {
+   "id": "hidrografi_land_global",
+   "category": "hidrografi",
+   "label": "Daratan (Global)",
+   "render_type": "polygon",
+   "data_url": "data/hidrografi_land_global.json",
+   "count": 11,
+   "default_visible": false,
+   "source": "Daratan dunia generik (Natural-Earth-style), skala global unclipped -- konteks visual utk layer batimetri, style sesuai QGIS yg dibuat user",
+   "download_url": null,
+   "kind": "input",
+   "style": {
+    "color": "#CACACA",
+    "fillColor": "#CACACA",
+    "fillOpacity": 0.5,
+    "weight": 0,
+    "dashArray": null
+   }
   }
  ]
 }
