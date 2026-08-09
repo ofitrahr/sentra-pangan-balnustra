@@ -14,7 +14,8 @@ const STAGE_LABELS = { produksi_padi:'Produksi Padi', kapasitas_pengolahan:'Kapa
 const map = L.map('map', {zoomControl:false, minZoom:6}).setView([-8.9, 121.3], 8);
 L.control.zoom({position:'bottomright'}).addTo(map);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom:19, subdomains:'abcd'
+  attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom:19, subdomains:'abcd',
+  crossOrigin: true, // dibutuhkan fitur "Layout Peta" (layout.js) utk rasterize peta via html2canvas
 }).addTo(map);
 
 function choroColor(val, min, max, varname){

@@ -198,6 +198,68 @@
   #boot-status{ position:absolute; inset:0; z-index:2000; background:var(--cream); display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--ink-muted); }
 
   @media (max-width: 640px){ #header{max-width:70vw; padding:10px 12px;} #catalog-panel{width:64vw;} #workspace-panel{width:64vw;} #legend{display:none;} #breadcrumb{display:none;} .page-toggle{padding:2px;} .page-toggle a{padding:5px 10px;} }
+
+  /* ==================== Layout Peta (print composer) ==================== */
+  #btn-layout-peta{ display:block; width:100%; margin-bottom:10px; padding:8px 10px; border-radius:9px; border:1px solid var(--line);
+    background:var(--teal); color:#fff; font-size:12px; font-weight:600; cursor:pointer; transition:background 0.15s; }
+  #btn-layout-peta:hover{ background:var(--gold-deep); }
+
+  #layout-overlay{ position:fixed; inset:0; z-index:5000; background:rgba(18,22,28,0.92); display:none; flex-direction:column; }
+  #layout-overlay.active{ display:flex; }
+  #layout-toolbar{ flex-shrink:0; background:var(--panel-bg); backdrop-filter:blur(14px) saturate(1.4); border-bottom:1px solid var(--line);
+    padding:10px 18px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  #layout-toolbar .lo-title{ font-weight:700; font-size:14px; margin-right:8px; color:var(--ink); }
+  #layout-toolbar .lo-spacer{ flex:1; }
+  #layout-toolbar button{ padding:7px 13px; border-radius:9px; border:1px solid var(--line); background:var(--card-hover);
+    color:var(--ink); font-size:11.5px; font-weight:600; cursor:pointer; transition:background 0.15s, border-color 0.15s; font-family:inherit; }
+  #layout-toolbar button:hover{ background:var(--cream); border-color:var(--teal); }
+  #layout-toolbar button.primary{ background:var(--teal); color:#fff; border-color:var(--teal); }
+  #layout-toolbar button.primary:hover{ background:var(--gold-deep); }
+  #layout-toolbar button.danger{ color:var(--rust); }
+  #layout-toolbar button.danger:hover{ background:var(--rust); color:#fff; border-color:var(--rust); }
+
+  #layout-stage-wrap{ flex:1; overflow:auto; display:flex; align-items:flex-start; justify-content:center; padding:32px; }
+  #layout-board{ position:relative; width:1600px; height:1132px; background:#fff; box-shadow:0 20px 60px rgba(0,0,0,0.45);
+    flex-shrink:0; overflow:hidden; }
+  #layout-board .lo-loading{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#888; font-size:13px; }
+
+  .lo-map-frame{ position:absolute; border:2px solid #22262c; background:#EAF0F5; overflow:hidden; }
+  .lo-map-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .lo-element{ position:absolute; cursor:move; }
+  .lo-element.selected{ outline:2px dashed var(--teal); outline-offset:3px; }
+  .lo-resize-handle{ position:absolute; right:-7px; bottom:-7px; width:13px; height:13px; background:var(--teal); border:2px solid #fff;
+    border-radius:50%; cursor:nwse-resize; box-shadow:0 1px 3px rgba(0,0,0,0.3); }
+  .lo-element-toolbar{ position:absolute; top:-26px; left:0; display:none; gap:3px; }
+  .lo-element.selected .lo-element-toolbar{ display:flex; }
+  .lo-element-toolbar button{ width:22px; height:22px; border-radius:5px; border:1px solid var(--line); background:#fff;
+    color:var(--rust); font-size:12px; font-weight:700; cursor:pointer; line-height:1; }
+  .lo-element-toolbar button:hover{ background:var(--rust); color:#fff; }
+
+  .lo-textbox{ min-width:60px; min-height:1.3em; padding:2px 4px; outline:none; white-space:pre-wrap; }
+  .lo-textbox[contenteditable="true"]:focus{ outline:1px dashed var(--teal); background:rgba(42,120,214,0.05); }
+  .lo-title-box .lo-textbox{ font-weight:800; font-size:30px; color:#12161C; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif; }
+  .lo-subtitle-box .lo-textbox{ font-size:16px; color:#5A6270; }
+  .lo-kop-box .lo-textbox{ font-size:12px; font-weight:700; text-align:center; line-height:1.4; color:#12161C; }
+  .lo-source-box .lo-textbox{ font-size:9.5px; color:#333; max-width:340px; line-height:1.4; }
+
+  .lo-legend-box{ background:rgba(255,255,255,0.94); border:1px solid #ccc; border-radius:10px; padding:12px 14px; font-size:10.5px; width:230px; }
+  .lo-legend-box #legend-title{ font-family:'SFMono-Regular',Consolas,monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; margin:0 0 7px 0; color:var(--gold-deep); font-weight:600; }
+  .lo-legend-box .legend-item{ display:flex; align-items:center; gap:6px; margin-bottom:4px; }
+  .lo-legend-box .divider{ height:1px; background:var(--line); margin:7px 0; }
+
+  .lo-scalebar-box{ font-size:10px; color:#222; }
+  .lo-scalebar-bar{ display:flex; height:7px; border:1px solid #222; width:200px; }
+  .lo-scalebar-bar div{ flex:1; }
+  .lo-scalebar-bar div:nth-child(odd){ background:#222; }
+  .lo-scalebar-bar div:nth-child(even){ background:#fff; }
+  .lo-scalebar-label{ display:flex; justify-content:space-between; width:200px; margin-top:3px; }
+
+  .lo-north-box{ font-size:26px; text-align:center; font-weight:700; color:#12161C; line-height:1.1; }
+  .lo-north-box .lo-n-letter{ font-size:12px; letter-spacing:0.05em; }
+
+  .lo-inset-frame{ border:1.5px solid #22262c; overflow:hidden; background:#EAF0F5; }
+  .lo-inset-frame .lo-inset-map{ width:100%; height:100%; }
 </style>
 </head>
 <body>
@@ -243,6 +305,7 @@
 
 <div id="workspace-panel">
   <h2>Workspace Peta (layer aktif)</h2>
+  <button id="btn-layout-peta">&#128444;&#65039; Layout Peta</button>
   <div id="workspace-stack"></div>
 </div>
 
@@ -263,9 +326,32 @@
   <div id="legend-extra-block" style="font-size:10px; color:var(--ink-muted);">Centang layer di panel kanan untuk menampilkan di peta &amp; legenda ini.</div>
 </div>
 
+<div id="layout-overlay">
+  <div id="layout-toolbar">
+    <span class="lo-title">Layout Peta</span>
+    <button id="lo-add-title">+ Judul</button>
+    <button id="lo-add-subtitle">+ Subjudul</button>
+    <button id="lo-add-legend">+ Legend</button>
+    <button id="lo-add-scalebar">+ Skala</button>
+    <button id="lo-add-northarrow">+ Arah Utara</button>
+    <button id="lo-add-kop">+ Kop Instansi</button>
+    <button id="lo-add-source">+ Sumber Data</button>
+    <button id="lo-add-inset">+ Peta Inset</button>
+    <div class="lo-spacer"></div>
+    <button id="lo-recapture">&#8635; Ambil Ulang Peta</button>
+    <button id="lo-export" class="primary">&#8681; Export JPG</button>
+    <button id="lo-close" class="danger">&times; Tutup</button>
+  </div>
+  <div id="layout-stage-wrap">
+    <div id="layout-board"></div>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="app.js"></script>
 <script src="layers-panel.js"></script>
+<script src="layout.js"></script>
 <script>
   // ---- header height dinamis: cegah tabrakan dgn #catalog-panel ----
   // #catalog-panel menumpuk TEPAT DI BAWAH #header (bukan top: hardcode) --
