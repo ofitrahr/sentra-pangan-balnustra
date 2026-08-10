@@ -197,7 +197,28 @@
 
   #boot-status{ position:absolute; inset:0; z-index:2000; background:var(--cream); display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--ink-muted); }
 
-  @media (max-width: 640px){ #header{max-width:70vw; padding:10px 12px;} #catalog-panel{width:64vw;} #workspace-panel{width:64vw;} #legend{display:none;} #breadcrumb{display:none;} .page-toggle{padding:2px;} .page-toggle a{padding:5px 10px;} }
+  .panel-mobile-head{ display:none; }
+  @media (max-width: 640px){
+    #header{max-width:70vw; padding:10px 12px;}
+    #catalog-panel{ width:calc(100vw - 32px); }
+    #workspace-panel{ width:calc(100vw - 32px); }
+    #legend{display:none;} #breadcrumb{display:none;}
+    .page-toggle{padding:2px;} .page-toggle a{padding:5px 10px;}
+
+    /* panel kiri/kanan desktop jd bertabrakan kalau dipaksa berdampingan di
+       layar sempit (64vw+64vw > 100vw) -- di mobile keduanya jd full-width
+       & saling exclusive collapse (buka satu, yg lain otomatis nutup),
+       ditumpuk vertikal (workspace-panel direposisi via JS ke bawah tepi
+       catalog-panel, lihat ResizeObserver di script akhir file). */
+    .panel-mobile-head{ display:flex; align-items:center; justify-content:space-between; cursor:pointer;
+      font-family:'SFMono-Regular',Consolas,monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
+      color:var(--gold-deep); font-weight:600; padding-bottom:8px; }
+    .panel-mobile-head .chev{ transition:transform 0.15s; font-size:12px; }
+    #catalog-panel.mcollapsed .panel-mobile-head .chev, #workspace-panel.mcollapsed .panel-mobile-head .chev{ transform:rotate(-90deg); }
+    #catalog-panel.mcollapsed .panel-body, #workspace-panel.mcollapsed .panel-body{ display:none; }
+    #catalog-panel:not(.mcollapsed){ max-height:calc(100vh - 222px); }
+    #workspace-panel:not(.mcollapsed){ max-height:42vh; }
+  }
 
   /* ==================== Layout Peta (print composer) ==================== */
   #btn-layout-peta{ display:block; width:100%; margin-bottom:10px; padding:8px 10px; border-radius:9px; border:1px solid var(--line);
@@ -285,28 +306,38 @@
 <div id="breadcrumb"></div>
 
 <div id="catalog-panel">
-  <input type="text" id="search-box" placeholder="Cari layer, kabupaten, kecamatan, atau desa...">
-  <div id="search-results"></div>
+  <div class="panel-mobile-head" onclick="toggleMobilePanel('catalog-panel')">
+    <span>Katalog Layer</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="panel-body">
+    <input type="text" id="search-box" placeholder="Cari layer, kabupaten, kecamatan, atau desa...">
+    <div id="search-results"></div>
 
-  <p class="panel-hint">Tarik kartu ke panel kanan untuk tayangkan di peta, atau klik &ldquo;+&rdquo;. Urutan di panel kanan = urutan tumpukan di peta.</p>
+    <p class="panel-hint">Tarik kartu ke panel kanan untuk tayangkan di peta, atau klik &ldquo;+&rdquo;. Urutan di panel kanan = urutan tumpukan di peta.</p>
 
-  <h2>Data Input</h2>
-  <div id="catalog-input-groups" class="catalog-tray"></div>
+    <h2>Data Input</h2>
+    <div id="catalog-input-groups" class="catalog-tray"></div>
 
-  <div class="divider"></div>
-  <h2>Hasil Analisis</h2>
-  <div id="catalog-analysis-groups" class="catalog-tray"></div>
+    <div class="divider"></div>
+    <h2>Hasil Analisis</h2>
+    <div id="catalog-analysis-groups" class="catalog-tray"></div>
 
-  <div class="divider"></div>
-  <div class="ctrl-row">
-    <label><input type="checkbox" id="chk-labels"> Tampilkan label nama wilayah</label>
+    <div class="divider"></div>
+    <div class="ctrl-row">
+      <label><input type="checkbox" id="chk-labels"> Tampilkan label nama wilayah</label>
+    </div>
   </div>
 </div>
 
-<div id="workspace-panel">
-  <h2>Workspace Peta (layer aktif)</h2>
-  <button id="btn-layout-peta">&#128444;&#65039; Layout Peta</button>
-  <div id="workspace-stack"></div>
+<div id="workspace-panel" class="mcollapsed">
+  <div class="panel-mobile-head" onclick="toggleMobilePanel('workspace-panel')">
+    <span>Workspace Peta (layer aktif)</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="panel-body">
+    <h2>Workspace Peta (layer aktif)</h2>
+    <button id="btn-layout-peta">&#128444;&#65039; Layout Peta</button>
+    <div id="workspace-stack"></div>
+  </div>
 </div>
 
 <div id="legend">
@@ -368,6 +399,34 @@
     new ResizeObserver(reflow).observe(headerEl);
     reflow();
   })();
+
+  // ---- mobile (<=640px): katalog & workspace panel jd full-width & saling
+  // exclusive collapse (spy tdk 64vw+64vw numpuk bertabrakan spt sebelumnya).
+  // Cuma efektif secara visual di breakpoint mobile (CSS-nya di-scope ke
+  // @media max-width:640px) -- di desktop function ini no-op aman.
+  const isMobileLayout = () => window.matchMedia('(max-width:640px)').matches;
+  function toggleMobilePanel(id){
+    const el = document.getElementById(id);
+    const otherId = id === 'catalog-panel' ? 'workspace-panel' : 'catalog-panel';
+    const willOpen = el.classList.contains('mcollapsed');
+    el.classList.toggle('mcollapsed', !willOpen);
+    if(willOpen) document.getElementById(otherId).classList.add('mcollapsed');
+    mobileLayout();
+  }
+  function mobileLayout(){
+    if(!isMobileLayout()){
+      // balik ke state desktop normal (buang inline override mobile kalau ada)
+      document.getElementById('workspace-panel').style.top = '';
+      return;
+    }
+    const catalogEl = document.getElementById('catalog-panel');
+    const wsEl = document.getElementById('workspace-panel');
+    const catalogBottom = catalogEl.getBoundingClientRect().bottom;
+    wsEl.style.top = (catalogBottom + 12) + 'px';
+  }
+  window.addEventListener('resize', mobileLayout);
+  new ResizeObserver(mobileLayout).observe(document.getElementById('catalog-panel'));
+  mobileLayout();
 </script>
 </body>
 </html>
