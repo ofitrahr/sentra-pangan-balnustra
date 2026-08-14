@@ -1,6 +1,6 @@
 {
  "version": "2.0",
- "updated": "2026-08-09",
+ "updated": "2026-08-14",
  "categories": [
   {
    "id": "fsn",
@@ -882,14 +882,14 @@
    ]
   },
   {
-   "id": "pelabuhan_perikanan_ntb_ntt",
+   "id": "pelabuhan_perikanan_indonesia",
    "category": "pelabuhan",
-   "label": "Pelabuhan Perikanan",
+   "label": "Pelabuhan Perikanan (Indonesia)",
    "render_type": "point",
-   "data_url": "data/pelabuhan_perikanan_ntb_ntt.json",
-   "count": 33,
+   "data_url": "data/pelabuhan_perikanan_indonesia.json",
+   "count": 686,
    "default_visible": false,
-   "source": "PIPP KKP (versi lengkap: fasilitas, hasil tangkapan, nilai produksi -- difilter ke NTB+NTT) -- warna=jenis pelabuhan, ukuran=hasil tangkapan (kg)",
+   "source": "PIPP KKP (versi lengkap: fasilitas, hasil tangkapan, nilai produksi), skala nasional 37 provinsi (tdk diklip -- lihat kebijakan no-clip data skala nasional/global) -- warna=jenis pelabuhan, ukuran=hasil tangkapan (kg), skala akar kuadrat di-cap di persentil 98 (~8,7 jt kg) spy pelabuhan NTB/NTT ttp terbaca di samping PPS Nizam Zachman (141 jt kg)",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
@@ -908,6 +908,14 @@
     {
      "label": "PPP (Pelabuhan Perikanan Pantai)",
      "color": "#8C4B6B"
+    },
+    {
+     "label": "PPN (Pelabuhan Perikanan Nusantara)",
+     "color": "#4F7A3A"
+    },
+    {
+     "label": "PPS (Pelabuhan Perikanan Samudera)",
+     "color": "#A33B3B"
     }
    ]
   },
