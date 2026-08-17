@@ -1,6 +1,6 @@
 {
  "version": "2.0",
- "updated": "2026-08-14",
+ "updated": "2026-08-16",
  "categories": [
   {
    "id": "fsn",
@@ -111,6 +111,10 @@
    "id": "pergaraman",
    "label": "Zonasi Garam",
    "color": "#C9A44B"
+  },
+  {
+   "id": "topografi",
+   "label": "Topografi & Lereng"
   }
  ],
  "layers": [
@@ -1485,6 +1489,100 @@
    "kind": "analysis",
    "komoditas": "garam",
    "region": "NTB"
+  },
+  {
+   "id": "tutupan_lahan_ntb_ntt",
+   "category": "guna_lahan",
+   "label": "Tutupan Lahan (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/tutupan_lahan_ntb_ntt.json",
+   "count": 22,
+   "default_visible": false,
+   "source": "RBI 25K (workspace/rbi/ + workspace/sawah/, 507 berkas, 32 kab/kota) -- diklasifikasi dari atribut REMARK jadi 11 kelas, disatukan lewat rasterisasi berprioritas 50 m krn poligon RBI saling bertampalan (luas TIDAK boleh dijumlah dari poligon). Geometri web diturunkan ulang dari raster @300 m; luas di popup dari raster 50 m.",
+   "download_url": null,
+   "kind": "analysis",
+   "legend_categories": [
+    {
+     "label": "Lahan Terbangun",
+     "color": "#A6483C"
+    },
+    {
+     "label": "Tubuh Air Buatan",
+     "color": "#7FB2CC"
+    },
+    {
+     "label": "Tubuh Air Alami",
+     "color": "#4E82A8"
+    },
+    {
+     "label": "Pertanian Lahan Basah (Sawah)",
+     "color": "#9CC97B"
+    },
+    {
+     "label": "Pertanian Lahan Kering",
+     "color": "#D9B166"
+    },
+    {
+     "label": "Perkebunan/Kebun",
+     "color": "#6E9E4F"
+    },
+    {
+     "label": "Rawa",
+     "color": "#7FA8A0"
+    },
+    {
+     "label": "Lahan Terbuka",
+     "color": "#C9BFB0"
+    },
+    {
+     "label": "Padang Rumput",
+     "color": "#D6D48A"
+    },
+    {
+     "label": "Semak Belukar",
+     "color": "#A8BE7E"
+    },
+    {
+     "label": "Hutan",
+     "color": "#2E6B3E"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "kemiringan_lereng_ntb_ntt",
+   "category": "topografi",
+   "label": "Kemiringan Lereng (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/kemiringan_lereng_ntb_ntt.json",
+   "count": 10,
+   "default_visible": false,
+   "source": "DEM Copernicus GLO-90 (ESA/Airbus) -- lereng metode Horn di UTM zona masing2 (NTB 50S / NTT 51S) @90 m, kelas mengikuti SK Mentan 837/Kpts/Um/11/1980. Geometri web diturunkan ulang dari raster @400 m; luas di popup dari raster 90 m.",
+   "download_url": null,
+   "kind": "analysis",
+   "legend_categories": [
+    {
+     "label": "Datar (0-8%)",
+     "color": "#4F8F5B"
+    },
+    {
+     "label": "Landai (8-15%)",
+     "color": "#A3C46A"
+    },
+    {
+     "label": "Agak Curam (15-25%)",
+     "color": "#E3CE6B"
+    },
+    {
+     "label": "Curam (25-40%)",
+     "color": "#D08B4A"
+    },
+    {
+     "label": "Sangat Curam (>40%)",
+     "color": "#A8432F"
+    }
+   ],
+   "region": "NTB+NTT"
   }
  ]
 }
