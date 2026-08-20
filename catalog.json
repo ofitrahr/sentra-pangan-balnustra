@@ -115,6 +115,16 @@
   {
    "id": "topografi",
    "label": "Topografi & Lereng"
+  },
+  {
+   "id": "kebencanaan",
+   "label": "Kebencanaan",
+   "color": "#B0413E"
+  },
+  {
+   "id": "tanah",
+   "label": "Tanah",
+   "color": "#8B5A2B"
   }
  ],
  "layers": [
@@ -1665,6 +1675,460 @@
     "weight": 0.6,
     "opacity": 0.7
    },
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "bahaya_banjir_ntb_ntt",
+   "category": "kebencanaan",
+   "label": "Bahaya Banjir (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/bahaya_banjir_ntb_ntt.json",
+   "count": 6,
+   "default_visible": false,
+   "source": "InaRISK BNPB -- indeks bahaya banjir, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    {
+     "label": "Rendah (0-0,33)",
+     "color": "#7FA86B"
+    },
+    {
+     "label": "Sedang (0,33-0,66)",
+     "color": "#E3C05A"
+    },
+    {
+     "label": "Tinggi (>0,66)",
+     "color": "#C0523F"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "bahaya_banjir_bandang_ntb_ntt",
+   "category": "kebencanaan",
+   "label": "Bahaya Banjir Bandang (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/bahaya_banjir_bandang_ntb_ntt.json",
+   "count": 6,
+   "default_visible": false,
+   "source": "InaRISK BNPB -- indeks bahaya banjir bandang, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    {
+     "label": "Rendah (0-0,33)",
+     "color": "#7FA86B"
+    },
+    {
+     "label": "Sedang (0,33-0,66)",
+     "color": "#E3C05A"
+    },
+    {
+     "label": "Tinggi (>0,66)",
+     "color": "#C0523F"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "bahaya_cuaca_ekstrim_ntb_ntt",
+   "category": "kebencanaan",
+   "label": "Bahaya Cuaca Ekstrim (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/bahaya_cuaca_ekstrim_ntb_ntt.json",
+   "count": 6,
+   "default_visible": false,
+   "source": "InaRISK BNPB -- indeks bahaya cuaca ekstrim, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    {
+     "label": "Rendah (0-0,33)",
+     "color": "#7FA86B"
+    },
+    {
+     "label": "Sedang (0,33-0,66)",
+     "color": "#E3C05A"
+    },
+    {
+     "label": "Tinggi (>0,66)",
+     "color": "#C0523F"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "bahaya_gea_ntb_ntt",
+   "category": "kebencanaan",
+   "label": "Bahaya Gelombang Ekstrim & Abrasi (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/bahaya_gea_ntb_ntt.json",
+   "count": 6,
+   "default_visible": false,
+   "source": "InaRISK BNPB -- indeks bahaya gelombang ekstrim & abrasi, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    {
+     "label": "Rendah (0-0,33)",
+     "color": "#7FA86B"
+    },
+    {
+     "label": "Sedang (0,33-0,66)",
+     "color": "#E3C05A"
+    },
+    {
+     "label": "Tinggi (>0,66)",
+     "color": "#C0523F"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "bahaya_gempabumi_ntb_ntt",
+   "category": "kebencanaan",
+   "label": "Bahaya Gempa Bumi (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/bahaya_gempabumi_ntb_ntt.json",
+   "count": 6,
+   "default_visible": false,
+   "source": "InaRISK BNPB -- indeks bahaya gempa bumi, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    {
+     "label": "Rendah (0-0,33)",
+     "color": "#7FA86B"
+    },
+    {
+     "label": "Sedang (0,33-0,66)",
+     "color": "#E3C05A"
+    },
+    {
+     "label": "Tinggi (>0,66)",
+     "color": "#C0523F"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "bahaya_gunungapi_ntb_ntt",
+   "category": "kebencanaan",
+   "label": "Bahaya Letusan Gunung Api (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/bahaya_gunungapi_ntb_ntt.json",
+   "count": 6,
+   "default_visible": false,
+   "source": "InaRISK BNPB -- indeks bahaya letusan gunung api, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    {
+     "label": "Rendah (0-0,33)",
+     "color": "#7FA86B"
+    },
+    {
+     "label": "Sedang (0,33-0,66)",
+     "color": "#E3C05A"
+    },
+    {
+     "label": "Tinggi (>0,66)",
+     "color": "#C0523F"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "bahaya_karhutla_ntb_ntt",
+   "category": "kebencanaan",
+   "label": "Bahaya Kebakaran Hutan & Lahan (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/bahaya_karhutla_ntb_ntt.json",
+   "count": 6,
+   "default_visible": false,
+   "source": "InaRISK BNPB -- indeks bahaya kebakaran hutan & lahan, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    {
+     "label": "Rendah (0-0,33)",
+     "color": "#7FA86B"
+    },
+    {
+     "label": "Sedang (0,33-0,66)",
+     "color": "#E3C05A"
+    },
+    {
+     "label": "Tinggi (>0,66)",
+     "color": "#C0523F"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "bahaya_kekeringan_ntb_ntt",
+   "category": "kebencanaan",
+   "label": "Bahaya Kekeringan (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/bahaya_kekeringan_ntb_ntt.json",
+   "count": 4,
+   "default_visible": false,
+   "source": "InaRISK BNPB -- indeks bahaya kekeringan, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    {
+     "label": "Rendah (0-0,33)",
+     "color": "#7FA86B"
+    },
+    {
+     "label": "Sedang (0,33-0,66)",
+     "color": "#E3C05A"
+    },
+    {
+     "label": "Tinggi (>0,66)",
+     "color": "#C0523F"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "bahaya_likuefaksi_ntb_ntt",
+   "category": "kebencanaan",
+   "label": "Bahaya Likuefaksi (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/bahaya_likuefaksi_ntb_ntt.json",
+   "count": 6,
+   "default_visible": false,
+   "source": "InaRISK BNPB -- indeks bahaya likuefaksi, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    {
+     "label": "Rendah (0-0,33)",
+     "color": "#7FA86B"
+    },
+    {
+     "label": "Sedang (0,33-0,66)",
+     "color": "#E3C05A"
+    },
+    {
+     "label": "Tinggi (>0,66)",
+     "color": "#C0523F"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "bahaya_tanah_longsor_ntb_ntt",
+   "category": "kebencanaan",
+   "label": "Bahaya Tanah Longsor (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/bahaya_tanah_longsor_ntb_ntt.json",
+   "count": 6,
+   "default_visible": false,
+   "source": "InaRISK BNPB -- indeks bahaya tanah longsor, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    {
+     "label": "Rendah (0-0,33)",
+     "color": "#7FA86B"
+    },
+    {
+     "label": "Sedang (0,33-0,66)",
+     "color": "#E3C05A"
+    },
+    {
+     "label": "Tinggi (>0,66)",
+     "color": "#C0523F"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "bahaya_tsunami_ntb_ntt",
+   "category": "kebencanaan",
+   "label": "Bahaya Tsunami (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/bahaya_tsunami_ntb_ntt.json",
+   "count": 6,
+   "default_visible": false,
+   "source": "InaRISK BNPB -- indeks bahaya tsunami, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    {
+     "label": "Rendah (0-0,33)",
+     "color": "#7FA86B"
+    },
+    {
+     "label": "Sedang (0,33-0,66)",
+     "color": "#E3C05A"
+    },
+    {
+     "label": "Tinggi (>0,66)",
+     "color": "#C0523F"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "jenis_tanah_ntb_ntt",
+   "category": "tanah",
+   "label": "Jenis Tanah WRB (NTB+NTT) - estimasi",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/jenis_tanah_ntb_ntt.json",
+   "count": 23,
+   "default_visible": false,
+   "source": "SoilGrids ISRIC, coverage MostProbable (kelompok tanah WRB dgn probabilitas tertinggi) @250 m via WCS maps.isric.org. ESTIMASI MODEL, bukan survei tanah -- penambal sementara sampai peta resmi BBSDLP/BSIP atau RePPProT tersedia. Kode kelas divalidasi empiris thd 30 lapisan probabilitas (daftar legenda tdk memuat Albeluvisols, shg kode bergeser satu langkah dari urutan alfabetis). Padanan nama Indonesia (PPT 1983) di popup bersifat PENDEKATAN, bukan padanan resmi. Cakupan tidak penuh: 77,2% wilayah NTB dan 86,1% NTT punya kelas; sisanya ditutup SoilGrids (tubuh air, kawasan terbangun, batuan terbuka). Persentase dihitung thd luas provinsi, bukan thd luas terklasifikasi.",
+   "download_url": null,
+   "kind": "analysis",
+   "legend_categories": [
+    {
+     "label": "Ferralsols",
+     "color": "#A6483C"
+    },
+    {
+     "label": "Lixisols",
+     "color": "#D6A65B"
+    },
+    {
+     "label": "Cambisols",
+     "color": "#C9A227"
+    },
+    {
+     "label": "Gleysols",
+     "color": "#5B8FD6"
+    },
+    {
+     "label": "Arenosols",
+     "color": "#E8D8A8"
+    },
+    {
+     "label": "Andosols",
+     "color": "#5C4433"
+    },
+    {
+     "label": "Fluvisols",
+     "color": "#7FB2CC"
+    },
+    {
+     "label": "Leptosols",
+     "color": "#9E9E8A"
+    },
+    {
+     "label": "Plinthosols",
+     "color": "#B5502F"
+    },
+    {
+     "label": "Planosols",
+     "color": "#A9BFA0"
+    },
+    {
+     "label": "Vertisols",
+     "color": "#4E4A3D"
+    },
+    {
+     "label": "Luvisols",
+     "color": "#C08A4A"
+    },
+    {
+     "label": "Alisols",
+     "color": "#B8563A"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "agroklimat_schmidt_ferguson_ntb_ntt",
+   "category": "klimatologi",
+   "label": "Zona Agroklimat Schmidt-Ferguson (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/agroklimat_schmidt_ferguson_ntb_ntt.json",
+   "count": 12,
+   "default_visible": false,
+   "source": "Dihitung dari WorldClim v2.1 normal bulanan 1970-2000 @30 arc-sec (~1 km). Q = (jumlah bulan kering / jumlah bulan basah) x 100; basah >100 mm, kering <60 mm. Dipotong ke batas darat kabupaten/kota NTB+NTT; luas dihitung dgn rumus pita bola per baris (grid geografis, lebar sel menyusut mengikuti lintang).",
+   "download_url": null,
+   "kind": "analysis",
+   "legend_categories": [
+    {
+     "label": "A - Sangat basah",
+     "color": "#1B4F8C"
+    },
+    {
+     "label": "B - Basah",
+     "color": "#2E77AE"
+    },
+    {
+     "label": "C - Agak basah",
+     "color": "#5FA8C4"
+    },
+    {
+     "label": "D - Sedang",
+     "color": "#A9CFC4"
+    },
+    {
+     "label": "E - Agak kering",
+     "color": "#E8D8A8"
+    },
+    {
+     "label": "F - Kering",
+     "color": "#D9B166"
+    },
+    {
+     "label": "G - Sangat kering",
+     "color": "#C08A4A"
+    },
+    {
+     "label": "H - Luar biasa kering",
+     "color": "#8B5A2B"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "agroklimat_oldeman_ntb_ntt",
+   "category": "klimatologi",
+   "label": "Zona Agroklimat Oldeman (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/agroklimat_oldeman_ntb_ntt.json",
+   "count": 11,
+   "default_visible": false,
+   "source": "Dihitung dari WorldClim v2.1 normal bulanan 1970-2000 @30 arc-sec (~1 km). Zona A-E dari deret bulan basah (>200 mm) berturut-turut, angka 1-4 dari deret bulan kering (<100 mm); deret dihitung melingkar Des-Jan. Dipotong ke batas darat kabupaten/kota NTB+NTT; luas dihitung dgn rumus pita bola per baris (grid geografis, lebar sel menyusut mengikuti lintang).",
+   "download_url": null,
+   "kind": "analysis",
+   "legend_categories": [
+    {
+     "label": "C2",
+     "color": "#5FA8C4"
+    },
+    {
+     "label": "C3",
+     "color": "#5FA8C4"
+    },
+    {
+     "label": "D2",
+     "color": "#E8D8A8"
+    },
+    {
+     "label": "D3",
+     "color": "#E8D8A8"
+    },
+    {
+     "label": "D4",
+     "color": "#E8D8A8"
+    },
+    {
+     "label": "E3",
+     "color": "#C08A4A"
+    },
+    {
+     "label": "E4",
+     "color": "#C08A4A"
+    }
+   ],
    "region": "NTB+NTT"
   }
  ]

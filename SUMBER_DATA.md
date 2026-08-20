@@ -12,7 +12,7 @@ gunakan GPKG sumber di kolom **Sumber**, yang atributnya jauh lebih lengkap
 
 ## Ringkasan
 
-- **49** layer — Salinan GPKG (terverifikasi)
+- **63** layer — Salinan GPKG (terverifikasi)
 - **22** layer — Lahir sebagai JSON (hasil analisis)
 - **5** layer — Olahan dari GPKG
 - **2** layer — Alat bantu peta
@@ -88,6 +88,22 @@ Arti status:
 | Gravity Model (NTT) — Rute Jalan Riil | `data/gravity_flow_routed_ntt.json` | Lahir sebagai JSON (hasil analisis) | — | `workspace/analisis/gravity_model_distribusi_padi/04_export_ke_webgis.py` |
 | Simpul Distribusi Sapi Potong (NTB) — Pasar Hewan & Karantina/Pelabuhan | `data/fsn_sapi_distribusi_ntb.json` | Lahir sebagai JSON (hasil analisis) | — | `workspace/analisis/fsn_sapi_ntb/03_export_ke_webgis.py` |
 
+## Kebencanaan
+
+| Layer | Berkas dashboard | Status | Sumber | Skrip pembuat |
+|---|---|---|---|---|
+| Bahaya Banjir (NTB+NTT) | `data/bahaya_banjir_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_416_kebencanaan/output/bahaya_banjir_ntb_ntt.gpkg` | — |
+| Bahaya Banjir Bandang (NTB+NTT) | `data/bahaya_banjir_bandang_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_416_kebencanaan/output/bahaya_banjir_bandang_ntb_ntt.gpkg` | — |
+| Bahaya Cuaca Ekstrim (NTB+NTT) | `data/bahaya_cuaca_ekstrim_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_416_kebencanaan/output/bahaya_cuaca_ekstrim_ntb_ntt.gpkg` | — |
+| Bahaya Gelombang Ekstrim & Abrasi (NTB+NTT) | `data/bahaya_gea_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_416_kebencanaan/output/bahaya_gea_ntb_ntt.gpkg` | — |
+| Bahaya Gempa Bumi (NTB+NTT) | `data/bahaya_gempabumi_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_416_kebencanaan/output/bahaya_gempabumi_ntb_ntt.gpkg` | — |
+| Bahaya Kebakaran Hutan & Lahan (NTB+NTT) | `data/bahaya_karhutla_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_416_kebencanaan/output/bahaya_karhutla_ntb_ntt.gpkg` | — |
+| Bahaya Kekeringan (NTB+NTT) | `data/bahaya_kekeringan_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_416_kebencanaan/output/bahaya_kekeringan_ntb_ntt.gpkg` | — |
+| Bahaya Letusan Gunung Api (NTB+NTT) | `data/bahaya_gunungapi_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_416_kebencanaan/output/bahaya_gunungapi_ntb_ntt.gpkg` | — |
+| Bahaya Likuefaksi (NTB+NTT) | `data/bahaya_likuefaksi_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_416_kebencanaan/output/bahaya_likuefaksi_ntb_ntt.gpkg` | — |
+| Bahaya Tanah Longsor (NTB+NTT) | `data/bahaya_tanah_longsor_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_416_kebencanaan/output/bahaya_tanah_longsor_ntb_ntt.gpkg` | — |
+| Bahaya Tsunami (NTB+NTT) | `data/bahaya_tsunami_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_416_kebencanaan/output/bahaya_tsunami_ntb_ntt.gpkg` | — |
+
 ## Kepadatan Penggilingan
 
 | Layer | Berkas dashboard | Status | Sumber | Skrip pembuat |
@@ -100,6 +116,8 @@ Arti status:
 |---|---|---|---|---|
 | Curah Hujan (NTB+NTT) | `data/curah_hujan_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_413_ntb_ntt/output/curah_hujan_ntb_ntt.gpkg` | `workspace/analisis/fisik_413_ntb_ntt/01_siapkan_curah_hujan.py`<br>`workspace/analisis/fisik_413_ntb_ntt/02_export_ke_webgis.py` |
 | Curah Hujan per Pos (NTT) | `data/pos_curah_hujan_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_413_ntb_ntt/output/pos_curah_hujan_ntt.gpkg` | `workspace/analisis/fisik_413_ntb_ntt/01_siapkan_curah_hujan.py`<br>`workspace/analisis/fisik_413_ntb_ntt/02_export_ke_webgis.py` |
+| Zona Agroklimat Oldeman (NTB+NTT) | `data/agroklimat_oldeman_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_413_ntb_ntt/output/agroklimat_oldeman_ntb_ntt.gpkg` | `workspace/analisis/fisik_413_ntb_ntt/04_agroklimat.py` |
+| Zona Agroklimat Schmidt-Ferguson (NTB+NTT) | `data/agroklimat_schmidt_ferguson_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_413_ntb_ntt/output/agroklimat_schmidt_ferguson_ntb_ntt.gpkg` | `workspace/analisis/fisik_413_ntb_ntt/04_agroklimat.py` |
 | Zona Iklim (Schmidt-Ferguson) | `data/klimatologi_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/klimatologi/klimatologi_peta_klimatologi_ntt.gpkg` | — |
 
 ## Pasar
@@ -203,6 +221,12 @@ Arti status:
 | Rute Survei Flores (NTT) — Hari 6 (kunjungan dinas Nagekeo–Pelabuhan Marapokot–Bendungan Mbay–Ende) | `data/survei_flores_tahap1_rute_hari6.json` | Lahir sebagai JSON (hasil analisis) | — | — |
 | Rute Survei Flores (NTT) — Hari 7 (Ende: Hotel–Bandara, kepulangan) | `data/survei_flores_tahap1_rute_hari7.json` | Lahir sebagai JSON (hasil analisis) | — | — |
 | Titik Observasi — Survei Flores Tahap I (NTT, Pulau Flores) | `data/survei_flores_tahap1_titik.json` | Lahir sebagai JSON (hasil analisis) | — | `workspace/analisis/survei_flores_tahap1/03_export_ke_webgis.py` |
+
+## Tanah
+
+| Layer | Berkas dashboard | Status | Sumber | Skrip pembuat |
+|---|---|---|---|---|
+| Jenis Tanah WRB (NTB+NTT) - estimasi | `data/jenis_tanah_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_414_tanah/output/jenis_tanah_ntb_ntt.gpkg` | `workspace/analisis/fisik_414_tanah/01_jenis_tanah_soilgrids.py` |
 
 ## Topografi & Lereng
 
