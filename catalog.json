@@ -2130,6 +2130,88 @@
     }
    ],
    "region": "NTB+NTT"
+  },
+  {
+   "id": "kemampuan_lahan_ntb_ntt",
+   "category": "tanah",
+   "label": "Kemampuan Lahan (NTB+NTT) - estimasi",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/kemampuan_lahan_ntb_ntt.json",
+   "count": 12,
+   "default_visible": false,
+   "source": "HASIL HITUNGAN, bukan peta resmi. Kelas I-VIII kaidah Arsyad/PPT 1983 -- kelas akhir = faktor pembatas TERBERAT. Faktor: lereng (DEM GLO-90 @90 m), tekstur & batuan/kerikil (SoilGrids sand & cfvo 5-15 cm @250 m), ancaman banjir (indeks InaRISK @100 m), kedalaman (proksi Leptosols -- SoilGrids 2.0 tdk lagi menerbitkan kedalaman ke batuan induk). TIDAK memakai: erosi aktual, drainase, salinitas, batuan permukaan (tak ada datanya). Hasilnya didominasi lereng, jadi tdk sehalus peta survei dlm membedakan lahan datar bertanah baik & buruk. Penambal sementara sampai peta resmi ATR/BPN atau BBSDLP tersedia. Geometri web diturunkan ulang dari raster @400 m; luas di popup dari grid 250 m asli.",
+   "download_url": null,
+   "kind": "analysis",
+   "legend_categories": [
+    {
+     "label": "Kelas I - Sangat baik",
+     "color": "#1B7A3E"
+    },
+    {
+     "label": "Kelas II - Baik",
+     "color": "#4F9E4F"
+    },
+    {
+     "label": "Kelas III - Sedang",
+     "color": "#9CC97B"
+    },
+    {
+     "label": "Kelas IV - Terbatas",
+     "color": "#E3C05A"
+    },
+    {
+     "label": "Kelas VI - Utk rumput/hutan",
+     "color": "#C0763F"
+    },
+    {
+     "label": "Kelas VII - Utk hutan",
+     "color": "#A6483C"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "geologi_ntb_ntt",
+   "category": "geologi",
+   "label": "Litologi (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/geologi_ntb_ntt.json",
+   "count": 12,
+   "default_visible": false,
+   "source": "Peta Geologi Badan Geologi -- NTB (638 poligon, atribut REMARK) & NTT (121 poligon, atribut CLASS_LITH) dipetakan ke satu skema litologi 6 kelas lewat aturan kata kunci, spy legenda & warna seragam dua provinsi. Poligon yg atributnya hanya menyebut nama formasi lokal tanpa keterangan batuan masuk kelas 'Tidak terklasifikasi' -- tidak ditebak, kecuali enam formasi Lombok (Ekas, Kawangan, Kalibabak, Kalipalung, Lekopiko, Pengulung) yg litologinya diambil dari Peta Geologi Lembar Lombok dan PERLU DIPERIKSA AHLI. Melengkapi, bukan mengganti, layer Formasi Geologi (NTT) yg kelasnya jauh lebih rinci.",
+   "download_url": null,
+   "kind": "analysis",
+   "legend_categories": [
+    {
+     "label": "Batuan Gunungapi",
+     "color": "#C0523F"
+    },
+    {
+     "label": "Batugamping",
+     "color": "#7FB2CC"
+    },
+    {
+     "label": "Aluvium & Endapan Koastal",
+     "color": "#E8D8A8"
+    },
+    {
+     "label": "Batuan Sedimen Klastik",
+     "color": "#C9A227"
+    },
+    {
+     "label": "Batuan Terobosan",
+     "color": "#7E3FA8"
+    },
+    {
+     "label": "Batuan Malihan & Kompleks Tektonik",
+     "color": "#4F8F7A"
+    },
+    {
+     "label": "Tidak terklasifikasi",
+     "color": "#C9C4B8"
+    }
+   ],
+   "region": "NTB+NTT"
   }
  ]
 }

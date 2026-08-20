@@ -12,7 +12,7 @@ gunakan GPKG sumber di kolom **Sumber**, yang atributnya jauh lebih lengkap
 
 ## Ringkasan
 
-- **63** layer — Salinan GPKG (terverifikasi)
+- **65** layer — Salinan GPKG (terverifikasi)
 - **22** layer — Lahir sebagai JSON (hasil analisis)
 - **5** layer — Olahan dari GPKG
 - **2** layer — Alat bantu peta
@@ -51,7 +51,8 @@ Arti status:
 
 | Layer | Berkas dashboard | Status | Sumber | Skrip pembuat |
 |---|---|---|---|---|
-| Formasi Geologi | `data/geologi_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/geologi/geologi_peta_geologi_ntt.gpkg` | — |
+| Formasi Geologi | `data/geologi_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/geologi/geologi_peta_geologi_ntt.gpkg` | `workspace/analisis/fisik_414_tanah/03_geologi_ntb_ntt.py` |
+| Litologi (NTB+NTT) | `data/geologi_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_414_tanah/output/geologi_ntb_ntt.gpkg` | `workspace/analisis/fisik_414_tanah/03_geologi_ntb_ntt.py` |
 
 ## Guna Lahan
 
@@ -227,6 +228,7 @@ Arti status:
 | Layer | Berkas dashboard | Status | Sumber | Skrip pembuat |
 |---|---|---|---|---|
 | Jenis Tanah WRB (NTB+NTT) - estimasi | `data/jenis_tanah_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_414_tanah/output/jenis_tanah_ntb_ntt.gpkg` | `workspace/analisis/fisik_414_tanah/01_jenis_tanah_soilgrids.py` |
+| Kemampuan Lahan (NTB+NTT) - estimasi | `data/kemampuan_lahan_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_414_tanah/output/kemampuan_lahan_ntb_ntt.gpkg` | `workspace/analisis/fisik_414_tanah/02_kemampuan_lahan.py` |
 
 ## Topografi & Lereng
 
