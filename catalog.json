@@ -1685,7 +1685,7 @@
    "data_url": "data/bahaya_banjir_ntb_ntt.json",
    "count": 6,
    "default_visible": false,
-   "source": "InaRISK BNPB -- indeks bahaya banjir, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "source": "InaRISK BNPB -- indeks bahaya banjir, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli. Persentase dihitung thd LUAS PROVINSI, bukan thd luas yg terpetakan bahaya ini -- sebagian tema (mis. tsunami) hanya memetakan jalur sempit, shg penyebut 'terpetakan' akan melebih-lebihkan sebaran bahayanya.",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
@@ -1712,7 +1712,7 @@
    "data_url": "data/bahaya_banjir_bandang_ntb_ntt.json",
    "count": 6,
    "default_visible": false,
-   "source": "InaRISK BNPB -- indeks bahaya banjir bandang, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "source": "InaRISK BNPB -- indeks bahaya banjir bandang, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli. Persentase dihitung thd LUAS PROVINSI, bukan thd luas yg terpetakan bahaya ini -- sebagian tema (mis. tsunami) hanya memetakan jalur sempit, shg penyebut 'terpetakan' akan melebih-lebihkan sebaran bahayanya.",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
@@ -1739,7 +1739,7 @@
    "data_url": "data/bahaya_cuaca_ekstrim_ntb_ntt.json",
    "count": 6,
    "default_visible": false,
-   "source": "InaRISK BNPB -- indeks bahaya cuaca ekstrim, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "source": "InaRISK BNPB -- indeks bahaya cuaca ekstrim, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli. Persentase dihitung thd LUAS PROVINSI, bukan thd luas yg terpetakan bahaya ini -- sebagian tema (mis. tsunami) hanya memetakan jalur sempit, shg penyebut 'terpetakan' akan melebih-lebihkan sebaran bahayanya.",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
@@ -1766,7 +1766,7 @@
    "data_url": "data/bahaya_gea_ntb_ntt.json",
    "count": 6,
    "default_visible": false,
-   "source": "InaRISK BNPB -- indeks bahaya gelombang ekstrim & abrasi, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "source": "InaRISK BNPB -- indeks bahaya gelombang ekstrim & abrasi, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli. Persentase dihitung thd LUAS PROVINSI, bukan thd luas yg terpetakan bahaya ini -- sebagian tema (mis. tsunami) hanya memetakan jalur sempit, shg penyebut 'terpetakan' akan melebih-lebihkan sebaran bahayanya.",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
@@ -1793,7 +1793,7 @@
    "data_url": "data/bahaya_gempabumi_ntb_ntt.json",
    "count": 6,
    "default_visible": false,
-   "source": "InaRISK BNPB -- indeks bahaya gempa bumi, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "source": "InaRISK BNPB -- indeks bahaya gempa bumi, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli. Persentase dihitung thd LUAS PROVINSI, bukan thd luas yg terpetakan bahaya ini -- sebagian tema (mis. tsunami) hanya memetakan jalur sempit, shg penyebut 'terpetakan' akan melebih-lebihkan sebaran bahayanya.",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
@@ -1820,7 +1820,7 @@
    "data_url": "data/bahaya_gunungapi_ntb_ntt.json",
    "count": 6,
    "default_visible": false,
-   "source": "InaRISK BNPB -- indeks bahaya letusan gunung api, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "source": "InaRISK BNPB -- indeks bahaya letusan gunung api, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli. Persentase dihitung thd LUAS PROVINSI, bukan thd luas yg terpetakan bahaya ini -- sebagian tema (mis. tsunami) hanya memetakan jalur sempit, shg penyebut 'terpetakan' akan melebih-lebihkan sebaran bahayanya.",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
@@ -1847,7 +1847,7 @@
    "data_url": "data/bahaya_karhutla_ntb_ntt.json",
    "count": 6,
    "default_visible": false,
-   "source": "InaRISK BNPB -- indeks bahaya kebakaran hutan & lahan, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "source": "InaRISK BNPB -- indeks bahaya kebakaran hutan & lahan, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli. Persentase dihitung thd LUAS PROVINSI, bukan thd luas yg terpetakan bahaya ini -- sebagian tema (mis. tsunami) hanya memetakan jalur sempit, shg penyebut 'terpetakan' akan melebih-lebihkan sebaran bahayanya.",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
@@ -1874,7 +1874,7 @@
    "data_url": "data/bahaya_kekeringan_ntb_ntt.json",
    "count": 4,
    "default_visible": false,
-   "source": "InaRISK BNPB -- indeks bahaya kekeringan, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "source": "InaRISK BNPB -- indeks bahaya kekeringan, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli. Persentase dihitung thd LUAS PROVINSI, bukan thd luas yg terpetakan bahaya ini -- sebagian tema (mis. tsunami) hanya memetakan jalur sempit, shg penyebut 'terpetakan' akan melebih-lebihkan sebaran bahayanya.",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
@@ -1901,7 +1901,7 @@
    "data_url": "data/bahaya_likuefaksi_ntb_ntt.json",
    "count": 6,
    "default_visible": false,
-   "source": "InaRISK BNPB -- indeks bahaya likuefaksi, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "source": "InaRISK BNPB -- indeks bahaya likuefaksi, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli. Persentase dihitung thd LUAS PROVINSI, bukan thd luas yg terpetakan bahaya ini -- sebagian tema (mis. tsunami) hanya memetakan jalur sempit, shg penyebut 'terpetakan' akan melebih-lebihkan sebaran bahayanya.",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
@@ -1928,7 +1928,7 @@
    "data_url": "data/bahaya_tanah_longsor_ntb_ntt.json",
    "count": 6,
    "default_visible": false,
-   "source": "InaRISK BNPB -- indeks bahaya tanah longsor, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "source": "InaRISK BNPB -- indeks bahaya tanah longsor, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli. Persentase dihitung thd LUAS PROVINSI, bukan thd luas yg terpetakan bahaya ini -- sebagian tema (mis. tsunami) hanya memetakan jalur sempit, shg penyebut 'terpetakan' akan melebih-lebihkan sebaran bahayanya.",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
@@ -1955,7 +1955,7 @@
    "data_url": "data/bahaya_tsunami_ntb_ntt.json",
    "count": 6,
    "default_visible": false,
-   "source": "InaRISK BNPB -- indeks bahaya tsunami, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli.",
+   "source": "InaRISK BNPB -- indeks bahaya tsunami, layanan ImageServer gis.bnpb.go.id @100 m (EPSG:3395, indeks 0-1). Dikelaskan 3 kelas dgn ambang baku BNPB (0,33 & 0,66), dipotong ke batas darat provinsi. Geometri web diturunkan ulang dari raster @300 m; luas di popup dihitung dari raster 100 m asli. Persentase dihitung thd LUAS PROVINSI, bukan thd luas yg terpetakan bahaya ini -- sebagian tema (mis. tsunami) hanya memetakan jalur sempit, shg penyebut 'terpetakan' akan melebih-lebihkan sebaran bahayanya.",
    "download_url": null,
    "kind": "input",
    "legend_categories": [
