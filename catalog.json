@@ -1,6 +1,6 @@
 {
  "version": "2.0",
- "updated": "2026-08-16",
+ "updated": "2026-08-20",
  "categories": [
   {
    "id": "fsn",
@@ -1582,6 +1582,89 @@
      "color": "#A8432F"
     }
    ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "curah_hujan_ntb_ntt",
+   "category": "klimatologi",
+   "label": "Curah Hujan (NTB+NTT)",
+   "render_type": "categorical_fill_polygon",
+   "data_url": "data/curah_hujan_ntb_ntt.json",
+   "count": 8,
+   "default_visible": false,
+   "source": "Isohyet BMKG Prov NTB 2015-2016 (581 poligon, kelas dari titik tengah rentang CHTAHUN) + interpolasi curah hujan NTT RPIW (13 poligon, kode kelas W=1..4 tanpa label mm). Rentang mm tiap kelas NTT DITURUNKAN dari 21 pos hujan yg jatuh di dalam zonanya -- hasilnya terpisah bersih & monoton (625-993 / 1.128-1.498 / 1.586-1.961 / 2.019-2.878 mm), tdk ada pos yg menyeberang kelas. Kelas teratas dibiarkan terbuka di 2.000 mm krn zona tertinggi NTT menyeberang batas 2.500; gradasi NTB di atasnya (s/d 3.400 mm) tetap terbaca di popup. Dipotong ke batas darat batas kabupaten/kota NTB+NTT.",
+   "download_url": null,
+   "kind": "input",
+   "legend_categories": [
+    {
+     "label": "< 1.000 mm/tahun",
+     "color": "#E8D8A8"
+    },
+    {
+     "label": "1.000-1.500 mm/tahun",
+     "color": "#A9CFC4"
+    },
+    {
+     "label": "1.500-2.000 mm/tahun",
+     "color": "#5FA8C4"
+    },
+    {
+     "label": "> 2.000 mm/tahun",
+     "color": "#1B4C8C"
+    }
+   ],
+   "region": "NTB+NTT"
+  },
+  {
+   "id": "pos_curah_hujan_ntt",
+   "category": "klimatologi",
+   "label": "Curah Hujan per Pos (NTT)",
+   "render_type": "point",
+   "data_url": "data/pos_curah_hujan_ntt.json",
+   "count": 21,
+   "default_visible": false,
+   "source": "Pos hujan RPIW NTT (21 kab/kota) -- curah hujan mm/tahun & jumlah hari hujan. Berbeda dari layer Pos Curah Hujan (aset PU) yg tdk memuat nilai hujan.",
+   "download_url": null,
+   "kind": "input",
+   "style": {
+    "color": "#2E77AE"
+   },
+   "legend_categories": [
+    {
+     "label": "< 1.000 mm/tahun",
+     "color": "#E8D8A8"
+    },
+    {
+     "label": "1.000-1.500 mm/tahun",
+     "color": "#A9CFC4"
+    },
+    {
+     "label": "1.500-2.000 mm/tahun",
+     "color": "#5FA8C4"
+    },
+    {
+     "label": "> 2.000 mm/tahun",
+     "color": "#1B4C8C"
+    }
+   ],
+   "region": "NTT"
+  },
+  {
+   "id": "kontur_ntb_ntt",
+   "category": "topografi",
+   "label": "Garis Kontur (NTB+NTT)",
+   "render_type": "line",
+   "data_url": "data/kontur_ntb_ntt.json",
+   "count": 6743,
+   "default_visible": false,
+   "source": "DEM Copernicus GLO-90 (ESA/Airbus), 34 petak -- dikontur di UTM zona masing2 (NTB 50S / NTT 51S) @90 m setelah penghalusan gaussian 1 sel. GPKG induk berinterval 50 m (14.659 garis); yg tayang di web kelipatan 100 m, disederhanakan 0.0005 derajat (~55 m, di bawah resolusi DEM). Puncak tertinggi terekam: NTB 3.622 m (Rinjani), NTT 2.351 m (Mutis).",
+   "download_url": null,
+   "kind": "analysis",
+   "style": {
+    "color": "#8B6B4A",
+    "weight": 0.6,
+    "opacity": 0.7
+   },
    "region": "NTB+NTT"
   }
  ]

@@ -12,9 +12,9 @@ gunakan GPKG sumber di kolom **Sumber**, yang atributnya jauh lebih lengkap
 
 ## Ringkasan
 
-- **47** layer — Salinan GPKG (terverifikasi)
+- **49** layer — Salinan GPKG (terverifikasi)
 - **22** layer — Lahir sebagai JSON (hasil analisis)
-- **4** layer — Olahan dari GPKG
+- **5** layer — Olahan dari GPKG
 - **2** layer — Alat bantu peta
 
 Arti status:
@@ -98,6 +98,8 @@ Arti status:
 
 | Layer | Berkas dashboard | Status | Sumber | Skrip pembuat |
 |---|---|---|---|---|
+| Curah Hujan (NTB+NTT) | `data/curah_hujan_ntb_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_413_ntb_ntt/output/curah_hujan_ntb_ntt.gpkg` | `workspace/analisis/fisik_413_ntb_ntt/01_siapkan_curah_hujan.py`<br>`workspace/analisis/fisik_413_ntb_ntt/02_export_ke_webgis.py` |
+| Curah Hujan per Pos (NTT) | `data/pos_curah_hujan_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/analisis/fisik_413_ntb_ntt/output/pos_curah_hujan_ntt.gpkg` | `workspace/analisis/fisik_413_ntb_ntt/01_siapkan_curah_hujan.py`<br>`workspace/analisis/fisik_413_ntb_ntt/02_export_ke_webgis.py` |
 | Zona Iklim (Schmidt-Ferguson) | `data/klimatologi_ntt.json` | Salinan GPKG (terverifikasi) | `workspace/klimatologi/klimatologi_peta_klimatologi_ntt.gpkg` | — |
 
 ## Pasar
@@ -206,6 +208,7 @@ Arti status:
 
 | Layer | Berkas dashboard | Status | Sumber | Skrip pembuat |
 |---|---|---|---|---|
+| Garis Kontur (NTB+NTT) | `data/kontur_ntb_ntt.json` | Olahan dari GPKG | `workspace/analisis/fisik_412_ntb_ntt/output/kontur_ntb_ntt_50m.gpkg` | `workspace/analisis/fisik_412_ntb_ntt/09_export_kontur_ke_webgis.py` |
 | Kemiringan Lereng (NTB+NTT) | `data/kemiringan_lereng_ntb_ntt.json` | Lahir sebagai JSON (hasil analisis) | — | `workspace/analisis/fisik_412_ntb_ntt/06_export_ke_webgis.py` |
 
 ## Zonasi Garam
